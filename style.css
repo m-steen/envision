@@ -6,3 +6,15 @@ body {
   height: 100vh;
   background-color: #ECF0F1;
 }
+
+/* the canvas (svg) styles */
+
+.canvas-box {
+   fill: rgb(255,255,255);
+   stroke-width: 2;
+   stroke: rgb(0,0,0);
+}
+
+svg text {
+  font-size: 1.2em;
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0"?><svg width="500" height="500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <title>Post it</title>
+ <defs>
+  <filter id="filter3342">
+   <feGaussianBlur id="feGaussianBlur3344" stdDeviation="9.409953"/>
+  </filter>
+  <linearGradient id="linearGradient3366">
+   <stop stop-color="#fce94f" id="stop3368" offset="0"/>
+   <stop stop-color="#f5f54d" stop-opacity="0.960784" id="stop3370" offset="1"/>
+  </linearGradient>
+  <linearGradient y2="-0.191176" x2="0.746696" y1="0.860294" x1="0.500003" id="linearGradient3372" xlink:href="#linearGradient3366"/>
+ </defs>
+ <metadata id="metadata7">image/svg+xml</metadata>
+ <g>
+  <title>Layer 1</title>
+  <g id="layer1"/>
+  <g id="layer2">
+   <g transform="matrix(1.00825, 0, 0, 1.21693, 817.792, 101.641)" id="g3346">
+    <path fill="#2e3436" fill-rule="evenodd" stroke="#000000" stroke-width="1px" filter="url(#filter3342)" d="m-431.638489,-63.291252l52.860168,247.600838l-387.912048,10.367554l1.37207,-245.771286l333.67981,-12.197105z" id="path3256"/>
+    <path fill="#fcaf3e" fill-rule="evenodd" stroke-width="1px" d="m-777.092224,-61.761154l362.644775,-15.152283c8.417908,86.075315 17.72876,172.289001 26.146667,256.461426c-98.189575,11.57666 -256.377625,11.593506 -390.811768,18.300049c7.561218,-86.536377 7.789368,-173.072786 2.020325,-259.609192z" id="path3751"/>
+    <path fill="url(#linearGradient3372)" fill-rule="evenodd" stroke-width="1px" d="m-777.720764,-63.57579l362.644775,-15.152313c8.417969,86.075346 17.72876,172.289001 26.146729,256.461456c-98.189575,11.57666 -256.377686,11.593506 -390.811768,18.300049c7.561157,-86.536407 7.789368,-173.072817 2.020264,-259.609192z" id="path2474"/>
+   </g>
+   <text font-size="58.664837px" font-style="normal" font-weight="normal" text-anchor="start" fill="#000000" stroke-width="1px" font-family="Sans" id="text3755" y="-34.361757" x="136.752517" xml:space="preserve">
+    <tspan y="402.92224" x="330.16751" id="tspan3757">Post-it</tspan>
+   </text>
+  </g>
+ </g>
+</svg>
