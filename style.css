@@ -18,3 +18,19 @@ body {
 svg text {
   font-size: 1.2em;
 }
+
+.yellow {
+  fill: url(#yellowGradient);
+}
+.pink {
+  fill: url(#pinkGradient);
+}
+.green {
+  fill: url(#greenGradient);
+}
+.blue  {
+  fill: url(#blueGradient);
+}
+.purple {
+  fill: url(#purpleGradient);
+}
