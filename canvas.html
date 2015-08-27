@@ -198,10 +198,32 @@
         }
       });
       
+      var Canvas = React.createClass({
+        render: function() {
+          var postItNodes = this.props.postIts.map(function (postItData) {
+            return React.createElement(PostIt, postItData);
+          });
+          
+          return React.createElement("g", null,
+            postItNodes);
+        }
+      });
+      
+      var data = [
+        {x: 300, y: 300, width: 250, height: 150, color: "blue", text: "Movie stuff"},
+        {x: 500, y: 300, width: 150, height: 150, color: "yellow", text: "Movie stuff"},
+        {x: 700, y: 300, width: 150, height: 150, color: "yellow", text: "Movie stuff"},
+        {x: 400, y: 100, width: 150, height: 150, color: "yellow", text: "Test stuff"}
+      ];
+      
       React.render(
-        React.createElement(PostIt, {x: 300, y: 300, width: 150, height: 150, color: "yellow", text: "Movie stuff"}),
+        React.createElement(Canvas, {postIts: data}),
         document.getElementById("canvas-content")
       );
+      //React.render(
+      //  React.createElement(PostIt, {x: 300, y: 300, width: 150, height: 150, color: "yellow", text: "Movie stuff"}),
+      //  document.getElementById("canvas-content")
+      //);
     </script>
   </body>
 </html>
