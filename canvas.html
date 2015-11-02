@@ -161,7 +161,7 @@
           
           // the post it represented in SVG
           return <g>
-            <svg id="postit" x={x} y={y} width={w} height={h} viewBox="0 0 400 400" preserveAspectRatio="none">
+            <svg x={x} y={y} width={w} height={h} viewBox="0 0 400 400" preserveAspectRatio="none">
               <path
                 transform="matrix(1.023139,4.259636e-3,-4.3582396e-3,0.9999909,-61.96631,-626.72303)"
                 style={{opacity: 0.44782607, fill: "#000000", fillOpacity: 1, fillRule: "nonzero", stroke: "none",
@@ -173,7 +173,6 @@
                 id="post-it-shadow" />
               <path
                 className="post-it"
-                id="post-it"
                 d="M 46.40954,37.510473 L 350.6925,38.806633 L 349.48153,323.08976 C 349.48153,323.08976 86.92175,328.861 50.98888,307.53239 C 43.48947,271.4709 46.40954,37.510473 46.40954,37.510473 z"
                 style={{fill: "url(#" + color + "Gradient)", fillOpacity: 1, fillRule: "nonzero", stroke: "none",
                       strokeWidth: 0.5, strokeLinecap: "round", strokeLinejoin: "round", marker: "none", markerStart: "none",
@@ -195,25 +194,23 @@
       
       var Canvas = React.createClass({
         render: function() {
-          var postItNodes = this.props.postIts.map(function (postItData) {
-            return <PostIt x={postItData.x} y={postItData.y} width={postItData.width} height={postItData.height} color={postItData.color} text={postItData.text}/>
-          });
-          
           return <g>
-            {postItNodes}
+            {this.props.postIts.map(function (postItData) {
+              return <PostIt key={postItData.pid} x={postItData.x} y={postItData.y} width={postItData.width} height={postItData.height} color={postItData.color} text={postItData.text}/>;
+            })}
           </g>;
         }
       });
       
       var data = [
-        {x: 300, y: 300, width: 250, height: 150, color: "blue", text: "Movie stuff"},
-        {x: 500, y: 300, width: 150, height: 150, color: "yellow", text: "Movie stuff"},
-        {x: 700, y: 300, width: 150, height: 150, color: "yellow", text: "Movie stuff"},
-        {x: 400, y: 100, width: 150, height: 150, color: "yellow", text: "Test stuff"}
+        {pid: 0, x: 300, y: 300, width: 250, height: 150, color: "blue", text: "Movie stuff"},
+        {pid: 1, x: 500, y: 300, width: 150, height: 150, color: "yellow", text: "Movie stuff"},
+        {pid: 2, x: 700, y: 300, width: 150, height: 150, color: "yellow", text: "Movie stuff"},
+        {pid: 3, x: 400, y: 100, width: 150, height: 150, color: "yellow", text: "Test stuff"}
       ];
       
-      React.render(
-        React.createElement(Canvas, {postIts: data}),
+      ReactDOM.render(
+        <Canvas postIts={data}/>,
         document.getElementById("canvas-content")
       );
     </script>
