@@ -14,5 +14,9 @@ div#app {
 }
 
 svg text {
-  font-size: 1.2em;
+  font-size: 1em;
+}
+
+svg .postIt text {
+  font-size: 0.8em;
 }

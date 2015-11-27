@@ -7,20 +7,17 @@ const PostIt = React.createClass({
   render: function() {
     console.log(this.props);
 
-    let x = this.props.x;
-    let y = this.props.y;
-    let w = this.props.width;
-    let h = this.props.height;
+    const {x, y, width, height, color, title} = this.props;
 
     let textX = x + 20;
     let textY = y + 20;
-    let textW = w - 40;
-    let textH = h - 40;
-    let color = this.props.color;
+    let textW = width - 40;
+    let textH = height - 40;
 
     // the post it represented in SVG
-    return <g>
-      <rect x={x} y={y} width={w} height={h} style={{fill: color, strokeWidth: 1, stroke: 'rgb(0,0,0)'}}/>
+    return <g className="postIt">
+      <rect x={x} y={y} width={width} height={height} style={{fill: color, strokeWidth: 1, stroke: 'rgb(0,0,0)'}}/>
+      <text x={textX} y={textY}>{title}</text>
     </g>;
   }
 });

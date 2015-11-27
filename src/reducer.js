@@ -7,11 +7,10 @@ const initialState = Map({
 });
 
 export default function(state = initialState, action) {
-  console.log('Reduce action of type ' + action.type);
   switch (action.type) {
     case 'ADD_CARD':
-      const {x, y} = action;
-      return addCard(state, x, y, 80, 80, 'yellow', 'text');
+      const {x, y, width, height, color, title} = action;
+      return addCard(state, x, y, width, height, color, title);
   }
   return state;
 }
