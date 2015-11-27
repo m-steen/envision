@@ -6,7 +6,7 @@
   "scripts": {
     "webpack": "node node_modules/webpack/bin/webpack",
     "webpack-dev-server": "node node_modules/webpack-dev-server/bin/webpack-dev-server",
-    "test": "node node_modules/mocha/bin/mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*.@(js|jsx)'",
+    "test": "node node_modules/mocha/bin/mocha --compilers js:babel-core/register --require ./test/test_helper.js \"test/**/*.@(js|jsx)\"",
     "test:watch": "npm run test -- --watch"
   },
   "keywords": [],
@@ -35,6 +35,8 @@
     "immutable": "^3.7.5",
     "react": "^0.14.3",
     "react-addons-pure-render-mixin": "^0.14.3",
-    "react-dom": "^0.14.3"
+    "react-dom": "^0.14.3",
+    "react-redux": "^4.0.0",
+    "redux": "^3.0.4"
   }
 }

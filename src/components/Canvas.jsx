@@ -1,10 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PostIt from './PostIt';
+import * as actionCreators from '../action_creators';
 
 const Canvas = React.createClass({
   render: function() {
-    return <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100%" height="100%">
+    return <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100%" height="100%"
+        onDoubleClick={(e) => this.props.addCard(e.clientX, e.clientY)}>
       <defs>
         <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
           <path d="M 10 0 L 0 0 0 10" fill="none" stroke="gray" strokeWidth="0.5"/>
@@ -56,9 +58,11 @@ const Canvas = React.createClass({
   }
 });
 
-export default connect(state => {
+function mapStateToProps(state) {
   return {
     title: state.get('title'),
     postIts: state.get('postIts')
   };
-})(Canvas);
+}
+
+export default connect(mapStateToProps, actionCreators)(Canvas);
