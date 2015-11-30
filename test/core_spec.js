@@ -12,7 +12,7 @@ describe('BMC logic', () => {
 
       expect(nextState).to.equal(fromJS({
         postIts: [
-          {pid: 0, x: 10, y: 10, width: 30, height: 30, color: 'yellow', text: 'some text'}
+          {pid: 0, x: 10, y: 10, width: 30, height: 30, color: 'yellow', title: 'some text'}
         ]
       }));
     });
@@ -20,17 +20,17 @@ describe('BMC logic', () => {
     it('adds a new card to an existing collection of cards', () => {
       const state = fromJS({
         postIts: [
-          {pid: 0, x: 10, y: 10, width: 30, height: 30, color: 'yellow', text: 'some text'},
-          {pid: 1, x: 20, y: 20, width: 30, height: 30, color: 'yellow', text: 'some text'}
+          {pid: 0, x: 10, y: 10, width: 30, height: 30, color: 'yellow', title: 'some text'},
+          {pid: 1, x: 20, y: 20, width: 30, height: 30, color: 'yellow', title: 'some text'}
         ]
       });
       const nextState = addCard(state, 30, 30, 30, 30, 'yellow', 'some text');
 
       expect(nextState).to.equal(fromJS({
         postIts: [
-          {pid: 0, x: 10, y: 10, width: 30, height: 30, color: 'yellow', text: 'some text'},
-          {pid: 1, x: 20, y: 20, width: 30, height: 30, color: 'yellow', text: 'some text'},
-          {pid: 2, x: 30, y: 30, width: 30, height: 30, color: 'yellow', text: 'some text'}
+          {pid: 0, x: 10, y: 10, width: 30, height: 30, color: 'yellow', title: 'some text'},
+          {pid: 1, x: 20, y: 20, width: 30, height: 30, color: 'yellow', title: 'some text'},
+          {pid: 2, x: 30, y: 30, width: 30, height: 30, color: 'yellow', title: 'some text'}
         ]
       }));
     });
