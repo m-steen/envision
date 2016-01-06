@@ -1,19 +1,20 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {DropTarget} from 'react-dnd';
+import Container from './Container';
 import PostIt from './PostIt';
 import * as actionCreators from '../action_creators';
 import {ItemTypes} from './Constants';
 
 const canvasTarget = {
   drop(props, monitor) {
-    const pid = monitor.getItem().postItId;
+/*    const pid = monitor.getItem().postItId;
     const initialSourceOffset = monitor.getInitialSourceClientOffset();
     const initialOffset = monitor.getInitialClientOffset();
     const offset = monitor.getClientOffset();
     const x = offset.x - (initialOffset.x - initialSourceOffset.x);
     const y = offset.y - (initialOffset.y - initialSourceOffset.y);
-    props.moveCard(pid, x, y);
+    props.moveCard(pid, x, y);*/
   }
 };
 
@@ -33,6 +34,16 @@ const Canvas = React.createClass({
       backgroundColor: 'lightGrey'
     }}
     onDoubleClick={(e) => this.props.addCard(e.clientX, e.clientY, 130, 100, 'yellow', 'Note at ' + e.clientX + ',' + e.clientY)}>
+      {this.props.containers.toList().map(container => {
+        return <Container key={container.get('id')}
+          x={container.get('x')}
+          y={container.get('y')}
+          width={container.get('width')}
+          height={container.get('height')}
+          title={container.get('title')}
+          moveCard={this.props.moveCard} />;
+      })}
+
       {this.props.postIts.toList().map(postIt => {
         return <PostIt key={postIt.get('pid')}
                   pid={postIt.get('pid')}
@@ -93,6 +104,7 @@ const Canvas = React.createClass({
 function mapStateToProps(state) {
   return {
     title: state.get('title'),
+    containers: state.get('containers'),
     postIts: state.get('postIts')
   };
 }
