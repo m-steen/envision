@@ -1,6 +1,6 @@
 import {Map, List, fromJS} from 'immutable';
 import {expect} from 'chai';
-import {addCard} from '../src/core';
+import {addCard, moveCard} from '../src/core';
 
 describe('BMC logic', () => {
 
@@ -31,6 +31,40 @@ describe('BMC logic', () => {
           {pid: 0, x: 10, y: 10, width: 30, height: 30, color: 'yellow', title: 'some text'},
           {pid: 1, x: 20, y: 20, width: 30, height: 30, color: 'yellow', title: 'some text'},
           {pid: 2, x: 30, y: 30, width: 30, height: 30, color: 'yellow', title: 'some text'}
+        ]
+      }));
+    });
+
+    it('moves a card to a new x,y coordinate', () => {
+      const state = fromJS({
+        postIts: [
+          {pid: 0, x: 10, y: 10, width: 30, height: 30, color: 'yellow', title: 'some text'},
+          {pid: 1, x: 20, y: 20, width: 30, height: 30, color: 'yellow', title: 'some text'}
+        ]
+      });
+      const nextState = moveCard(state, 1, 30, 30);
+
+      expect(nextState).to.equal(fromJS({
+        postIts: [
+          {pid: 0, x: 10, y: 10, width: 30, height: 30, color: 'yellow', title: 'some text'},
+          {pid: 1, x: 30, y: 30, width: 30, height: 30, color: 'yellow', title: 'some text'}
+        ]
+      }));
+    });
+
+    it('only moves existing card to a new x,y coordinate', () => {
+      const state = fromJS({
+        postIts: [
+          {pid: 0, x: 10, y: 10, width: 30, height: 30, color: 'yellow', title: 'some text'},
+          {pid: 1, x: 20, y: 20, width: 30, height: 30, color: 'yellow', title: 'some text'}
+        ]
+      });
+      const nextState = moveCard(state, 2, 30, 30);
+
+      expect(nextState).to.equal(fromJS({
+        postIts: [
+          {pid: 0, x: 10, y: 10, width: 30, height: 30, color: 'yellow', title: 'some text'},
+          {pid: 1, x: 20, y: 20, width: 30, height: 30, color: 'yellow', title: 'some text'}
         ]
       }));
     });

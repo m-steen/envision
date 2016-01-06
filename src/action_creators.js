@@ -9,3 +9,12 @@ export function addCard(x, y, width, height, color, title) {
     title: title
   };
 }
+
+export function moveCard(pid, x, y) {
+  return {
+    type: 'MOVE_CARD',
+    pid: pid,
+    x: x,
+    y: y
+  }
+}

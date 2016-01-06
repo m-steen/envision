@@ -1,11 +1,50 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {DropTarget} from 'react-dnd';
 import PostIt from './PostIt';
 import * as actionCreators from '../action_creators';
+import {ItemTypes} from './Constants';
+
+const canvasTarget = {
+  drop(props, monitor) {
+    const pid = monitor.getItem().postItId;
+    const initialSourceOffset = monitor.getInitialSourceClientOffset();
+    const initialOffset = monitor.getInitialClientOffset();
+    const offset = monitor.getClientOffset();
+    const x = offset.x - (initialOffset.x - initialSourceOffset.x);
+    const y = offset.y - (initialOffset.y - initialSourceOffset.y);
+    props.moveCard(pid, x, y);
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  };
+}
 
 const Canvas = React.createClass({
   render: function() {
-    return <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100%" height="100%"
+    const {connectDropTarget} = this.props;
+    return connectDropTarget(<div style={{
+      height: '100%',
+      width: '100%',
+      backgroundColor: 'lightGrey'
+    }}>
+      {this.props.postIts.toList().map(postIt => {
+        return <PostIt key={postIt.get('pid')}
+                  pid={postIt.get('pid')}
+                  x={postIt.get('x')}
+                  y={postIt.get('y')}
+                  width={postIt.get('width')}
+                  height={postIt.get('height')}
+                  color={postIt.get('color')}
+                  title={postIt.get('title')} />;
+      })}
+    </div>);
+
+/*    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100%" height="100%"
         onDoubleClick={(e) => this.props.addCard(e.clientX, e.clientY, 130, 100, 'yellow', 'Note at ' + e.clientX + ',' + e.clientY)}>
       <defs>
         <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
@@ -20,31 +59,22 @@ const Canvas = React.createClass({
       <rect width="100%" height="100%" fill="url(#grid)" />
 
       <rect x="50" y="50" width="200" height="500" className="canvas-box"/>
-      <text x="60" y="70">Key partners</text>
 
       <rect x="250" y="50" width="200" height="250" className="canvas-box"/>
-      <text x="260" y="70">Key activities</text>
 
       <rect x="250" y="300" width="200" height="250" className="canvas-box"/>
-      <text x="260" y="320">Key resources</text>
 
       <rect x="450" y="50" width="200" height="500" className="canvas-box"/>
-      <text x="460" y="70">Value proposition</text>
 
       <rect x="650" y="50" width="200" height="250" className="canvas-box"/>
-      <text x="660" y="70">Customer relationships</text>
 
       <rect x="650" y="300" width="200" height="250" className="canvas-box"/>
-      <text x="660" y="320">Channels</text>
 
       <rect x="850" y="50" width="200" height="500" className="canvas-box"/>
-      <text x="860" y="70">Customer segments</text>
 
       <rect x="50" y="550" width="500" height="250" className="canvas-box"/>
-      <text x="60" y="570">Cost structure</text>
 
       <rect x="550" y="550" width="500" height="250" className="canvas-box"/>
-      <text x="560" y="570">Revenue streams</text>
 
       {this.props.postIts.map(postIt => {
         return <PostIt key={postIt.get('pid')}
@@ -55,7 +85,7 @@ const Canvas = React.createClass({
                   color={postIt.get('color')}
                   title={postIt.get('title')} />;
       })}
-    </svg>;
+    </svg>;*/
   }
 });
 
@@ -66,4 +96,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, actionCreators)(Canvas);
+const DropCanvas = DropTarget(ItemTypes.POSTIT, canvasTarget, collect)(Canvas);
+
+const ConnectedCanvas = connect(mapStateToProps, actionCreators)(DropCanvas);
+
+export default ConnectedCanvas;
