@@ -31,7 +31,8 @@ const Canvas = React.createClass({
       height: '100%',
       width: '100%',
       backgroundColor: 'lightGrey'
-    }}>
+    }}
+    onDoubleClick={(e) => this.props.addCard(e.clientX, e.clientY, 130, 100, 'yellow', 'Note at ' + e.clientX + ',' + e.clientY)}>
       {this.props.postIts.toList().map(postIt => {
         return <PostIt key={postIt.get('pid')}
                   pid={postIt.get('pid')}
