@@ -22,8 +22,8 @@ const initialState = Map({
 export default function(state = initialState, action) {
   switch (action.type) {
     case 'ADD_CARD': {
-      const {x, y, width, height, color, title} = action;
-      return addCard(state, x, y, width, height, color, title);
+      const {container, x, y, width, height, color, title} = action;
+      return addCard(state, container, x, y, width, height, color, title);
     }
     case 'MOVE_CARD': {
       const {pid, container, x, y} = action;

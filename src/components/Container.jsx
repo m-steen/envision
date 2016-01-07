@@ -28,14 +28,22 @@ function collect(connect, monitor) {
 const Container = React.createClass({
   render: function() {
     const {connectDropTarget} = this.props;
-    return connectDropTarget(<div style={{
-      position: 'absolute',
-      left: this.props.x,
-      top: this.props.y,
-      height: this.props.height,
-      width: this.props.width,
-      border: '1px solid black'
-    }}>
+    return connectDropTarget(
+      <div style={{
+        position: 'absolute',
+        left: this.props.x,
+        top: this.props.y,
+        height: this.props.height,
+        width: this.props.width,
+        border: '1px solid black'
+      }}
+      onDoubleClick={(e) => {
+        const containerId = this.props.id;
+        const x = e.clientX - this.props.x;
+        const y = e.clientY - this.props.y;
+        this.props.addCard(containerId, x, y, 130, 100, 'yellow', 'Note at ' + x + ',' + y)
+      }
+      }>
       <p>{this.props.title}</p>
 
       {this.props.postIts.map(postIt => {

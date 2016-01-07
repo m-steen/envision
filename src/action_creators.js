@@ -1,6 +1,7 @@
-export function addCard(x, y, width, height, color, title) {
+export function addCard(container, x, y, width, height, color, title) {
   return {
     type: 'ADD_CARD',
+    container: container,
     x: x,
     y: y,
     width: width,

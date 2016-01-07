@@ -32,8 +32,7 @@ const Canvas = React.createClass({
       height: '100%',
       width: '100%',
       backgroundColor: 'lightGrey'
-    }}
-    onDoubleClick={(e) => this.props.addCard(e.clientX, e.clientY, 130, 100, 'yellow', 'Note at ' + e.clientX + ',' + e.clientY)}>
+    }}>
       {this.props.containers.toList().map(container => {
         const containerId = container.get('id');
         const postIts = this.props.postIts.filter(postIt => {
@@ -48,6 +47,7 @@ const Canvas = React.createClass({
           height={container.get('height')}
           title={container.get('title')}
           postIts={postIts.toList()}
+          addCard={this.props.addCard}
           moveCard={this.props.moveCard} />;
       })}
 
