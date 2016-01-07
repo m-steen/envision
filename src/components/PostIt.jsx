@@ -33,8 +33,8 @@ const PostIt = React.createClass({
         position: 'absolute',
         left: x,
         top: y,
-        width: width,
-        height: height,
+        width: width - 2, // 1px border on both sides
+        height: height - 2, // 1px border on both sides
         border: '1px solid grey',
         backgroundColor: color
       }}>{title}</div>);

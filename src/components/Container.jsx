@@ -54,10 +54,25 @@ const Container = React.createClass({
         border: '1px solid black'
       }}
       onDoubleClick={(e) => {
+        const width = 100;
+        const height = 100;
+
         const containerId = this.props.id;
-        const x = e.clientX - this.props.x;
-        const y = e.clientY - this.props.y;
-        this.props.addCard(containerId, x, y, 130, 100, 'yellow', 'Note at ' + x + ',' + y)
+
+        // determine the x,y coordinates. they must be translated to
+        // coordinates relative to the container. if this means that a
+        // post it will be partly outside the container, the coordinates
+        // are adjusted so that the post it still is inside the container
+        let x = e.clientX - this.props.x;
+        if (x + width > this.props.width) {
+          x = this.props.width - width;
+        }
+        let y = e.clientY - this.props.y;
+        if (y + height > this.props.height) {
+          y = this.props.height - height;
+        }
+
+        this.props.addCard(containerId, x, y, width, height, 'yellow', 'Note at ' + x + ',' + y)
       }
       }>
       <p>{this.props.title}</p>
