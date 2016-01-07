@@ -3,17 +3,33 @@ import {DropTarget} from 'react-dnd';
 import {ItemTypes} from './Constants';
 import PostIt from './PostIt';
 
+function getRelativeCoordinates(props, monitor) {
+  const initialSourceOffset = monitor.getInitialSourceClientOffset();
+  const initialOffset = monitor.getInitialClientOffset();
+  const offset = monitor.getClientOffset();
+  // coordinates are relative to their container. but the coordinates from dnd
+  // are absolute, so we must translate them to relative container coordinates
+  const x = offset.x - (initialOffset.x - initialSourceOffset.x) - props.x;
+  const y = offset.y - (initialOffset.y - initialSourceOffset.y) - props.y;
+
+  return {x: x, y: y};
+}
+
 const containerTarget = {
+  canDrop: function (props, monitor) {
+    const {x, y} = getRelativeCoordinates(props, monitor);
+    const postItWidth = monitor.getItem().width;
+    const postItHeight = monitor.getItem().height;
+    return x > 0 &&
+      y > 0 &&
+      postItWidth + x < props.width &&
+      postItHeight + y < props.height;
+  },
+
   drop(props, monitor) {
     const containerId = props.id;
-    const pid = monitor.getItem().postItId;
-    const initialSourceOffset = monitor.getInitialSourceClientOffset();
-    const initialOffset = monitor.getInitialClientOffset();
-    const offset = monitor.getClientOffset();
-    // coordinates are relative to their container. but the coordinates from dnd
-    // are absolute, so we must translate them to relative container coordinates
-    const x = offset.x - (initialOffset.x - initialSourceOffset.x) - props.x;
-    const y = offset.y - (initialOffset.y - initialSourceOffset.y) - props.y;
+    const pid = monitor.getItem().pid;
+    const {x, y} = getRelativeCoordinates(props, monitor);
     props.moveCard(pid, containerId, x, y);
   }
 };

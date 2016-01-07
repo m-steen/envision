@@ -5,7 +5,7 @@ import {ItemTypes} from './Constants';
 
 const postItSource = {
   beginDrag(props) {
-    return {postItId: props.pid};
+    return props;
   }
 };
 
@@ -38,12 +38,6 @@ const PostIt = React.createClass({
         border: '1px solid grey',
         backgroundColor: color
       }}>{title}</div>);
-    /*connectDragSource(
-      <g className="postIt" style={{
-          cursor: 'move'
-        }}>
-        <rect x={x} y={y} width={width} height={height} style={{fill: color, strokeWidth: 1, stroke: 'rgb(0,0,0)'}}/>
-      </g>);*/
   }
 });
 
