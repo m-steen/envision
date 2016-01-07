@@ -42,6 +42,28 @@ function collect(connect, monitor) {
 }
 
 const Container = React.createClass({
+  createCard: function(e) {
+    const width = 100;
+    const height = 100;
+
+    const containerId = this.props.id;
+
+    // determine the x,y coordinates. they must be translated to
+    // coordinates relative to the container. if this means that a
+    // post it will be partly outside the container, the coordinates
+    // are adjusted so that the post it still is inside the container
+    let x = e.clientX - this.props.x;
+    if (x + width > this.props.width) {
+      x = this.props.width - width;
+    }
+    let y = e.clientY - this.props.y;
+    if (y + height > this.props.height) {
+      y = this.props.height - height;
+    }
+
+    this.props.addCard(containerId, x, y, width, height, 'yellow', 'Note at ' + x + ',' + y)
+  },
+
   render: function() {
     const {connectDropTarget} = this.props;
     return connectDropTarget(
@@ -53,28 +75,7 @@ const Container = React.createClass({
         width: this.props.width,
         border: '1px solid black'
       }}
-      onDoubleClick={(e) => {
-        const width = 100;
-        const height = 100;
-
-        const containerId = this.props.id;
-
-        // determine the x,y coordinates. they must be translated to
-        // coordinates relative to the container. if this means that a
-        // post it will be partly outside the container, the coordinates
-        // are adjusted so that the post it still is inside the container
-        let x = e.clientX - this.props.x;
-        if (x + width > this.props.width) {
-          x = this.props.width - width;
-        }
-        let y = e.clientY - this.props.y;
-        if (y + height > this.props.height) {
-          y = this.props.height - height;
-        }
-
-        this.props.addCard(containerId, x, y, width, height, 'yellow', 'Note at ' + x + ',' + y)
-      }
-      }>
+      onDoubleClick={(e) => this.createCard(e)}>
       <p>{this.props.title}</p>
 
       {this.props.postIts.map(postIt => {
