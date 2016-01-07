@@ -1,17 +1,20 @@
 import React from 'react';
 import {DropTarget} from 'react-dnd';
 import {ItemTypes} from './Constants';
+import PostIt from './PostIt';
 
 const containerTarget = {
   drop(props, monitor) {
-    console.log("Drop in container " + props.title);
+    const containerId = props.id;
     const pid = monitor.getItem().postItId;
     const initialSourceOffset = monitor.getInitialSourceClientOffset();
     const initialOffset = monitor.getInitialClientOffset();
     const offset = monitor.getClientOffset();
-    const x = offset.x - (initialOffset.x - initialSourceOffset.x);
-    const y = offset.y - (initialOffset.y - initialSourceOffset.y);
-    props.moveCard(pid, x, y);
+    // coordinates are relative to their container. but the coordinates from dnd
+    // are absolute, so we must translate them to relative container coordinates
+    const x = offset.x - (initialOffset.x - initialSourceOffset.x) - props.x;
+    const y = offset.y - (initialOffset.y - initialSourceOffset.y) - props.y;
+    props.moveCard(pid, containerId, x, y);
   }
 };
 
@@ -34,6 +37,18 @@ const Container = React.createClass({
       border: '1px solid black'
     }}>
       <p>{this.props.title}</p>
+
+      {this.props.postIts.map(postIt => {
+        return <PostIt key={postIt.get('pid')}
+                  pid={postIt.get('pid')}
+                  x={postIt.get('x')}
+                  y={postIt.get('y')}
+                  width={postIt.get('width')}
+                  height={postIt.get('height')}
+                  color={postIt.get('color')}
+                  title={postIt.get('title')} />;
+      })}
+
     </div>);
 
   }

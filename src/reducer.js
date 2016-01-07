@@ -4,7 +4,7 @@ import {addCard, moveCard} from './core';
 const initialState = Map({
   title: 'Business Model Canvas',
   postIts: Map().set(
-    1, Map({pid: 1, x: 100, y: 100, width: 200, height: 150, color: 'yellow', title: 'Oh my'})
+    1, Map({pid: 1, x: 50, y: 50, width: 100, height: 100, color: 'yellow', container: 2, title: 'Post It!'})
   ),
   containers: Map({
     1: Map({id: 1, x:  50, y:  50, width: 200, height: 500, title: 'Key Partners'}),
@@ -26,8 +26,8 @@ export default function(state = initialState, action) {
       return addCard(state, x, y, width, height, color, title);
     }
     case 'MOVE_CARD': {
-      const {pid, x, y} = action;
-      return moveCard(state, pid, x, y);
+      const {pid, container, x, y} = action;
+      return moveCard(state, pid, container, x, y);
     }
   }
   return state;

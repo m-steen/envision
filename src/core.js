@@ -8,10 +8,10 @@ export function addCard(state, x, y, w, h, color, title) {
   });
 }
 
-export function moveCard(state, pid, x, y) {
+export function moveCard(state, pid, container, x, y) {
   if (state.hasIn(['postIts', pid])) {
     return state.updateIn(['postIts', pid], (postIt) => {
-      return postIt.merge(Map({x: x, y: y}));
+      return postIt.merge(Map({container: container, x: x, y: y}));
     });
   }
   else {
