@@ -30,8 +30,7 @@ const Canvas = React.createClass({
     const {connectDropTarget} = this.props;
     return connectDropTarget(<div style={{
       height: '100%',
-      width: '100%',
-      backgroundColor: 'lightGrey'
+      width: '100%'
     }}>
       {this.props.containers.toList().map(container => {
         const containerId = container.get('id');
