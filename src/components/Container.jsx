@@ -61,11 +61,11 @@ const Container = React.createClass({
       y = this.props.height - height;
     }
 
-    this.props.addCard(containerId, x, y, width, height, 'yellow', 'Note at ' + x + ',' + y)
+    this.props.addCard(containerId, x, y, width, height, 'yellow', 'Post It!')
   },
 
   render: function() {
-    const {connectDropTarget} = this.props;
+    const {connectDropTarget, isOver} = this.props;
     return connectDropTarget(
       <div style={{
         position: 'absolute',
@@ -73,7 +73,8 @@ const Container = React.createClass({
         top: this.props.y,
         height: this.props.height,
         width: this.props.width,
-        border: '1px solid black'
+        border: '1px solid black',
+        backgroundColor: isOver ? 'lightgrey' : 'inherit'
       }}
       onDoubleClick={(e) => this.createCard(e)}>
       <p>{this.props.title}</p>
