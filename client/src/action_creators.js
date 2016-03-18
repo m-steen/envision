@@ -20,3 +20,10 @@ export function moveCard(pid, container, x, y) {
     y: y
   }
 }
+
+export function setState(newState) {
+  return {
+    type: 'SET_STATE',
+    state: newState
+  }
+}

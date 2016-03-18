@@ -2,8 +2,8 @@ import {Map, List} from 'immutable';
 
 export function addCard(state, container, x, y, w, h, color, title) {
   return state.updateIn(['postIts'], (postIts) => {
-    const nextId = postIts.reduce((reduction, value, key, iter) => Math.max(reduction, value.get('pid')), -1);
-    const pid = nextId + 1;
+    const nextId = postIts.reduce((reduction, value, key, iter) => Math.max(reduction, +value.get('pid')), -1);
+    const pid = '' + (nextId + 1);
     return postIts.set(pid, Map({pid: pid, container: container, x: x, y: y, width: w, height: h, color: color, title: title}));
   });
 }
