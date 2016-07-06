@@ -8,22 +8,9 @@ const Canvas = React.createClass({
       height: '100%',
       width: '100%'
     }}>
-      {this.props.containers.map((container) => {
-        const containerId = container.id;
-        const postIts = container.postIts == undefined? [] : container.postIts;
-        /*this.props.postIts.filter(postIt => {
-          return postIt.container === containerId;
-        });*/
-
-        return <Container key={container.id}
-          id={container.id}
-          x={container.x}
-          y={container.y}
-          width={container.width}
-          height={container.height}
-          title={container.title}
-          postIts={postIts} />;
-      })}
+      {this.props.containers.map((container) => 
+         <Container key={container.id} container={container}/>
+      )}
 
     </div>;
   }

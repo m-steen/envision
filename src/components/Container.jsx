@@ -4,28 +4,24 @@ import PostIt from './PostIt';
 const Container = React.createClass({
 
   render: function() {
+    const {container} = this.props;
+    const postIts = container.postIts;
+
     return <div style={{
         position: 'absolute',
-        left: this.props.x,
-        top: this.props.y,
-        height: this.props.height,
-        width: this.props.width,
+        left: container.x,
+        top: container.y,
+        height: container.height,
+        width: container.width,
         border: '1px solid black',
         backgroundColor: 'inherit'
       }}
       >
-      <p>{this.props.title}</p>
+      <p>{container.title}</p>
 
-      {this.props.postIts.map(postIt => {
-        return <PostIt key={postIt.pid}
-                  pid={postIt.pid}
-                  x={postIt.x}
-                  y={postIt.y}
-                  width={postIt.width}
-                  height={postIt.height}
-                  color={postIt.color}
-                  title={postIt.title} />;
-      })}
+      {postIts.map(postIt => 
+        <PostIt key={postIt.pid} postIt={postIt} />
+      )}
 
     </div>;
 

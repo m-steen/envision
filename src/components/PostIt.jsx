@@ -4,7 +4,7 @@ const PostIt = React.createClass({
 //  mixins: [PureRenderMixin],
 
   render: function() {
-    const {x, y, width, height, color, title} = this.props;
+    const {x, y, width, height, color, title} = this.props.postIt;
 
     let textX = x + 20;
     let textY = y + 20;
