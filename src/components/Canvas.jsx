@@ -10,7 +10,7 @@ const Canvas = React.createClass({
     }}>
       {this.props.containers.map((container) => {
         const containerId = container.id;
-        const postIts = [];
+        const postIts = container.postIts == undefined? [] : container.postIts;
         /*this.props.postIts.filter(postIt => {
           return postIt.container === containerId;
         });*/

@@ -2,12 +2,11 @@ import { observable } from 'mobx';
 
 const store = observable({
   title: 'Business Model Canvas',
-  postIts: [{
-    "1": {pid: "1", x: 50, y: 50, width: 100, height: 100, color: 'yellow', container: "2", title: 'Post It!'}
-  }],
   containers: [
     {id: "1", x:  50, y:  50, width: 200, height: 500, title: 'Key Partners'},
-    {id: "2", x: 250, y:  50, width: 200, height: 250, title: 'Key Activities'},
+    {id: "2", x: 250, y:  50, width: 200, height: 250, title: 'Key Activities', postIts: [
+      {pid: "1", x: 50, y: 50, width: 100, height: 100, color: 'yellow', container: "2", title: 'Post It!'}
+    ]},
     {id: "3", x: 250, y: 300, width: 200, height: 250, title: 'Key Resources'},
     {id: "4", x: 450, y:  50, width: 200, height: 500, title: 'Value Propositions'},
     {id: "5", x: 650, y:  50, width: 200, height: 250, title: 'Customer Relationships'},
