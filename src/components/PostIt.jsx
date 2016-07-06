@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import {observable, transaction, computed} from 'mobx';
 import {observer} from 'mobx-react';
+import {DraggableCore} from 'react-draggable';
 
 @observer
 class PostIt extends Component {
@@ -12,7 +14,7 @@ class PostIt extends Component {
     let textH = height - 40;
 
     // the post it represented in SVG
-    return <div style={{
+    return <DraggableCore onDrag={this.handleDrag}><div style={{
         position: 'absolute',
         left: x,
         top: y,
@@ -21,12 +23,19 @@ class PostIt extends Component {
         border: '1px solid grey',
         backgroundColor: color
       }}
-      onClick={(e) => this.onClick(e)}>{title}</div>;
+      onClick={(e) => this.onClick(e)}>{title}</div></DraggableCore>;
   }
 
   onClick(e) {
     e.stopPropagation();
     this.props.onSelect(this.props.postIt);
+  }
+
+  handleDrag = (e, dragInfo) => {
+      transaction(() => {
+          this.props.postIt.x += dragInfo.deltaX;
+          this.props.postIt.y += dragInfo.deltaY;
+      });
   }
 }
 
