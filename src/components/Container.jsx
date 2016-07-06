@@ -16,11 +16,11 @@ const Container = React.createClass({
         border: '1px solid black',
         backgroundColor: 'inherit'
       }}
-      >
+      onClick={(e) => this.props.onSelect(null)}>
       <p>{container.title}</p>
 
       {postIts.map(postIt => 
-        <PostIt key={postIt.pid} postIt={postIt} />
+        <PostIt key={postIt.pid} postIt={postIt} onSelect={this.props.onSelect}/>
       )}
 
     </div>;

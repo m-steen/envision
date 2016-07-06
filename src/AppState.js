@@ -14,7 +14,8 @@ const store = observable({
     {id: "7", x: 850, y:  50, width: 200, height: 500, title: 'Customer Segments', postIts: []},
     {id: "8", x:  50, y: 550, width: 500, height: 250, title: 'Cost Structure', postIts: []},
     {id: "9", x: 550, y: 550, width: 500, height: 250, title: 'Revenue Streams', postIts: []}
-  ]
+  ],
+  selection: null
 });
 
 export default store;

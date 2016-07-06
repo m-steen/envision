@@ -9,7 +9,7 @@ const Canvas = React.createClass({
       width: '100%'
     }}>
       {this.props.containers.map((container) => 
-         <Container key={container.id} container={container}/>
+         <Container key={container.id} container={container} onSelect={this.props.onSelect}/>
       )}
 
     </div>;

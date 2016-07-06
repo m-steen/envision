@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
+import {observer} from 'mobx-react';
 
-const PostIt = React.createClass({
-//  mixins: [PureRenderMixin],
-
-  render: function() {
+@observer
+class PostIt extends Component {
+    render() {
     const {x, y, width, height, color, title} = this.props.postIt;
 
     let textX = x + 20;
@@ -20,8 +20,14 @@ const PostIt = React.createClass({
         height: height - 2, // 1px border on both sides
         border: '1px solid grey',
         backgroundColor: color
-      }}>{title}</div>;
+      }}
+      onClick={(e) => this.onClick(e)}>{title}</div>;
   }
-});
+
+  onClick(e) {
+    e.stopPropagation();
+    this.props.onSelect(this.props.postIt);
+  }
+}
 
 export default PostIt;
