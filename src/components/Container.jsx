@@ -23,7 +23,7 @@ class Container extends Component {
       <p>{container.title}</p>
 
       {postIts.map(postIt =>
-        <PostIt key={postIt.pid} postIt={postIt} onSelect={this.props.onSelect}/>
+        <PostIt key={postIt.pid} postIt={postIt} onSelect={this.props.onSelect} onDeletePostIt={this.props.onDeletePostIt}/>
       )}
 
     </div>;

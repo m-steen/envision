@@ -23,7 +23,10 @@ class PostIt extends Component {
         border: '1px solid grey',
         backgroundColor: color
       }}
-      onClick={(e) => this.onClick(e)}>{title}</div></DraggableCore>;
+      onClick={(e) => this.onClick(e)}>
+      <a onClick={(e) => this.onDelete(e)} href="#" style={{float: "right"}}>x</a>
+      {title}
+    </div></DraggableCore>;
   }
 
   onClick(e) {
@@ -36,6 +39,12 @@ class PostIt extends Component {
           this.props.postIt.x += dragInfo.deltaX;
           this.props.postIt.y += dragInfo.deltaY;
       });
+  }
+
+  onDelete(e) {
+    e.stopPropagation();
+    const postIt = this.props.postIt;
+    this.props.onDeletePostIt(postIt);
   }
 }
 
