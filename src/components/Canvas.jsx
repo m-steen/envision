@@ -8,8 +8,8 @@ const Canvas = React.createClass({
       height: '100%',
       width: '100%'
     }}>
-      {this.props.containers.map((container) => 
-         <Container key={container.id} container={container} onSelect={this.props.onSelect}/>
+      {this.props.containers.map((container) =>
+         <Container key={container.id} container={container} onSelect={this.props.onSelect} onAddPostIt={this.props.onAddPostIt}/>
       )}
 
     </div>;
