@@ -85,3 +85,10 @@ input {
     position: fixed;
     bottom: 0;
 }
+
+.color-button {
+  float: left;
+  width: 20px;
+  border: 1px solid black;
+  height: 20px;
+}
