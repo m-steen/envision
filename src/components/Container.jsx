@@ -6,31 +6,31 @@ import PostIt from './PostIt';
 class Container extends Component {
 
   render() {
-    const {container} = this.props;
-    const postIts = container.postIts;
+    const block = this.props.block;
+    const postIts = block.postIts;
 
     return <div style={{
         position: 'absolute',
-        left: container.x,
-        top: container.y,
-        height: container.height,
-        width: container.width,
-        border: '1px solid black',
+        left: block.x,
+        top: block.y,
+        width: block.w,
+        height: block.h,
+        border: '3px solid grey',
         backgroundColor: 'inherit'
       }}
       onClick={(e) => this.props.onSelect(null)}>
+      <p style={{float: "left", fontFamily: "Verdana", paddingLeft: "10px"}}>{block.title}</p>
       <a onClick={this.onAdd} style={{float: "right", fontSize: "2em", paddingRight: "10px"}}>+</a>
-      <p>{container.title}</p>
 
       {postIts.map(postIt =>
-        <PostIt key={postIt.pid} postIt={postIt} onSelect={this.props.onSelect} onDeletePostIt={this.props.onDeletePostIt}/>
+        <PostIt key={postIt.id} postIt={postIt} onSelect={this.props.onSelect} onDeletePostIt={this.props.onDeletePostIt}/>
       )}
 
     </div>;
   }
 
   onAdd = (e) => {
-    this.props.onAddPostIt(this.props.container);
+    this.props.onAddPostIt(this.props.block);
     console.log("Add a post it");
   }
 }

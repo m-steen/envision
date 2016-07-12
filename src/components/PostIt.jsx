@@ -6,26 +6,26 @@ import {DraggableCore} from 'react-draggable';
 @observer
 class PostIt extends Component {
     render() {
-    const {x, y, width, height, color, title} = this.props.postIt;
+    const {title, color, x, y, w, h} = this.props.postIt;
 
     let textX = x + 20;
     let textY = y + 20;
-    let textW = width - 40;
-    let textH = height - 40;
+    let textW = w - 40;
+    let textH = h - 40;
 
     // the post it represented in SVG
     return <DraggableCore onDrag={this.handleDrag}><div style={{
         position: 'absolute',
         left: x,
         top: y,
-        width: width - 2, // 1px border on both sides
-        height: height - 2, // 1px border on both sides
-        border: '1px solid grey',
+        width: w - 2, // 1px border on both sides
+        height: h - 2, // 1px border on both sides
+        border: '0px solid grey',
         backgroundColor: color
       }}
       onClick={(e) => this.onClick(e)}>
       <a onClick={(e) => this.onDelete(e)} href="#" style={{float: "right"}}>x</a>
-      {title}
+      <p style={{float: "left", fontFamily: "Verdana", fontSize: "10pt", padding: "5px"}}>{title}</p>
     </div></DraggableCore>;
   }
 
