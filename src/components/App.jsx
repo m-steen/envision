@@ -1,34 +1,59 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {observer} from 'mobx-react';
 import Canvas from './Canvas';
 import Sidebar from './Sidebar';
-import {guid} from '../AppState';
+import guid from '../AppState';
+import bmcPostIt from '../model/bmcPostIt';
 
-const App = React.createClass({
-  render: function() {
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
+function deletePostIt() {
+
+}
+
+@observer
+class App extends Component {
+  render() {
     return <div>
         <a href="#" onClick={this.props.reload}>Load!</a> -
         <a href="#" onClick={this.props.save}>Save!</a>
-        <Canvas containers={this.props.store.containers} onSelect={(object) => {
+        <Canvas model={this.props.store.model} onSelect={(object) => {
           this.props.store.selection = object;
         }}
-        onAddPostIt={(container) => {
-          container.postIts.push({pid: guid(), x: 50, y: 50, width: 100, height: 100, color: 'yellow', title: 'Post It!'})
+        onAddPostIt={(block) => {
+          const size = block.postIts.length;
+          block.postIts.push( new bmcPostIt( 'New PostIt '+size, 20+10*size, 50+20*size, 120, 80 ) )
         }}
         onDeletePostIt={(postIt) => {
-          for (let container of this.props.store.containers) {
-            for (let i = 0; i < container.postIts.length; i++) {
-              if (container.postIts[i] === postIt) {
-                container.postIts.splice(i, 1);
+          for (let block of this.props.store.model.blocks) {
+            for (let i = 0; i < block.postIts.length; i++) {
+              if (block.postIts[i] === postIt) {
+                block.postIts.splice(i, 1);
               }
             }
           }
           if (this.props.store.selection === postIt) {
             this.props.store.selection = null;
           }
+        }}
+        onMovePostIt={(postIt, block, x, y) => {
+          // detect if we move to another block
+          for (let b of this.props.store.model.blocks) {
+            for (let i = 0; i < b.postIts.length; i++) {
+              if (b.postIts[i] === postIt && b !== block) {
+                b.postIts.splice(i, 1);
+                block.postIts.push(postIt);
+              }
+            }
+          }
+
+          postIt.x = x;
+          postIt.y = y;
         }}/>
         <Sidebar store={this.props.store}/>
       </div>;
   }
-});
+}
 
-export default App;
+export default DragDropContext(HTML5Backend)(App);
