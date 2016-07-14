@@ -5,9 +5,9 @@ export default class bmcBlock {
     id;
     @observable title = '';
     @observable postIts = [];
-    @observable x = 0; 
-    @observable y = 0; 
-    @observable w = 0; 
+    @observable x = 0;
+    @observable y = 0;
+    @observable w = 0;
     @observable h = 0;
 
     constructor( title, x, y, w, h ) {

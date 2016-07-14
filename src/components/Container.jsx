@@ -10,31 +10,31 @@ function getRelativeCoordinates(props, monitor) {
   const offset = monitor.getClientOffset();
   // coordinates are relative to their container. but the coordinates from dnd
   // are absolute, so we must translate them to relative container coordinates
-  const x = offset.x - (initialOffset.x - initialSourceOffset.x) - props.x;
-  const y = offset.y - (initialOffset.y - initialSourceOffset.y) - props.y;
+  const x = offset.x - (initialOffset.x - initialSourceOffset.x) - props.block.x;
+  const y = offset.y - (initialOffset.y - initialSourceOffset.y) - props.block.y;
 
   return {x: x, y: y};
 }
 
 const containerTarget = {
   canDrop: function (props, monitor) {
-//    const {x, y} = getRelativeCoordinates(props, monitor);
-//    const postItWidth = monitor.getItem().width;
-//    const postItHeight = monitor.getItem().height;
-//    return x > 0 &&
-//      y > 0 &&
-//      postItWidth + x < props.width &&
-//      postItHeight + y < props.height;
-    return true;
+    const {x, y} = getRelativeCoordinates(props, monitor);
+    const postIt = monitor.getItem().postIt;
+    const postItWidth = postIt.w;
+    const postItHeight = postIt.h;
+    const block = props.block;
+
+    return x > 0 &&
+      y > 0 &&
+      postItWidth + x < block.w &&
+      postItHeight + y < block.h;
   },
 
   drop(props, monitor) {
-    console.log("Yeah!");
-//    const containerId = props.id;
-//    const pid = monitor.getItem().pid;
-//    const {x, y} = getRelativeCoordinates(props, monitor);
-//    console.log("Drop " + pid + " on " + conainerId + " at (" + x + "," + y + ")");
-//    props.moveCard(pid, containerId, x, y);
+    const block = props.block;
+    const postIt = monitor.getItem().postIt;
+    const {x, y} = getRelativeCoordinates(props, monitor);
+    props.onMovePostIt(postIt, block, x, y);
   }
 };
 
@@ -76,7 +76,6 @@ class Container extends Component {
 
   onAdd = (e) => {
     this.props.onAddPostIt(this.props.block);
-    console.log("Add a post it");
   }
 }
 

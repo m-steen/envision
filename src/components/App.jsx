@@ -8,6 +8,10 @@ import bmcPostIt from '../model/bmcPostIt';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
+function deletePostIt() {
+
+}
+
 @observer
 class App extends Component {
   render() {
@@ -32,6 +36,20 @@ class App extends Component {
           if (this.props.store.selection === postIt) {
             this.props.store.selection = null;
           }
+        }}
+        onMovePostIt={(postIt, block, x, y) => {
+          // detect if we move to another block
+          for (let b of this.props.store.model.blocks) {
+            for (let i = 0; i < b.postIts.length; i++) {
+              if (b.postIts[i] === postIt && b !== block) {
+                b.postIts.splice(i, 1);
+                block.postIts.push(postIt);
+              }
+            }
+          }
+
+          postIt.x = x;
+          postIt.y = y;
         }}/>
         <Sidebar store={this.props.store}/>
       </div>;
