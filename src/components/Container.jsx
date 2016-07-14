@@ -64,8 +64,9 @@ class Container extends Component {
           backgroundColor: isOver ? 'lightgrey' : 'inherit'
         }}
         onClick={(e) => this.props.onSelect(null)}>
-        <p style={{float: "left", fontFamily: "Verdana", paddingLeft: "10px"}}>{block.title}</p>
-        <a onClick={this.onAdd} style={{float: "right", fontSize: "2em", paddingRight: "10px"}}>+</a>
+        <button type="button" className="add-button tooltip" style={{float: "right"}}
+          onClick={this.onAdd} >+<span className="tooltiptext">Add a new item to the {block.title}</span></button>
+        <p style={{float: "topleft", fontFamily: "Verdana, Arial, SansSerif", fontWeight: "bold", paddingLeft: "10px", paddingRight: "40px"}}>{block.title}</p>
 
         {postIts.map(postIt =>
           <PostIt key={postIt.id} postIt={postIt} onSelect={this.props.onSelect} onDeletePostIt={this.props.onDeletePostIt}/>
