@@ -6,6 +6,7 @@ import Container from './Container';
 class Canvas extends Component {
 
   render() {
+    //const {connectDropTarget} = this.props;
     return <div style={{
       height: '100%',
       width: '100%'

@@ -5,6 +5,9 @@ import Sidebar from './Sidebar';
 import guid from '../AppState';
 import bmcPostIt from '../model/bmcPostIt';
 
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 @observer
 class App extends Component {
   render() {
@@ -35,4 +38,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default DragDropContext(HTML5Backend)(App);
