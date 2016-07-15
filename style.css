@@ -72,7 +72,7 @@ body {
     transform: translate3d(-340px, 0, 0)
 }
 
-input, button {
+input {
     padding: 4px;
     font-size: 1.2em;
 }
@@ -92,3 +92,77 @@ input {
   border: 1px solid black;
   height: 20px;
 }
+
+.add-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 2px 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    border-radius: 2px;
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-duration: 0.2s;
+}
+
+.add-button:hover {
+    background-color: white;
+    color: #4CAF50; /* Green */
+    border: 2px solid #4CAF50;
+}
+
+.delete-button {
+    background-color: inherit;
+    border: none;
+    color: red;
+    padding: 1px 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+}
+
+.tooltip {
+    position: relative;
+    display: flex;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    background-color: lightgreen;
+    color: #000;
+    border: 2px solid #4CAF50;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 16px;
+    border-radius: 2px;
+    padding: 2px 8px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.postit {
+    position: 'absolute';
+	border: 0px solid grey;
+	background-color: yellow;
+    box-shadow: 5px 5px grey;
+	padding: 2px 2px;
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    text-align: left;
+}
+
+.postit-selected {
+	border: 2px solid grey;
+}
+
