@@ -39,10 +39,11 @@ class PostIt extends Component {
           top: y,
           width: w - 2, // 1px border on both sides
           height: h - 2, // 1px border on both sides
+          border: "1px solid black",
           backgroundColor: color
         }}
         onClick={(e) => this.onClick(e)}>
-        <button type="button" className="delete-button tooltip" 
+        <button type="button" className="delete-button tooltip"
           onClick={(e) => this.onDelete(e)} style={{float: "right"}}>X<span className="tooltiptext">Remove {title}</span></button>
         <p style={{float: "left", fontFamily: "Verdana", fontSize: "10pt", padding: "5px"}}>{title}</p>
       </div>);

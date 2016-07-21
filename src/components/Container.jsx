@@ -60,7 +60,7 @@ class Container extends Component {
           top: block.y,
           width: block.w,
           height: block.h,
-          border: '3px solid grey',
+          border: '1px solid grey',
           backgroundColor: isOver ? 'lightgrey' : 'inherit'
         }}
         onClick={(e) => this.props.onSelect(null)}>

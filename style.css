@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
 }
-
+/*
 .box {
     padding: 20px 0;
     border: 2px solid white;
@@ -26,7 +26,7 @@ body {
 .box-selected {
     background-color: #f99b1d;
 }
-
+*/
 .canvas svg {
     background-color: #2d3e4e;
     position: absolute;
@@ -148,7 +148,7 @@ input {
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
-
+/*
 .postit {
     position: 'absolute';
 	border: 0px solid grey;
@@ -165,4 +165,4 @@ input {
 .postit-selected {
 	border: 2px solid grey;
 }
-
+*/
