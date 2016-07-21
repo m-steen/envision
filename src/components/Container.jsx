@@ -4,14 +4,16 @@ import {ItemTypes} from './Constants';
 import {observer} from 'mobx-react';
 import PostIt from './PostIt';
 
+const borderWidth = 5;
+
 function getRelativeCoordinates(props, monitor) {
   const initialSourceOffset = monitor.getInitialSourceClientOffset();
   const initialOffset = monitor.getInitialClientOffset();
   const offset = monitor.getClientOffset();
   // coordinates are relative to their container. but the coordinates from dnd
   // are absolute, so we must translate them to relative container coordinates
-  const x = offset.x - (initialOffset.x - initialSourceOffset.x) - props.block.x;
-  const y = offset.y - (initialOffset.y - initialSourceOffset.y) - props.block.y;
+  const x = offset.x - (initialOffset.x - initialSourceOffset.x) - props.block.x - borderWidth;
+  const y = offset.y - (initialOffset.y - initialSourceOffset.y) - props.block.y - borderWidth;
 
   return {x: x, y: y};
 }
@@ -31,6 +33,12 @@ const containerTarget = {
   },
 
   drop(props, monitor) {
+    const initialSourceOffset = monitor.getInitialSourceClientOffset();
+    const initialOffset = monitor.getInitialClientOffset();
+    const offset = monitor.getClientOffset();
+    // coordinates are relative to their container. but the coordinates from dnd
+    // are absolute, so we must translate them to relative container coordinates
+
     const block = props.block;
     const postIt = monitor.getItem().postIt;
     const {x, y} = getRelativeCoordinates(props, monitor);
@@ -52,7 +60,6 @@ class Container extends Component {
     const {connectDropTarget, isOver} = this.props;
     const block = this.props.block;
     const postIts = block.postIts;
-
     return connectDropTarget(
       <div style={{
           position: 'absolute',
@@ -60,7 +67,8 @@ class Container extends Component {
           top: block.y,
           width: block.w,
           height: block.h,
-          border: '1px solid grey',
+          border: borderWidth + 'px solid grey',
+          boxSizing: 'border-box',
           backgroundColor: isOver ? 'lightgrey' : 'inherit'
         }}
         onClick={(e) => this.props.onSelect(null)}>
