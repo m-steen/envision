@@ -4,7 +4,7 @@ import {ItemTypes} from './Constants';
 import {observer} from 'mobx-react';
 import PostIt from './PostIt';
 
-const borderWidth = 5;
+const borderWidth = 2;
 
 function getRelativeCoordinates(props, monitor) {
   const initialSourceOffset = monitor.getInitialSourceClientOffset();
@@ -60,8 +60,9 @@ class Container extends Component {
     const {connectDropTarget, isOver} = this.props;
     const block = this.props.block;
     const postIts = block.postIts;
+    const titleClass = block.title.replace(/ /g,'').toLowerCase();
     return connectDropTarget(
-      <div style={{
+      <div className={"block " + titleClass} style={{
           position: 'absolute',
           left: block.x,
           top: block.y,
@@ -72,9 +73,10 @@ class Container extends Component {
           backgroundColor: isOver ? 'lightgrey' : 'inherit'
         }}
         onClick={(e) => this.props.onSelect(null)}>
-        <button type="button" className="add-button tooltip" style={{float: "right"}}
-          onClick={this.onAdd} >+<span className="tooltiptext">Add a new item to the {block.title}</span></button>
-        <p style={{float: "topleft", fontFamily: "Verdana, Arial, SansSerif", fontWeight: "bold", paddingLeft: "10px", paddingRight: "40px"}}>{block.title}</p>
+        <a onClick={this.onAdd}>+</a>
+        <h1 style={{float: "topleft", fontFamily: "Verdana, Arial, SansSerif", fontWeight: "bold", paddingLeft: "10px", paddingRight: "40px"}}>
+          {block.title}
+        </h1>
 
         {postIts.map(postIt =>
           <PostIt key={postIt.id} postIt={postIt} onSelect={this.props.onSelect} onDeletePostIt={this.props.onDeletePostIt}/>

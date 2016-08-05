@@ -8,10 +8,6 @@ import bmcPostIt from '../model/bmcPostIt';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-function deletePostIt() {
-
-}
-
 @observer
 class App extends Component {
   render() {

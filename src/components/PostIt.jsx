@@ -33,19 +33,18 @@ class PostIt extends Component {
     // the post it represented in SVG
     const {connectDragSource} = this.props;
     return connectDragSource(
-      <div className="postit" style={{
+      <div className={"postit " + color} style={{
           position: 'absolute',
           left: x,
           top: y,
           width: w - 2, // 1px border on both sides
           height: h - 2, // 1px border on both sides
-          border: "1px solid black",
-          backgroundColor: color
+          border: "1px solid black"
         }}
-        onClick={(e) => this.onClick(e)}>
-        <button type="button" className="delete-button tooltip"
-          onClick={(e) => this.onDelete(e)} style={{float: "right"}}>X<span className="tooltiptext">Remove {title}</span></button>
-        <p style={{float: "left", fontFamily: "Verdana", fontSize: "10pt", padding: "5px"}}>{title}</p>
+        onClick={(e) => {e.stopPropagation();
+        this.props.onSelect(this.props.postIt);}}>
+        <a onClick={(e) => this.onDelete(e)}>X</a>
+        <p>{title}</p>
       </div>);
   }
 

@@ -10,12 +10,12 @@ class Sidebar extends Component {
                 <input onChange={this.onChange} value={selection.title} />
                 X: {selection.x}, Y: {selection.y}
                 <div>
-                  <a onClick={(e) => this.onChangeColor("yellow")} className="color-button" style={{backgroundColor: "yellow"}}></a>
-                  <a onClick={(e) => this.onChangeColor("blue")} className="color-button" style={{backgroundColor: "blue"}}></a>
-                  <a onClick={(e) => this.onChangeColor("red")} className="color-button" style={{backgroundColor: "red"}}></a>
-                  <a onClick={(e) => this.onChangeColor("green")} className="color-button" style={{backgroundColor: "green"}}></a>
-                  <a onClick={(e) => this.onChangeColor("white")} className="color-button" style={{backgroundColor: "white"}}></a>
-                  <a onClick={(e) => this.onChangeColor("orange")} className="color-button" style={{backgroundColor: "orange"}}></a>
+                  <a onClick={(e) => this.onChangeColor("orange")} className="color-button orange"></a>
+                  <a onClick={(e) => this.onChangeColor("blue")} className="color-button blue"></a>
+                  <a onClick={(e) => this.onChangeColor("red")} className="color-button red"></a>
+                  <a onClick={(e) => this.onChangeColor("green")} className="color-button green"></a>
+                  <a onClick={(e) => this.onChangeColor("white")} className="color-button white"></a>
+                  <a onClick={(e) => this.onChangeColor("purple")} className="color-button purple"></a>
                 </div>
               </div>
             : <div className="sidebar" />;
@@ -23,12 +23,10 @@ class Sidebar extends Component {
 
     onChange = (e) => {
         this.props.store.selection.title = e.target.value;
-        console.log("Set title to: " + this.props.store.selection.title);
     }
 
     onChangeColor(color) {
       this.props.store.selection.color = color;
-      console.log("Set color to: " + color);
     }
 }
 
