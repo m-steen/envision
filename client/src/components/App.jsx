@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBarIconMenu from './Menu'
 import Canvas from './Canvas';
 import Sidebar from './Sidebar';
 import guid from '../AppState';
@@ -11,9 +13,10 @@ import HTML5Backend from 'react-dnd-html5-backend';
 @observer
 class App extends Component {
   render() {
-    return <div>
-        <a href="#" onClick={this.props.reload}>Load!</a> -
-        <a href="#" onClick={this.props.save}>Save!</a>
+    return (
+      <MuiThemeProvider>
+      <div>
+        <AppBarIconMenu reload={this.props.reload} save={this.props.save} />
         <Canvas model={this.props.store.model} onSelect={(object) => {
           this.props.store.selection = object;
         }}
@@ -48,7 +51,9 @@ class App extends Component {
           postIt.y = y;
         }}/>
         <Sidebar store={this.props.store}/>
-      </div>;
+      </div>
+      </MuiThemeProvider>
+    );
   }
 }
 

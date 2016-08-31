@@ -1,14 +1,14 @@
 {
-  "name": "mobx-react-envision",
+  "name": "envision-bmc",
   "version": "1.0.0",
-  "description": "Boilerplate for MobX + React project with JSX, ES6 compilation and hot code reloading",
+  "description": "Envision Business Model Canvas Modeler",
   "scripts": {
     "start": "node server.js",
     "lint": "eslint src"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mobxjs/mobx-react-boilerplate.git"
+    "url": "ssh://git@devserver11:7999/~b.molenkamp/envision.git"
   },
   "keywords": [
     "react",
@@ -17,12 +17,12 @@
     "mobx",
     "starter-kit"
   ],
-  "author": "Michel Weststrate <mweststrate@gmail.com> (http://github.com/mweststrate)",
-  "license": "MIT",
+  "author": "Bart Molenkamp <b.molenkamp@bizzdesign.com>",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mobxjs/mobx/issues"
+    "url": "mailto:b.molenkamp@bizzdesign.com"
   },
-  "homepage": "http://mobxjs.github.com/mobx",
+  "homepage": "http://www.businessmakeover.eu",
   "devDependencies": {
     "babel-core": "^6.9.1",
     "babel-eslint": "^6.1.0",
@@ -38,13 +38,13 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "mobx": "^2.2.2",
-    "mobx-react": "^3.3.1",
-    "mobx-react-devtools": "^4.2.0",
-    "react": "^15.1.0",
+    "material-ui": "^0.15.4",
+    "mobx": "^2.5.0",
+    "mobx-react": "^3.5.5",
+    "react": "^15.3.1",
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
-    "react-dom": "^15.1.0",
-    "react-draggable": "^2.1.2"
+    "react-dom": "^15.3.1",
+    "react-tap-event-plugin": "^1.0.0"
   }
 }

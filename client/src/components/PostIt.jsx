@@ -5,8 +5,6 @@ import {observer} from 'mobx-react';
 import {DragSource} from 'react-dnd';
 import {ItemTypes} from './Constants';
 
-import {DraggableCore} from 'react-draggable';
-
 const postItSource = {
   beginDrag(props) {
     return props;
