@@ -57,7 +57,7 @@ class App extends Component {
         onDragPostIt={(postIt, x, y) => {
           console.log("Dragging to " + x + "," + y);
         }}
-        onDropPostIt={(postIt, bx, by) => {
+        onDropPostIt={(postIt, bx, by, deltaX, deltaY) => {
           console.log("Drop post it at " + bx + "," + by);
 
           // find the current block
@@ -94,6 +94,8 @@ class App extends Component {
           }
           else {
             console.log("Drop it in " + targetBlock.title);
+            postIt.x += deltaX;
+            postIt.y += deltaY;
             if (currentBlock !== targetBlock) {
               for (let i = 0; i < currentBlock.postIts.length; i++) {
                 if (currentBlock.postIts[i] === postIt) {
@@ -103,8 +105,8 @@ class App extends Component {
               }
 
               // ajust coordinates to relatives
-              postIt.x = bx - targetBlock.x;// - targetBlock.x;
-              postIt.y = by - targetBlock.y;// - targetBlock.y;
+              postIt.x -= targetBlock.x - currentBlock.x;// - targetBlock.x;
+              postIt.y -= targetBlock.y - currentBlock.y;// - targetBlock.y;
             }
           }
         }}/>

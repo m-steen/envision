@@ -48,25 +48,23 @@ class PostIt extends Component {
     return <DraggableCore handle=".handle"
         onStart={(e, dragInfo) => this.props.onStartDragPostIt(this.props.postIt)}
         onDrag={(e, dragInfo) => handleDrag(this.props.postIt, dragInfo)}
-        onStop={(e, dragInfo) => this.props.onDropPostIt(this.props.postIt, dragInfo.x, dragInfo.y)}>
-      <div ref={(ref) => this.postItNode = ref}>
+        onStop={(e, dragInfo) => this.props.onDropPostIt(this.props.postIt, dragInfo.x, dragInfo.y, dragInfo.deltaX, dragInfo.deltaY)}>
       <Resizable height={h} width={w} onResize={(event, {size}) => onResize(this.props.postIt, size)}>
-      <div className={"postit " + color} style={{
-          position: 'absolute',
-          left: x,
-          top: y,
-          width: w - 2, // 1px border on both sides
-          height: h - 2, // 1px border on both sides
-          border: "1px solid black"
-        }}
-        onClick={(e) => {e.stopPropagation();
-        this.props.onSelect(this.props.postIt);}}>
-        <div className="handle">DRAG</div>
-        <a onClick={(e) => this.onDelete(e)}>X</a>
-        <p>{title}</p>
-      </div>
-    </Resizable>
-  </div>
+        <div className={"postit " + color} style={{
+            position: 'absolute',
+            left: x,
+            top: y,
+            width: w - 2, // 1px border on both sides
+            height: h - 2, // 1px border on both sides
+            border: "1px solid black"
+          }}
+          onClick={(e) => {e.stopPropagation();
+          this.props.onSelect(this.props.postIt);}}>
+          <div className="handle">DRAG</div>
+          <a onClick={(e) => this.onDelete(e)}>X</a>
+          <p>{title}</p>
+        </div>
+      </Resizable>
     </DraggableCore>;
   }
 
