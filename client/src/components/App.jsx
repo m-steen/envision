@@ -49,6 +49,64 @@ class App extends Component {
 
           postIt.x = x;
           postIt.y = y;
+        }}
+
+        onStartDragPostIt={(postIt) => {
+          console.log("Start dragging");
+        }}
+        onDragPostIt={(postIt, x, y) => {
+          console.log("Dragging to " + x + "," + y);
+        }}
+        onDropPostIt={(postIt, bx, by) => {
+          console.log("Drop post it at " + bx + "," + by);
+
+          // find the current block
+          const blocks = this.props.store.model.blocks;
+          let currentBlock = null;
+          for (let i = 0; i < blocks.length; i++) {
+            const block = blocks[i];
+            for (let j = 0; j < block.postIts.length; j++) {
+              const p = block.postIts[j];
+              if (p === postIt) {
+                currentBlock = block;
+                break;
+              }
+            }
+          }
+
+          // check if it moved to another block
+          // first find the block that houses the coordinates
+          let targetBlock = null;
+          for (let i = 0; i < blocks.length; i++) {
+            const block = blocks[i];
+            const {x, y, w, h} = block;
+            if (x <= bx &&
+              bx <= x + w &&
+              y <= by &&
+              by <= y + h) {
+                targetBlock = block;
+                break;
+              }
+          }
+
+          if (targetBlock == null) {
+            console.log("Block not found");
+          }
+          else {
+            console.log("Drop it in " + targetBlock.title);
+            if (currentBlock !== targetBlock) {
+              for (let i = 0; i < currentBlock.postIts.length; i++) {
+                if (currentBlock.postIts[i] === postIt) {
+                  currentBlock.postIts.splice(i, 1);
+                  targetBlock.postIts.push(postIt);
+                }
+              }
+
+              // ajust coordinates to relatives
+              postIt.x = bx - targetBlock.x;// - targetBlock.x;
+              postIt.y = by - targetBlock.y;// - targetBlock.y;
+            }
+          }
         }}/>
         <Sidebar store={this.props.store}/>
       </div>

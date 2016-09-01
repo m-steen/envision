@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {observable, transaction, computed} from 'mobx';
 import {observer} from 'mobx-react';
-
+import {Resizable} from 'react-resizable';
+import {DraggableCore} from 'react-draggable';
 import {DragSource} from 'react-dnd';
 import {ItemTypes} from './Constants';
 
@@ -18,10 +19,23 @@ function collect(connect, monitor) {
   }
 }
 
+function onResize(postIt, size) {
+  postIt.w = size.width;
+  postIt.h = size.height;
+}
+
+function handleDrag(postIt, dragInfo) {
+  //       transaction(() => {
+
+  postIt.x += dragInfo.deltaX;
+  postIt.y += dragInfo.deltaY;
+}
+
 @observer
 class PostIt extends Component {
-    render() {
-    const {title, color, x, y, w, h} = this.props.postIt;
+  render() {
+    const {x, y} = this.props;
+    const {title, color, w, h} = this.props.postIt;
 
     let textX = x + 20;
     let textY = y + 20;
@@ -30,7 +44,13 @@ class PostIt extends Component {
 
     // the post it represented in SVG
     const {connectDragSource} = this.props;
-    return connectDragSource(
+    //return //connectDragSource(
+    return <DraggableCore handle=".handle"
+        onStart={(e, dragInfo) => this.props.onStartDragPostIt(this.props.postIt)}
+        onDrag={(e, dragInfo) => handleDrag(this.props.postIt, dragInfo)}
+        onStop={(e, dragInfo) => this.props.onDropPostIt(this.props.postIt, dragInfo.x, dragInfo.y)}>
+      <div ref={(ref) => this.postItNode = ref}>
+      <Resizable height={h} width={w} onResize={(event, {size}) => onResize(this.props.postIt, size)}>
       <div className={"postit " + color} style={{
           position: 'absolute',
           left: x,
@@ -41,21 +61,18 @@ class PostIt extends Component {
         }}
         onClick={(e) => {e.stopPropagation();
         this.props.onSelect(this.props.postIt);}}>
+        <div className="handle">DRAG</div>
         <a onClick={(e) => this.onDelete(e)}>X</a>
         <p>{title}</p>
-      </div>);
+      </div>
+    </Resizable>
+  </div>
+    </DraggableCore>;
   }
 
   onClick(e) {
     e.stopPropagation();
     this.props.onSelect(this.props.postIt);
-  }
-
-  handleDrag = (e, dragInfo) => {
-      transaction(() => {
-          this.props.postIt.x += dragInfo.deltaX;
-          this.props.postIt.y += dragInfo.deltaY;
-      });
   }
 
   onDelete(e) {

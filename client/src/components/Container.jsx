@@ -78,9 +78,6 @@ class Container extends Component {
           {block.title}
         </h1>
 
-        {postIts.map(postIt =>
-          <PostIt key={postIt.id} postIt={postIt} onSelect={this.props.onSelect} onDeletePostIt={this.props.onDeletePostIt}/>
-        )}
 
       </div>);
   }
