@@ -31,6 +31,10 @@ function handleDrag(postIt, dragInfo) {
   postIt.y += dragInfo.deltaY;
 }
 
+function handleDrop(fn, postIt, dragInfo) {
+  setTimeout(() => fn(postIt, dragInfo.x, dragInfo.y, dragInfo.deltaX, dragInfo.deltaY), 1);
+}
+
 @observer
 class PostIt extends Component {
   render() {
@@ -48,7 +52,7 @@ class PostIt extends Component {
     return <DraggableCore handle=".handle"
         onStart={(e, dragInfo) => this.props.onStartDragPostIt(this.props.postIt)}
         onDrag={(e, dragInfo) => handleDrag(this.props.postIt, dragInfo)}
-        onStop={(e, dragInfo) => this.props.onDropPostIt(this.props.postIt, dragInfo.x, dragInfo.y, dragInfo.deltaX, dragInfo.deltaY)}>
+        onStop={(e, dragInfo) => handleDrop(this.props.onDropPostIt, this.props.postIt, dragInfo)}>
       <Resizable height={h} width={w} onResize={(event, {size}) => onResize(this.props.postIt, size)}>
         <div className={"postit " + color} style={{
             position: 'absolute',
