@@ -10,7 +10,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 function reload() {
-  fetch('http://localhost:3001/models/0')
+  fetch('http://webtoolstudio.bizzdesign.com:3001/models/0')
   .then(function(response) {
     return response.json();
   }).then(function(json) {
@@ -22,7 +22,7 @@ function reload() {
 
 function save() {
   const json = JSON.stringify(store.model);
-  fetch('http://localhost:3001/models/0', {
+  fetch('http://webtoolstudio.bizzdesign.com:3001/models/0', {
   	method: 'put',
     headers: new Headers({
   		'Content-Type': 'application/json'

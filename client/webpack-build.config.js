@@ -31,8 +31,7 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     // Transfer Files
     new TransferWebpackPlugin([
-      {from: 'www'},
-      {from: 'resources', to: 'resources'}
+      {from: 'www'}
     ]),
   ],
   module: {
