@@ -57,11 +57,12 @@ class PostIt extends Component {
     // the post it represented in SVG
     const {connectDragSource} = this.props;
     const selected = this.props.isSelected(this.props.postIt);
+    const dragHandleHeight = 20;
 
     const titleElem = selected?
       <textarea
           onChange={(e) => this.props.postIt.title = e.target.value}
-          style={{width: (w - 10) + "px", height: (h - 10) + "px"}}
+          style={{width: (w - 8) + "px", height: (h - dragHandleHeight - 8) + "px"}}
           ref="postItInput"
           value={title}>
       </textarea> :
@@ -72,7 +73,7 @@ class PostIt extends Component {
           onStart={(e, dragInfo) => this.props.onStartDragPostIt(this.props.postIt)}
           onDrag={(e, dragInfo) => handleDrag(this.props.postIt, dragInfo)}
           onStop={(e, dragInfo) => handleDrop(this.props.onDropPostIt, this.props.postIt, dragInfo)}>
-        <Resizable height={h} width={w} onResize={(event, {size}) => onResize(this.props.postIt, size)}>
+        <Resizable height={h} width={w} minConstraints={[100, 50]} onResize={(event, {size}) => onResize(this.props.postIt, size)}>
           <div className={"postit " + color} style={{
               position: 'absolute',
               left: x,
@@ -82,7 +83,7 @@ class PostIt extends Component {
               border: "1px solid black"
             }}
             onClick={(e) => { e.stopPropagation(); this.props.onSelect(this.props.postIt); }}>
-            {/*<div className="handle">DRAG</div>*/}
+            <div className="handle" style={{height: dragHandleHeight + "px"}}></div>
             {/*<a onClick={(e) => this.onDelete(e)}>X</a>*/}
 
             {titleElem}
