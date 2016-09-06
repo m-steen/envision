@@ -55,14 +55,10 @@ class App extends Component {
         isSelected={(postIt) => this.props.store.selection === postIt}
 
         onStartDragPostIt={(postIt) => {
-          console.log("Start dragging");
         }}
         onDragPostIt={(postIt, x, y) => {
-          console.log("Dragging to " + x + "," + y);
         }}
         onDropPostIt={(postIt, bx, by, deltaX, deltaY) => {
-          console.log("Drop post it at " + bx + "," + by);
-
           // find the current block
           const blocks = this.props.store.model.blocks;
           let currentBlock = null;
@@ -96,7 +92,6 @@ class App extends Component {
             console.log("Block not found");
           }
           else {
-            console.log("Drop it in " + targetBlock.title);
             postIt.x += deltaX;
             postIt.y += deltaY;
             if (currentBlock !== targetBlock) {
