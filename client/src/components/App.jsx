@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
-      <div>
+      <div onClick={(e) => this.props.store.selection = null}>
         <AppBarIconMenu reload={this.props.reload} save={this.props.save} />
         <Canvas model={this.props.store.model} onSelect={(object) => {
           this.props.store.selection = object;
@@ -51,6 +51,8 @@ class App extends Component {
           postIt.x = x;
           postIt.y = y;
         }}
+
+        isSelected={(postIt) => this.props.store.selection === postIt}
 
         onStartDragPostIt={(postIt) => {
           console.log("Start dragging");
@@ -111,7 +113,10 @@ class App extends Component {
             }
           }
         }}/>
+
+        {/*
         <Sidebar store={this.props.store}/>
+        */}
       </div>
       </MuiThemeProvider>
     );

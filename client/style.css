@@ -125,6 +125,20 @@ input {
   z-index: 999;
 }
 
+.postit p, .postit textarea {
+  display: block;
+  margin: 3px;
+  padding: 3px;
+  background-color: inherit;
+  font: inherit;
+}
+
+.postit textarea {
+  padding: 2px;
+  border: 1px solid grey;
+  resize: none;
+}
+
 .postit > a {
   float: right;
   font-size: 1em;
