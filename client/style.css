@@ -140,6 +140,9 @@ input {
   resize: none;
 }
 
+.postit.selected {
+}
+
 .postit .handle {
   border: 0;
   margin: 0;
@@ -163,6 +166,7 @@ input {
 .react-draggable-dragging {
   z-index: 999;
 }
+
 .react-resizable {
   position: relative;
 }
