@@ -37,6 +37,7 @@ class Canvas extends Component {
               onDropPostIt={this.props.onDropPostIt}
               onMoveToFront={this.props.onMoveToFront}
               onMoveToBack={this.props.onMoveToBack}
+              onDuplicatePostIt={this.props.onDuplicatePostIt}
               isSelected={this.props.isSelected}/>
           ))}
       </div>

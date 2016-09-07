@@ -55,6 +55,20 @@ class App extends Component {
           postIt.x = x;
           postIt.y = y;
         }}
+        onDuplicatePostIt={(postIt) => {
+          for (let b of this.props.store.model.blocks) {
+            for (let i = 0; i < b.postIts.length; i++) {
+              if (b.postIts[i] === postIt) {
+                const {title, x, y, w, h, color} = postIt;
+                const duplicate = new bmcPostIt(title, x + 20, y + 20, w, h, color);
+                b.postIts.push(duplicate);
+                this.props.store.selection = duplicate;
+                return;
+              }
+            }
+          }
+
+        }}
         onMoveToFront={(postIt) => {
           for (let b of this.props.store.model.blocks) {
             for (let i = 0; i < b.postIts.length; i++) {
