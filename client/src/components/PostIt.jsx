@@ -72,12 +72,14 @@ class PostIt extends Component {
         <div>
           <a className="color-button handle" onClick={(e) => e.stopPropagation()}>D</a>
           <a className="color-button" onClick={(e) => this.onDelete(e)}>X</a>
+          <a className="color-button" onClick={(e) => this.onMoveToFront(e)}>F</a>
+          <a className="color-button" onClick={(e) => this.onMoveToBack(e)}>B</a>
           <a onClick={(e) => this.onChangeColor(e, "orange")} className="color-button orange"></a>
           <a onClick={(e) => this.onChangeColor(e, "blue")} className="color-button blue"></a>
           <a onClick={(e) => this.onChangeColor(e, "red")} className="color-button red"></a>
           <a onClick={(e) => this.onChangeColor(e, "green")} className="color-button green"></a>
-          <a onClick={(e) => this.onChangeColor(e, "white")} className="color-button white"></a>
-          <a onClick={(e) => this.onChangeColor(e, "purple")} className="color-button purple"></a>
+          {/*<a onClick={(e) => this.onChangeColor(e, "white")} className="color-button white"></a>
+        <a onClick={(e) => this.onChangeColor(e, "purple")} className="color-button purple"></a>*/}
         </div>
       </div> :
       undefined;
@@ -120,6 +122,16 @@ class PostIt extends Component {
         </div>
       </DraggableCore>
     </div>;
+  }
+
+  onMoveToFront(e) {
+    e.stopPropagation();
+    this.props.onMoveToFront(this.props.postIt);
+  }
+
+  onMoveToBack(e) {
+    e.stopPropagation();
+    this.props.onMoveToBack(this.props.postIt);
   }
 
   onChangeColor(e, color) {

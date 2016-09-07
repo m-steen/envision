@@ -35,6 +35,8 @@ class Canvas extends Component {
               onStartDragPostIt={this.props.onStartDragPostIt}
               onDragPostIt={this.props.onDragPostIt}
               onDropPostIt={this.props.onDropPostIt}
+              onMoveToFront={this.props.onMoveToFront}
+              onMoveToBack={this.props.onMoveToBack}
               isSelected={this.props.isSelected}/>
           ))}
       </div>

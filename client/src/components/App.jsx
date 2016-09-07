@@ -27,7 +27,7 @@ class App extends Component {
           const py = y === undefined? 50+20*size : y - 40 - block.y;
           const postIt = new bmcPostIt('New PostIt ' + size, px, py, 120, 80);
           block.postIts.push(postIt);
-          this.props.store.selection = postIt; 
+          this.props.store.selection = postIt;
         }}
         onDeletePostIt={(postIt) => {
           for (let block of this.props.store.model.blocks) {
@@ -54,6 +54,28 @@ class App extends Component {
 
           postIt.x = x;
           postIt.y = y;
+        }}
+        onMoveToFront={(postIt) => {
+          for (let b of this.props.store.model.blocks) {
+            for (let i = 0; i < b.postIts.length; i++) {
+              if (b.postIts[i] === postIt) {
+                b.postIts.splice(i, 1);
+                b.postIts.push(postIt);
+                return;
+              }
+            }
+          }
+        }}
+        onMoveToBack={(postIt) => {
+          for (let b of this.props.store.model.blocks) {
+            for (let i = 0; i < b.postIts.length; i++) {
+              if (b.postIts[i] === postIt) {
+                b.postIts.splice(i, 1);
+                b.postIts.unshift(postIt);
+                return;
+              }
+            }
+          }
         }}
 
         isSelected={(postIt) => this.props.store.selection === postIt}
