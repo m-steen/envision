@@ -9,15 +9,17 @@ export default class bmcBlock {
     @observable y = 0;
     @observable w = 0;
     @observable h = 0;
+    @observable showHelp = false;
+    helpText = '';
 
-    constructor( title, x, y, w, h ) {
+    constructor( title, x, y, w, h, helpText ) {
         this.id = guid();
         this.title = title;
-        this.postIts = [];
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
+        this.helpText = helpText;
     }
 
 

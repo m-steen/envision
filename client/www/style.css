@@ -180,3 +180,12 @@ input {
   box-sizing: border-box;
   cursor: se-resize;
 }
+
+.tooltip {
+  padding: 4px;
+  position: relative;
+  border: 0px solid black;
+  background-color: lightgrey;
+  font-family: "Verdana";
+  font-size: 10pt;
+}

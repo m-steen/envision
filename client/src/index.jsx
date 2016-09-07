@@ -34,9 +34,9 @@ function save() {
 };
 
 // add a dummy post it
-const postIt = new bmcPostIt('New PostIt', 20, 50, 120, 80);
+const postIt = new bmcPostIt('Click to edit', 20, 50);
 store.model.blocks[0].postIts.push(postIt);
-store.selection = postIt;
+// store.selection = postIt;
 
 render(
   //<AppContainer>
@@ -47,15 +47,4 @@ render(
   , document.getElementById('root')
 );
 
-/*if (module.hot) {
-  module.hot.accept('./App', () => {
-    const NextApp = require('./App').default;
 
-    render(
-      <AppContainer>
-        <NextApp appState={appState} />
-      </AppContainer>,
-      document.getElementById('root')
-    );
-  });
-}*/

@@ -17,13 +17,13 @@ class App extends Component {
     return (
       <MuiThemeProvider>
       <div onClick={(e) => this.props.store.selection = null}>
-        <AppBarIconMenu reload={this.props.reload} save={this.props.save} />
+        <AppBarIconMenu title={this.props.store.model.title} reload={this.props.reload} save={this.props.save} />
         <Canvas model={this.props.store.model} onSelect={(object) => {
           this.props.store.selection = object;
         }}
         onAddPostIt={(block) => {
           const size = block.postIts.length;
-          block.postIts.push( new bmcPostIt( 'New PostIt '+size, 20+10*size, 50+20*size, 120, 80 ) )
+          block.postIts.push( new bmcPostIt( 'Click to edit', 20+10*size, 50+20*size ) )
         }}
         onDeletePostIt={(postIt) => {
           for (let block of this.props.store.model.blocks) {
