@@ -45,7 +45,9 @@ class PostIt extends Component {
   componentDidUpdate() {
     const selected = this.props.isSelected(this.props.postIt);
     if (selected) {
-      ReactDOM.findDOMNode(this.refs.postItInput).focus();
+      const node = ReactDOM.findDOMNode(this.refs.postItInput);
+      node.focus();
+      node.select();
     }
   }
 

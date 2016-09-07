@@ -95,6 +95,9 @@ class App extends Component {
         isSelected={(postIt) => this.props.store.selection === postIt}
 
         onStartDragPostIt={(postIt) => {
+          if (postIt !== this.props.store.selection) {
+            this.props.store.selection = postIt;
+          }
         }}
         onDragPostIt={(postIt, x, y) => {
         }}
