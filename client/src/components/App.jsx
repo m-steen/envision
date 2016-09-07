@@ -21,9 +21,13 @@ class App extends Component {
         <Canvas model={this.props.store.model} onSelect={(object) => {
           this.props.store.selection = object;
         }}
-        onAddPostIt={(block) => {
+        onAddPostIt={(block, x, y) => {
           const size = block.postIts.length;
-          block.postIts.push( new bmcPostIt( 'New PostIt '+size, 20+10*size, 50+20*size, 120, 80 ) )
+          const px = x === undefined? 20+10*size : x - 60 - block.x;
+          const py = y === undefined? 50+20*size : y - 40 - block.y;
+          const postIt = new bmcPostIt('New PostIt ' + size, px, py, 120, 80);
+          block.postIts.push(postIt);
+          this.props.store.selection = postIt; 
         }}
         onDeletePostIt={(postIt) => {
           for (let block of this.props.store.model.blocks) {

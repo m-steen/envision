@@ -72,6 +72,7 @@ class Container extends Component {
           boxSizing: 'border-box',
           backgroundColor: isOver ? 'lightgrey' : 'inherit'
         }}
+        onDoubleClick={(e) => this.props.onAddPostIt(this.props.block, e.pageX, e.pageY)}
         onClick={(e) => this.props.onSelect(null)}>
         <a onClick={this.onAdd}>+</a>
         <h1 style={{float: "topleft", fontFamily: "Verdana, Arial, SansSerif", fontWeight: "bold", paddingLeft: "10px", paddingRight: "40px"}}>

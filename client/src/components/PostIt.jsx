@@ -38,6 +38,10 @@ function handleDrop(fn, postIt, dragInfo) {
 
 @observer
 class PostIt extends Component {
+  componentDidMount() {
+    this.componentDidUpdate();
+  }
+
   componentDidUpdate() {
     const selected = this.props.isSelected(this.props.postIt);
     if (selected) {

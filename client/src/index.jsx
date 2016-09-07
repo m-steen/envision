@@ -34,9 +34,9 @@ function save() {
 };
 
 // add a dummy post it
-const postIt = new bmcPostIt('New PostIt', 20, 50, 120, 80);
-store.model.blocks[0].postIts.push(postIt);
-store.selection = postIt;
+//const postIt = new bmcPostIt('New PostIt', 20, 50, 120, 80);
+//store.model.blocks[0].postIts.push(postIt);
+//store.selection = postIt;
 
 render(
   //<AppContainer>
