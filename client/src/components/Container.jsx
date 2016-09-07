@@ -74,7 +74,8 @@ class Container extends Component {
         }}
         onDoubleClick={(e) => this.props.onAddPostIt(this.props.block, e.pageX, e.pageY)}
         onClick={(e) => this.props.onSelect(null)}>
-        <a onClick={this.onAdd}>+</a>
+        <a onClick={this.onAdd}
+          onDoubleClick={(e) => e.stopPropagation()}>+</a>
         <h1 style={{float: "topleft", fontFamily: "Verdana, Arial, SansSerif", fontWeight: "bold", paddingLeft: "10px", paddingRight: "40px"}}>
           {block.title}
         </h1>
