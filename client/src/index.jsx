@@ -4,6 +4,8 @@ import { render } from 'react-dom';
 import store from './AppState';
 import App from './components/App';
 
+import bmcPostIt from './model/bmcPostIt';
+
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -30,6 +32,11 @@ function save() {
     body: json
   });
 };
+
+// add a dummy post it
+const postIt = new bmcPostIt('New PostIt', 20, 50, 120, 80);
+store.model.blocks[0].postIts.push(postIt);
+store.selection = postIt;
 
 render(
   //<AppContainer>
