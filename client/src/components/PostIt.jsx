@@ -4,33 +4,11 @@ import {observable, transaction, computed} from 'mobx';
 import {observer} from 'mobx-react';
 import {Resizable} from 'react-resizable';
 import {DraggableCore} from 'react-draggable';
-import {DragSource} from 'react-dnd';
-import {ItemTypes} from './Constants';
-
-const postItSource = {
-  beginDrag(props) {
-    return props;
-  }
-};
-
-function collect(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  }
-}
 
 function onResize(postIt, size) {
   postIt.w = size.width;
   postIt.h = size.height;
 }
-/*
-function handleDrag(postIt, dragInfo) {
-  //       transaction(() => {
-
-  postIt.x += dragInfo.deltaX;
-  postIt.y += dragInfo.deltaY;
-}*/
 
 function handleDrop(fn, postIt, dragInfo) {
   setTimeout(() => fn(postIt, dragInfo.x, dragInfo.y, dragInfo.deltaX, dragInfo.deltaY), 1);
@@ -39,7 +17,7 @@ function handleDrop(fn, postIt, dragInfo) {
 @observer
 class PostIt extends Component {
   componentDidMount() {
-    this.componentDidUpdate();
+    componentDidUpdate();
   }
 
   componentDidUpdate() {
@@ -47,7 +25,7 @@ class PostIt extends Component {
     if (selected) {
       const node = ReactDOM.findDOMNode(this.refs.postItInput);
       node.focus();
-      node.select();
+      //node.select();
     }
   }
 
@@ -61,7 +39,6 @@ class PostIt extends Component {
     let textH = h - 40;
 
     // the post it represented in SVG
-    const {connectDragSource} = this.props;
     const selected = this.props.isSelected(this.props.postIt);
     const dragHandleHeight = 20;
 
@@ -167,4 +144,4 @@ class PostIt extends Component {
   }
 }
 
-export default DragSource(ItemTypes.POSTIT, postItSource, collect)(PostIt);
+export default PostIt;
