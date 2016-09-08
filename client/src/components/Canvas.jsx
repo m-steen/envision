@@ -8,8 +8,7 @@ class Canvas extends Component {
 
   render() {
     return <div style={{
-      height: '100%',
-      width: '100%'
+        height: '768px'
     }}>
       <div>
         {this.props.model.blocks.map((block) =>

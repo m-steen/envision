@@ -5,7 +5,8 @@ import {observer} from 'mobx-react';
 import {Resizable} from 'react-resizable';
 import {DraggableCore} from 'react-draggable';
 
-function onResize(postIt, size) {
+function onResize(e, postIt, size) {
+  event.preventDefault();
   postIt.w = size.width;
   postIt.h = size.height;
 }
@@ -17,14 +18,19 @@ function handleDrop(fn, postIt, dragInfo) {
 @observer
 class PostIt extends Component {
   componentDidMount() {
-    componentDidUpdate();
+    const selected = this.props.isSelected(this.props.postIt);
+    if (selected) {
+      const node = ReactDOM.findDOMNode(this.refs.postItInput);
+      //node.focus();
+      //node.select();
+    }
   }
 
   componentDidUpdate() {
     const selected = this.props.isSelected(this.props.postIt);
     if (selected) {
       const node = ReactDOM.findDOMNode(this.refs.postItInput);
-      node.focus();
+      //node.focus();
       //node.select();
     }
   }
@@ -76,13 +82,13 @@ class PostIt extends Component {
     return <div>
       <DraggableCore handle=".handle"
           onStart={(e, dragInfo) => this.props.onStartDragPostIt(this.props.postIt)}
-          onDrag={(e, dragInfo) => this.handleDrag(dragInfo)}
+          onDrag={(e, dragInfo) => this.handleDrag(e, dragInfo)}
           onStop={(e, dragInfo) => handleDrop(this.props.onDropPostIt, this.props.postIt, dragInfo)}>
 
         <div>
           {toolBarElem}
 
-          <Resizable height={h} width={w} minConstraints={[100, 50]} onResize={(event, {size}) => onResize(this.props.postIt, size)}>
+          <Resizable height={h} width={w} minConstraints={[98, 50]} onResize={(event, {size}) => onResize(event, this.props.postIt, size)}>
             <div className={"postit " + color + (selected? " selected" : "")} style={{
                   position: 'absolute',
                   left: x,
@@ -135,7 +141,8 @@ class PostIt extends Component {
     this.props.onDeletePostIt(postIt);
   }
 
-  handleDrag(dragInfo) {
+  handleDrag(e, dragInfo) {
+    e.preventDefault();
     //       transaction(() => {
     const postIt = this.props.postIt;
     postIt.x += dragInfo.deltaX;
