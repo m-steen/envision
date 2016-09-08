@@ -57,7 +57,7 @@ function collect(connect, monitor) {
 class Container extends Component {
 
   render() {
-    const {connectDropTarget, isOver} = this.props;
+    const {connectDropTarget} = this.props;
     const block = this.props.block;
     const postIts = block.postIts;
     const titleClass = block.title.replace(/ /g,'').toLowerCase();
@@ -70,7 +70,7 @@ class Container extends Component {
           height: block.h,
           border: borderWidth + 'px solid grey',
           boxSizing: 'border-box',
-          backgroundColor: isOver ? 'lightgrey' : 'inherit'
+          backgroundColor: 'inherit'
         }}
         onDoubleClick={(e) => this.props.onAddPostIt(this.props.block, e.pageX, e.pageY)}
         onClick={(e) => this.props.onSelect(null)}>

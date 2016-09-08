@@ -24,13 +24,13 @@ function onResize(postIt, size) {
   postIt.w = size.width;
   postIt.h = size.height;
 }
-
+/*
 function handleDrag(postIt, dragInfo) {
   //       transaction(() => {
 
   postIt.x += dragInfo.deltaX;
   postIt.y += dragInfo.deltaY;
-}
+}*/
 
 function handleDrop(fn, postIt, dragInfo) {
   setTimeout(() => fn(postIt, dragInfo.x, dragInfo.y, dragInfo.deltaX, dragInfo.deltaY), 1);
@@ -99,7 +99,7 @@ class PostIt extends Component {
     return <div>
       <DraggableCore handle=".handle"
           onStart={(e, dragInfo) => this.props.onStartDragPostIt(this.props.postIt)}
-          onDrag={(e, dragInfo) => handleDrag(this.props.postIt, dragInfo)}
+          onDrag={(e, dragInfo) => this.handleDrag(dragInfo)}
           onStop={(e, dragInfo) => handleDrop(this.props.onDropPostIt, this.props.postIt, dragInfo)}>
 
         <div>
@@ -156,6 +156,14 @@ class PostIt extends Component {
     e.stopPropagation();
     const postIt = this.props.postIt;
     this.props.onDeletePostIt(postIt);
+  }
+
+  handleDrag(dragInfo) {
+    //       transaction(() => {
+    const postIt = this.props.postIt;
+    postIt.x += dragInfo.deltaX;
+    postIt.y += dragInfo.deltaY;
+    this.props.onDragPostIt(postIt, dragInfo.x, dragInfo.y);
   }
 }
 

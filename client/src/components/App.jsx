@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBarIconMenu from './Menu'
 import Canvas from './Canvas';
 import Sidebar from './Sidebar';
-import guid from '../AppState';
+import {findBlockForPostItXY, findBlockFor} from '../AppState';
 import bmcPostIt from '../model/bmcPostIt';
 
 import {DragDropContext} from 'react-dnd';
@@ -18,7 +18,7 @@ class App extends Component {
       <MuiThemeProvider>
       <div onClick={(e) => this.props.store.selection = null}>
         <AppBarIconMenu reload={this.props.reload} save={this.props.save} />
-        <Canvas model={this.props.store.model} onSelect={(object) => {
+        <Canvas store={this.props.store} model={this.props.store.model} onSelect={(object) => {
           this.props.store.selection = object;
         }}
         onAddPostIt={(block, x, y) => {
@@ -95,66 +95,35 @@ class App extends Component {
         isSelected={(postIt) => this.props.store.selection === postIt}
 
         onStartDragPostIt={(postIt) => {
-          if (postIt !== this.props.store.selection) {
-            this.props.store.selection = postIt;
+          const store = this.props.store;
+          store.dragging = postIt;
+          if (postIt !== store.selection) {
+            store.selection = postIt;
           }
         }}
         onDragPostIt={(postIt, x, y) => {
         }}
         onDropPostIt={(postIt, bx, by, deltaX, deltaY) => {
+          const store = this.props.store;
+          store.dragging = null;
+
           // find the current block
-          const blocks = this.props.store.model.blocks;
-          let currentBlock = null;
-          for (let i = 0; i < blocks.length; i++) {
-            const block = blocks[i];
-            for (let j = 0; j < block.postIts.length; j++) {
-              const p = block.postIts[j];
-              if (p === postIt) {
-                currentBlock = block;
-                break;
+          const currentBlock = findBlockFor(store.model, postIt);
+          const targetBlock = findBlockForPostItXY(store.model, postIt);
+
+          if (currentBlock !== targetBlock) {
+            for (let i = 0; i < currentBlock.postIts.length; i++) {
+              if (currentBlock.postIts[i] === postIt) {
+                currentBlock.postIts.splice(i, 1);
+                targetBlock.postIts.push(postIt);
               }
             }
-          }
 
-          // check if it moved to another block
-          // first find the block that houses the coordinates
-          let targetBlock = null;
-          for (let i = 0; i < blocks.length; i++) {
-            const block = blocks[i];
-            const {x, y, w, h} = block;
-            if (x <= bx &&
-              bx <= x + w &&
-              y <= by &&
-              by <= y + h) {
-                targetBlock = block;
-                break;
-              }
-          }
-
-          if (targetBlock == null) {
-            console.log("Block not found");
-          }
-          else {
-            postIt.x += deltaX;
-            postIt.y += deltaY;
-            if (currentBlock !== targetBlock) {
-              for (let i = 0; i < currentBlock.postIts.length; i++) {
-                if (currentBlock.postIts[i] === postIt) {
-                  currentBlock.postIts.splice(i, 1);
-                  targetBlock.postIts.push(postIt);
-                }
-              }
-
-              // ajust coordinates to relatives
-              postIt.x -= targetBlock.x - currentBlock.x;// - targetBlock.x;
-              postIt.y -= targetBlock.y - currentBlock.y;// - targetBlock.y;
-            }
+            // ajust coordinates to relatives
+            postIt.x -= targetBlock.x - currentBlock.x;// - targetBlock.x;
+            postIt.y -= targetBlock.y - currentBlock.y;// - targetBlock.y;
           }
         }}/>
-
-        {/*
-        <Sidebar store={this.props.store}/>
-        */}
       </div>
       </MuiThemeProvider>
     );
