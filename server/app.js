@@ -42,7 +42,7 @@ app.get('/models/', function(req, res) {
   // First read existing users.
   loadRepository(function(repository) {
     var models = repository.models;
-    console.log(models);
+    // console.log(models);
     res.end(JSON.stringify(models));
   });
 });
