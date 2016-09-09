@@ -35,6 +35,8 @@ export default class bmcModel {
     ];
     // allow postits also outside of blocks
     @observable postIts = [];
+    @observable x = 0;
+    @observable y = 0;
 
     constructor( title ) {
         this.id = guid();
