@@ -43,7 +43,7 @@ export function findBlockFor(model, postIt) {
       }
     }
   }
-  return null;
+  return model;
 }
 
 export function isPointInBlock(point, block) {
@@ -67,6 +67,7 @@ export function findBlockForPostItXY(model, postIt) {
       return block;
     }
   }
+  return model;
 }
 
 export function isOver(store, block) {

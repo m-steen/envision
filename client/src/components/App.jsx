@@ -20,10 +20,9 @@ class App extends Component {
         }}
         onAddPostIt={(block, x, y) => {
           const size = block.postIts.length;
-          block.postIts.push( new bmcPostIt( 'Click to edit', 20+10*size, 50+20*size ) )
           const px = x === undefined? 20+10*size : x - 60 - block.x;
           const py = y === undefined? 50+20*size : y - 40 - block.y;
-          const postIt = new bmcPostIt('New PostIt ' + size, px, py);
+          const postIt = new bmcPostIt('Click to edit', px, py);
           block.postIts.push(postIt);
           this.props.store.selection = postIt;
         }}
@@ -118,8 +117,13 @@ class App extends Component {
             }
 
             // ajust coordinates to relatives
-            postIt.x -= targetBlock.x - currentBlock.x;// - targetBlock.x;
-            postIt.y -= targetBlock.y - currentBlock.y;// - targetBlock.y;
+            if (targetBlock === store.model) {
+              postIt.x += currentBlock.x;
+              postIt.y += currentBlock.y;
+            } else {
+              postIt.x -= targetBlock.x - currentBlock.x;// - targetBlock.x;
+              postIt.y -= targetBlock.y - currentBlock.y;// - targetBlock.y;
+            }
           }
         }}/>
       </div>

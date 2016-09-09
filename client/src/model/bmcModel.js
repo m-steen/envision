@@ -33,6 +33,8 @@ export default class bmcModel {
         new bmcBlock('Revenue Streams',         512, 540, 500, 220,
             'Help text')
     ];
+    // allow postits also outside of blocks
+    @observable postIts = [];
 
     constructor( title ) {
         this.id = guid();

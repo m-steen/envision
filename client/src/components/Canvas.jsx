@@ -40,6 +40,23 @@ class Canvas extends Component {
               isSelected={this.props.isSelected}/>
           ))}
       </div>
+      
+      <div>
+        {this.props.model.postIts.map(postIt =>
+            <PostIt key={postIt.id} postIt={postIt}
+              x={postIt.x}
+              y={postIt.y}
+              onSelect={this.props.onSelect}
+              onDeletePostIt={this.props.onDeletePostIt}
+              onStartDragPostIt={this.props.onStartDragPostIt}
+              onDragPostIt={this.props.onDragPostIt}
+              onDropPostIt={this.props.onDropPostIt}
+              onMoveToFront={this.props.onMoveToFront}
+              onMoveToBack={this.props.onMoveToBack}
+              onDuplicatePostIt={this.props.onDuplicatePostIt}
+              isSelected={this.props.isSelected}/>
+          )}
+      </div>
     </div>;
   }
 }
