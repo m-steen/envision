@@ -36,7 +36,7 @@ function save() {
 // add a dummy post it
 const postIt = new bmcPostIt('Click to edit', 20, 50);
 store.model.blocks[0].postIts.push(postIt);
-// store.selection = postIt;
+//store.selection = postIt;
 
 render(
   //<AppContainer>

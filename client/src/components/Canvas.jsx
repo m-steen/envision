@@ -8,8 +8,7 @@ class Canvas extends Component {
 
   render() {
     return <div style={{
-      height: '100%',
-      width: '100%'
+        height: '768px'
     }}>
       <div>
         {this.props.model.blocks.map((block) =>
@@ -35,6 +34,9 @@ class Canvas extends Component {
               onStartDragPostIt={this.props.onStartDragPostIt}
               onDragPostIt={this.props.onDragPostIt}
               onDropPostIt={this.props.onDropPostIt}
+              onMoveToFront={this.props.onMoveToFront}
+              onMoveToBack={this.props.onMoveToBack}
+              onDuplicatePostIt={this.props.onDuplicatePostIt}
               isSelected={this.props.isSelected}/>
           ))}
       </div>
