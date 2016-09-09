@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <MuiThemeProvider>
       <div onClick={(e) => this.props.store.selection = null}>
-        <AppBarIconMenu title={this.props.store.model.title} reload={this.props.reload} save={this.props.save} />
+        <AppBarIconMenu title={this.props.store.model.title} reload={this.props.reload} save={this.props.save} exportToJson={this.props.exportToJson}/>
         <Canvas store={this.props.store} model={this.props.store.model} onSelect={(object) => {
           this.props.store.selection = object;
         }}

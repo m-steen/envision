@@ -27,7 +27,7 @@ class AppBarIconMenu extends Component {
 							<MenuItem primaryText="Save" onClick={this.props.save}/>
 							<MenuItem primaryText="SaveAs" onClick={this.props.save}/>
 							<MenuItem primaryText="Help" onClick={this.help}/>
-							<MenuItem primaryText="Export" onClick={this.exportToJson}/>
+							<MenuItem primaryText="Export" onClick={this.props.exportToJson}/>
 						</IconMenu>
 					}
 
@@ -51,9 +51,6 @@ class AppBarIconMenu extends Component {
 	help() {
 		window.alert("Help not implemented yet.");
 	}
-	exportToJson() {
-		window.alert("Export to Json not implemented yet.");
-	};
 };
 
 export default AppBarIconMenu;

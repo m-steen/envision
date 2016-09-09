@@ -33,6 +33,11 @@ function save() {
   });
 };
 
+function exportToJson() {
+  const json = JSON.stringify(store.model);
+  window.open('http://webtoolstudio.bizzdesign.com:3001/models/0', '_blank');
+};
+
 // add a dummy post it
 const postIt = new bmcPostIt('Click to edit', 20, 50);
 store.model.blocks[0].postIts.push(postIt);
@@ -42,7 +47,8 @@ render(
   //<AppContainer>
     <App store={store}
       save={() => save()}
-      reload={() => reload()}/>
+      reload={() => reload()}
+      exportToJson={() => exportToJson()}/>
   //</AppContainer>,
   , document.getElementById('root')
 );
