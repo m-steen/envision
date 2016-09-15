@@ -46,7 +46,7 @@ class PostIt extends Component {
 
     // the post it represented in SVG
     const selected = this.props.isSelected(this.props.postIt);
-    const dragHandleHeight = 20;
+    const dragHandleHeight = 12;
 
     const toolBarElem = selected?
       <div className="toolbar" style={{
@@ -55,17 +55,16 @@ class PostIt extends Component {
           top: y - 40
         }}>
         <div>
-          <a className="color-button handle" onClick={(e) => e.stopPropagation()}>D</a>
-          <a className="color-button" onClick={(e) => this.onDelete(e)}>X</a>
-          <a className="color-button" onClick={(e) => this.onMoveToFront(e)}>F</a>
-          <a className="color-button" onClick={(e) => this.onMoveToBack(e)}>B</a>
-          <a className="color-button" onClick={(e) => this.onDuplicatePostIt(e)}>C</a>
+          <a className="color-button handle" onClick={(e) => e.stopPropagation()}><i className="fa fa-arrows" style={{fontSize: "18px", padding: "1px", width: "18px", textAlign: "center", cursor: "pointer"}}></i></a>
+          <a className="color-button" onClick={(e) => this.onDelete(e)}><i className="fa fa-remove" style={{fontSize: "18px", padding: "1px", width: "18px", textAlign: "center", cursor: "pointer"}}></i></a>
+          <a className="color-button" onClick={(e) => this.onMoveToFront(e)}><p style={{fontSize: "18px", padding: "1px", margin: "0px", width: "18px", textAlign: "center", cursor: "pointer"}}>F</p></a>
+          <a className="color-button" onClick={(e) => this.onMoveToBack(e)}><p style={{fontSize: "18px", padding: "1px", margin: "0px", width: "18px", textAlign: "center", cursor: "pointer"}}>B</p></a>
+          <a className="color-button" onClick={(e) => this.onDuplicatePostIt(e)}><i className="fa fa-files-o" style={{fontSize: "18px", padding: "1px", width: "18px", textAlign: "center", cursor: "pointer"}}></i></a>
           <a onClick={(e) => this.onChangeColor(e, "orange")} className="color-button orange"></a>
           <a onClick={(e) => this.onChangeColor(e, "blue")} className="color-button blue"></a>
-          <a onClick={(e) => this.onChangeColor(e, "red")} className="color-button red"></a>
-          {/*<a onClick={(e) => this.onChangeColor(e, "green")} className="color-button green"></a>
-          <a onClick={(e) => this.onChangeColor(e, "white")} className="color-button white"></a>
-        <a onClick={(e) => this.onChangeColor(e, "purple")} className="color-button purple"></a>*/}
+          <a onClick={(e) => this.onChangeColor(e, "yellow")} className="color-button yellow"></a>
+          <a onClick={(e) => this.onChangeColor(e, "green")} className="color-button green"></a>
+          <a onClick={(e) => this.onChangeColor(e, "pink")} className="color-button pink"></a>
         </div>
       </div> :
       undefined;
@@ -95,11 +94,10 @@ class PostIt extends Component {
                   top: y,
                   width: w - 2, // 1px border on both sides
                   height: h - 2, // 1px border on both sides
-                  border: "1px solid black"
                 }}
                 onClick={(e) => { e.stopPropagation(); this.props.onSelect(this.props.postIt); }}>
 
-              <div className="handle" style={{height: dragHandleHeight + "px"}}></div>
+              <div className="handle"></div>
 
               {titleElem}
 
