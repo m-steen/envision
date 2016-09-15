@@ -47,6 +47,9 @@
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "^15.3.1",
+    "react-facebook-login": "^3.2.0",
+    "react-google-login": "^2.5.1",
+    "react-google-login-component": "^0.5.2",
     "react-resizable": "^1.4.2",
     "react-tap-event-plugin": "^1.0.0"
   }

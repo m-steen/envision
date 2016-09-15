@@ -10,6 +10,7 @@ class Canvas extends Component {
     return <div style={{
         height: '768px'
     }}>
+
       <div>
         {this.props.model.blocks.map((block) =>
            <Container key={block.id} block={block}
@@ -40,7 +41,7 @@ class Canvas extends Component {
               isSelected={this.props.isSelected}/>
           ))}
       </div>
-      
+
       <div>
         {this.props.model.postIts.map(postIt =>
             <PostIt key={postIt.id} postIt={postIt}
