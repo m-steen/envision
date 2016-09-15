@@ -1,56 +1,75 @@
-import React, {Component} from 'react';
+import React from 'react';
+import {observer} from 'mobx-react';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
 import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
-import FlatButton from 'material-ui/FlatButton/FlatButton';
+import store from '../AppState';
+import {reload, save, exportToJson} from '../commands.js';
 
+@observer
+export default class AppMenu extends React.Component {
 
+	constructor(props) {
+		super(props);
+		this.state = { open: false };
+	}
 
-class AppBarIconMenu extends Component {
+	handleToggle = () => this.setState({open: !this.state.open});
+
+	handleClose = () => this.setState({ open: false });
 
 	render() {
+		const title = store.model.title;
 		return (
 			<div>
-				<AppBar title={this.props.title} 
-
-					iconElementLeft={
-						<IconMenu
-							iconButtonElement={
-								<IconButton><MenuIcon color="white"/></IconButton>
-							}
-							targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-							anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
-							>
-							<MenuItem primaryText="Open" onClick={this.props.reload}/>
-							<MenuItem primaryText="Save" onClick={this.props.save}/>
-							<MenuItem primaryText="SaveAs" onClick={this.props.save}/>
-							<MenuItem primaryText="Help" onClick={this.help}/>
-							<MenuItem primaryText="Export" onClick={this.props.exportToJson}/>
-						</IconMenu>
-					}
-
-					iconElementRight={
-						<div>
-							<FlatButton label="Open" onClick={this.props.reload}/>
-							<FlatButton label="Save" onClick={this.props.save}/>
-							<FlatButton label="Print" onClick={this.print}/>
-							<FlatButton label="Help" onClick={this.help}/>
-						</div>
-					}
+				<AppBar 
+					title={title}
+					onLeftIconButtonTouchTap={this.handleToggle}
+					// iconElementLeft={
+					// 	<IconButton onTouchTap={this.handleToggle}><MenuIcon /></IconButton>
+					// }
+					className="menubar"
 					/>
+				<Drawer
+					docked={false}
+					open={this.state.open}
+					className="menubar"
+					onRequestChange={(open) => this.setState({ open }) }
+					>
+					<AppBar 
+						title="Menu" 
+						onLeftIconButtonTouchTap={this.handleToggle}
+						// iconElementLeft={
+						// 	<IconButton onTouchTap={this.handleToggle}><MenuIcon /></IconButton>
+						// }
+						/>
+					<MenuItem primaryText="Open" onClick={reload}/>
+					<MenuItem primaryText="Save" onClick={save}/>
+					<MenuItem primaryText="SaveAs" onClick={save}/>
+					<MenuItem primaryText="Print" onClick={this.print}/>
+					<MenuItem primaryText="Help" onClick={this.help}/>
+					<MenuItem primaryText="Export" onClick={exportToJson}/>
+				</Drawer>
 			</div>
+
 		)
 	};
 
-	print() {
-		window.print();
+	print = () => {
+		this.handleClose();
+		setTimeout(() => {
+			window.print();
+		}, 100);
+		
 	};
 
-	help() {
-		window.alert("Help not implemented yet.");
+	help = () => {
+		this.handleClose();
+		setTimeout(() => {
+			window.alert("Help not implemented yet.");
+		}, 100);
 	}
 };
-
-export default AppBarIconMenu;

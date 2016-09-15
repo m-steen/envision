@@ -2,19 +2,31 @@ import React, {Component} from 'react';
 import {transaction} from 'mobx';
 import {observer} from 'mobx-react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBarIconMenu from './Menu'
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {grey100} from 'material-ui/styles/colors';
+import AppMenu from './Menu'
 import Canvas from './Canvas';
-import Sidebar from './Sidebar';
+// import Sidebar from './Sidebar';
 import {findBlockForPostItXY, findBlockFor} from '../AppState';
 import bmcPostIt from '../model/bmcPostIt';
+
+const envisionTheme = getMuiTheme({
+  // palette: {
+  //   textColor: cyan500,
+  // },
+  appBar: {
+    // height: 40,
+    // color: grey100
+  }
+});
 
 @observer
 class App extends Component {
   render() {
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={envisionTheme}>
       <div onClick={(e) => this.props.store.selection = null}>
-        <AppBarIconMenu title={this.props.store.model.title} reload={this.props.reload} save={this.props.save} exportToJson={this.props.exportToJson}/>
+        <AppMenu />
         <Canvas store={this.props.store} model={this.props.store.model} onSelect={(object) => {
           this.props.store.selection = object;
         }}
