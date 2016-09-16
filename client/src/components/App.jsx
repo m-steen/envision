@@ -10,6 +10,28 @@ import Canvas from './Canvas';
 import {findBlockForPostItXY, findBlockFor} from '../AppState';
 import bmcPostIt from '../model/bmcPostIt';
 
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from './GoogleLogin';
+//import { GoogleLogin } from 'react-google-login-component';
+//import Google from 'react-google-login';
+
+function googleResponseHandler(googleUser) {
+  console.log("----");
+//  console.log(profile);
+  debugger;
+  console.log(googleUser);
+//  console.log(googleUser.getBasicProfile());
+  console.log(googleUser.isSignedIn());
+  debugger;
+  console.log("Break!");
+  //var ar = googleUser.getAuthResponse();
+  //console.log(ar);
+  //  var id_token = googleUser.getAuthResponse().id_token;
+  //  console.log({accessToken: id_token});
+  //  console.log('ID: ' + googleUser.getId()); // Do not send to your backend! Use an ID token instead.
+   //anything else you want to do(save to localStorage)...
+}
+
 const envisionTheme = getMuiTheme({
   // palette: {
   //   textColor: cyan500,
@@ -26,6 +48,21 @@ class App extends Component {
     return (
       <MuiThemeProvider muiTheme={envisionTheme}>
       <div onClick={(e) => this.props.store.selection = null}>
+        {/*<AppBarIconMenu title={this.props.store.model.title} reload={this.props.reload} save={this.props.save} exportToJson={this.props.exportToJson}/>*/}
+        {/*<FacebookLogin
+    appId="1193159677397239"
+    autoLoad={true}
+    fields="name,email,picture"
+    onClick={(e) => console.log("Clicked")}
+    callback={(response) => {
+      console.log(response);
+    }} />*/}
+      <GoogleLogin socialId="845584361979-q2l55qpmfi89otg7eakrkjl4pton64qa.apps.googleusercontent.com"
+                         class="google-login"
+                         scope="profile"
+                         responseHandler={(googleUser) => googleResponseHandler(googleUser)}
+                         buttonText="Login With Google"/>
+
         <AppMenu />
         <Canvas store={this.props.store} model={this.props.store.model} onSelect={(object) => {
           this.props.store.selection = object;

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import PostIt from './PostIt';
+import IconButton from 'material-ui/IconButton';
+import HelpIcon from 'material-ui/svg-icons/action/help';
 
 const borderWidth = 2;
 
@@ -25,13 +27,16 @@ class Container extends Component {
         }}
         onDoubleClick={(e) => this.props.onAddPostIt(this.props.block, e.pageX, e.pageY)}
         onClick={(e) => this.props.onSelect(null)}>
-        <a onClick={this.onAdd}
-          onDoubleClick={(e) => e.stopPropagation()}>+</a>
-        <a onClick={this.toggleHelp} onMouseOver={this.showHelp} onMouseOut={this.hideHelp}>?</a>
-        <h1 style={{float: "topleft", fontFamily: "Verdana, Arial, SansSerif", fontWeight: "bold", paddingLeft: "10px", paddingRight: "40px"}}>
-          {block.title}
-        </h1>
-        {helpText}
+        <div style={{ width: "100%" }}>
+          <div style={{float: "right"}}>
+            <IconButton iconClassName="fa fa-question-circle" tooltip={block.helpText} tooltipPosition="bottom-right"
+              style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px"}}/>
+            <IconButton iconClassName="fa fa-plus-circle" tooltip="Add a new post-it" tooltipPosition="bottom-right"
+              style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px", cursor: "pointer"}} 
+              onClick={this.onAdd} onDoubleClick={(e) => e.stopPropagation()}/>
+          </div>
+          <h1 style={{float: "left", width: "60%"}}>{block.title}</h1>
+        </div>
 
 
       </div>;

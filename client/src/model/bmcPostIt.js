@@ -7,8 +7,8 @@ export default class bmcPostIt {
     @observable color = 'yellow';
     @observable x = 0;
     @observable y = 0;
-    @observable w = 120;
-    @observable h = 80;
+    @observable w = 100;
+    @observable h = 60;
 
     constructor(title, x, y, color) {
         this.id = guid();
