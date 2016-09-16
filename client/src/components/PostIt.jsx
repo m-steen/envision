@@ -56,10 +56,10 @@ class PostIt extends Component {
         }}>
         <div>
           <a className="color-button handle" onClick={(e) => e.stopPropagation()}><i className="fa fa-arrows" style={{fontSize: "18px", padding: "1px", width: "18px", textAlign: "center", cursor: "pointer"}}></i></a>
-          <a className="color-button" onClick={(e) => this.onDelete(e)}><i className="fa fa-remove" style={{fontSize: "18px", padding: "1px", width: "18px", textAlign: "center", cursor: "pointer"}}></i></a>
-          <a className="color-button" onClick={(e) => this.onMoveToFront(e)}><p style={{fontSize: "18px", padding: "1px", margin: "0px", width: "18px", textAlign: "center", cursor: "pointer"}}>F</p></a>
-          <a className="color-button" onClick={(e) => this.onMoveToBack(e)}><p style={{fontSize: "18px", padding: "1px", margin: "0px", width: "18px", textAlign: "center", cursor: "pointer"}}>B</p></a>
           <a className="color-button" onClick={(e) => this.onDuplicatePostIt(e)}><i className="fa fa-files-o" style={{fontSize: "18px", padding: "1px", width: "18px", textAlign: "center", cursor: "pointer"}}></i></a>
+          <a className="color-button" onClick={(e) => this.onDelete(e)}><i className="fa fa-remove" style={{fontSize: "18px", padding: "1px", width: "18px", textAlign: "center", cursor: "pointer"}}></i></a>
+          <a className="color-button" onClick={(e) => this.onMoveToFront(e)}><img src="resources/bring-forward.svg" style={{padding: "1px", width: "18px", height: "18px", border: "0"}}/></a>
+          <a className="color-button" onClick={(e) => this.onMoveToBack(e)}><img src="resources/bring-backward.svg" style={{padding: "1px", width: "18px", height: "18px", border: "0"}}/></a>
           <a onClick={(e) => this.onChangeColor(e, "orange")} className="color-button orange"></a>
           <a onClick={(e) => this.onChangeColor(e, "blue")} className="color-button blue"></a>
           <a onClick={(e) => this.onChangeColor(e, "yellow")} className="color-button yellow"></a>
