@@ -6,6 +6,12 @@ import AppBar from 'material-ui/AppBar';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
+import FileFolderOpen from 'material-ui/svg-icons/file/folder-open';
+import ContentSave from 'material-ui/svg-icons/content/save';
+import FileFileUpload from 'material-ui/svg-icons/file/file-upload'
+import ActionPrint from 'material-ui/svg-icons/action/print'
+import ActionHelp from 'material-ui/svg-icons/action/help'
+import Download from 'material-ui/svg-icons/file/file-download'
 import store from '../AppState';
 import {reload, save, exportToJson} from '../commands.js';
 
@@ -46,12 +52,12 @@ export default class AppMenu extends React.Component {
 						// 	<IconButton onTouchTap={this.handleToggle}><MenuIcon /></IconButton>
 						// }
 						/>
-					<MenuItem primaryText="Open" onClick={reload}/>
-					<MenuItem primaryText="Save" onClick={save}/>
-					<MenuItem primaryText="SaveAs" onClick={save}/>
-					<MenuItem primaryText="Print" onClick={this.print}/>
-					<MenuItem primaryText="Help" onClick={this.help}/>
-					<MenuItem primaryText="Export" onClick={exportToJson}/>
+					<MenuItem primaryText="Open" leftIcon={<FileFolderOpen />} onClick={() => {this.handleClose(); reload();}}/>
+					<MenuItem primaryText="Save" leftIcon={<ContentSave />} onClick={() => {this.handleClose(); save();}}/>
+					<MenuItem primaryText="SaveAs" leftIcon={<FileFileUpload />} onClick={() => {this.handleClose(); save();}}/>
+					<MenuItem primaryText="Print" leftIcon={<ActionPrint />} onClick={this.print}/>
+					<MenuItem primaryText="Help" leftIcon={<ActionHelp />} onClick={this.help}/>
+					<MenuItem primaryText="Export" leftIcon={<Download />} onClick={exportToJson}/>
 				</Drawer>
 			</div>
 
