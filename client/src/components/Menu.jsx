@@ -74,8 +74,6 @@ export default class AppMenu extends React.Component {
 
 	help = () => {
 		this.handleClose();
-		setTimeout(() => {
-			window.alert("Help not implemented yet.");
-		}, 100);
+		store.showHelp = true;
 	}
 };

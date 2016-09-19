@@ -9,6 +9,7 @@ import Canvas from './Canvas';
 // import Sidebar from './Sidebar';
 import {findBlockForPostItXY, findBlockFor} from '../AppState';
 import bmcPostIt from '../model/bmcPostIt';
+import HelpDialog from './HelpDialog';
 
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from './GoogleLogin';
@@ -175,6 +176,7 @@ class App extends Component {
             }
           }
         }}/>
+      <HelpDialog key="F1" store={this.props.store} /> 
       </div>
       </MuiThemeProvider>
     );

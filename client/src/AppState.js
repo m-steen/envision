@@ -4,7 +4,8 @@ import bmcModel from './model/bmcModel';
 const store = observable({
   model: new bmcModel('Your Business Model'),
   selection: null,
-  dragging: null
+  dragging: null,
+  showHelp: false
 });
 
 export function guid() {
