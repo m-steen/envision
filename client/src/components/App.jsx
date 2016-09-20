@@ -59,11 +59,11 @@ class App extends Component {
     callback={(response) => {
       console.log(response);
     }} />*/}
-      {/*<GoogleLogin socialId="845584361979-q2l55qpmfi89otg7eakrkjl4pton64qa.apps.googleusercontent.com"
+    {/*  <GoogleLogin socialId="845584361979-q2l55qpmfi89otg7eakrkjl4pton64qa.apps.googleusercontent.com"
                          class="google-login"
                          scope="profile"
                          responseHandler={(googleUser) => googleResponseHandler(googleUser)}
-                         buttonText="Login With Google"/>
+                         buttonText="Login With Google"/> */}
                          */}
         <AppMenu />
         <Canvas store={this.props.store} model={this.props.store.model} onSelect={(object) => {
