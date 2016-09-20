@@ -64,7 +64,7 @@ class App extends Component {
                          scope="profile"
                          responseHandler={(googleUser) => googleResponseHandler(googleUser)}
                          buttonText="Login With Google"/> */}
-                         */}
+        
         <AppMenu />
         <Canvas store={this.props.store} model={this.props.store.model} onSelect={(object) => {
           this.props.store.selection = object;
