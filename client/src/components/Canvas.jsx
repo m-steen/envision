@@ -8,7 +8,7 @@ class Canvas extends Component {
 
   render() {
     return <div style={{
-        height: '768px'
+        height: '700px'
     }}>
 
       <div>

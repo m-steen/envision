@@ -3,7 +3,7 @@ import {transaction} from 'mobx';
 import {observer} from 'mobx-react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {grey100} from 'material-ui/styles/colors';
+import {grey50, grey800} from 'material-ui/styles/colors';
 import AppMenu from './Menu'
 import Canvas from './Canvas';
 // import Sidebar from './Sidebar';
@@ -34,12 +34,13 @@ function googleResponseHandler(googleUser) {
 }
 
 const envisionTheme = getMuiTheme({
-  // palette: {
-  //   textColor: cyan500,
-  // },
+  palette: {
+    textColor: grey800,
+    alternateTextColor: grey800
+  },
   appBar: {
-    // height: 40,
-    // color: grey100
+    color: grey50,
+    opacity: 1
   }
 });
 
@@ -58,12 +59,12 @@ class App extends Component {
     callback={(response) => {
       console.log(response);
     }} />*/}
-      <GoogleLogin socialId="845584361979-q2l55qpmfi89otg7eakrkjl4pton64qa.apps.googleusercontent.com"
+      {/*<GoogleLogin socialId="845584361979-q2l55qpmfi89otg7eakrkjl4pton64qa.apps.googleusercontent.com"
                          class="google-login"
                          scope="profile"
                          responseHandler={(googleUser) => googleResponseHandler(googleUser)}
                          buttonText="Login With Google"/>
-
+                         */}
         <AppMenu />
         <Canvas store={this.props.store} model={this.props.store.model} onSelect={(object) => {
           this.props.store.selection = object;
@@ -176,6 +177,11 @@ class App extends Component {
             }
           }
         }}/>
+      <div id="footer" style={{width: "1012px"}}>
+        <div style={{position: "relative", float: "right", textAlign: "right", fontStyle: "italic"}}>
+          The Business Model Canvas from Strategyzer.com is licensed under the <br/>
+          Creative Commons Attribution-Share Alike 3.0 Unported License.</div>
+      </div>
       <HelpDialog key="F1" store={this.props.store} /> 
       </div>
       </MuiThemeProvider>

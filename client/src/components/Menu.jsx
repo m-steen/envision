@@ -1,5 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {observer} from 'mobx-react';
+import {observable, action} from 'mobx';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
@@ -18,21 +20,31 @@ import {reload, save, exportToJson} from '../commands.js';
 @observer
 export default class AppMenu extends React.Component {
 
-	constructor(props) {
-		super(props);
-		this.state = { open: false };
+	@observable selected = false;
+	@observable open = false;
+
+	@action handleToggle = () => { 
+		this.open = !this.open;
+		this.selected = false;
 	}
 
-	handleToggle = () => this.setState({open: !this.state.open});
-
-	handleClose = () => this.setState({ open: false });
+	@action handleClose = () => { 
+		this.open = false;
+		this.selected = false;
+	}
 
 	render() {
-		const title = store.model.title;
+		const titleElem = this.selected ? 
+			<input value={store.model.title} style={{margin: "0px", padding: "0px", fontSize: "24px", width: "initial", height: "64px" }}
+				autoFocus
+				onBlur={this.handleClose}
+				onChange={(e) => store.model.title = e.target.value}/> : 
+			<span onClick={(e) => { this.selected = true; }}>{store.model.title}</span>;
+
 		return (
 			<div>
 				<AppBar 
-					title={title}
+					title={titleElem} 
 					onLeftIconButtonTouchTap={this.handleToggle}
 					// iconElementLeft={
 					// 	<IconButton onTouchTap={this.handleToggle}><MenuIcon /></IconButton>
@@ -41,9 +53,9 @@ export default class AppMenu extends React.Component {
 					/>
 				<Drawer
 					docked={false}
-					open={this.state.open}
-					className="menubar"
-					onRequestChange={(open) => this.setState({ open }) }
+					open={this.open}
+					
+					onRequestChange={(open) => this.handleToggle()}
 					>
 					<AppBar 
 						title="Menu" 

@@ -31,10 +31,10 @@ class Container extends Component {
         <div style={{ width: "100%" }}>
           <div style={{float: "right"}}>
             <IconButton iconClassName="fa fa-question-circle" 
-              style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px"}}
+              style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px", color: "#424242"}}
               onClick={this.toggleHelp} onMouseOver={this.showHelp} onMouseOut={this.hideHelp}/>
             <IconButton iconClassName="fa fa-plus-circle" tooltip="Add a new post-it" tooltipPosition="bottom-right"
-              style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px", cursor: "pointer"}} 
+              style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px", cursor: "pointer", color: "#424242"}} 
               onClick={this.onAdd} onDoubleClick={(e) => e.stopPropagation()}/>
           </div>
           <h1 style={{float: "left", width: "60%"}}>{block.title}</h1>
