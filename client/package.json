@@ -51,6 +51,7 @@
     "react-google-login": "^2.5.1",
     "react-google-login-component": "^0.5.2",
     "react-resizable": "^1.4.2",
-    "react-tap-event-plugin": "^1.0.0"
+    "react-tap-event-plugin": "^1.0.0",
+    "whatwg-fetch": "^1.0.0"
   }
 }

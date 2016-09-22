@@ -13,6 +13,7 @@ import HelpDialog from './HelpDialog';
 
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from './GoogleLogin';
+import 'whatwg-fetch';
 //import { GoogleLogin } from 'react-google-login-component';
 //import Google from 'react-google-login';
 
@@ -51,20 +52,25 @@ class App extends Component {
       <MuiThemeProvider muiTheme={envisionTheme}>
       <div onClick={(e) => this.props.store.selection = null}>
         {/*<AppBarIconMenu title={this.props.store.model.title} reload={this.props.reload} save={this.props.save} exportToJson={this.props.exportToJson}/>*/}
-        {/*<FacebookLogin
+        <FacebookLogin
     appId="1193159677397239"
     autoLoad={true}
     fields="name,email,picture"
     onClick={(e) => console.log("Clicked")}
     callback={(response) => {
       console.log(response);
-    }} />*/}
+
+      fetch('http://localhost:9000/demo/' + response.accessToken)
+      .then(function(response) {
+        console.log(response);
+      });
+    }} />
     {/*  <GoogleLogin socialId="845584361979-q2l55qpmfi89otg7eakrkjl4pton64qa.apps.googleusercontent.com"
                          class="google-login"
                          scope="profile"
                          responseHandler={(googleUser) => googleResponseHandler(googleUser)}
                          buttonText="Login With Google"/> */}
-        
+
         <AppMenu />
         <Canvas store={this.props.store} model={this.props.store.model} onSelect={(object) => {
           this.props.store.selection = object;
@@ -182,7 +188,7 @@ class App extends Component {
           The Business Model Canvas from Strategyzer.com is licensed under the <br/>
           Creative Commons Attribution-Share Alike 3.0 Unported License.</div>
       </div>
-      <HelpDialog key="F1" store={this.props.store} /> 
+      <HelpDialog key="F1" store={this.props.store} />
       </div>
       </MuiThemeProvider>
     );
