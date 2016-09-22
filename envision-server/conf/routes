@@ -13,3 +13,8 @@ GET     /message                    controllers.AsyncController.message
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 GET		/demo/:accessToken			controllers.HomeController.demo(accessToken: String)
+
+GET		/api/models/:modelId		controllers.HomeController.getModel(modelId: String, accessToken: String ?= null)
+PUT		/api/models/:modelId		controllers.HomeController.putModel(modelId: String, accessToken: String ?= null)
+POST	/api/models					controllers.HomeController.postModel(accessToken: String ?= null)
+	

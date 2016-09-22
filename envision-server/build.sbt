@@ -12,5 +12,6 @@ libraryDependencies ++= Seq(
   javaWs,
   filters,
   "org.springframework.social" % "spring-social-facebook" % "2.0.3.RELEASE",
-  "com.restfb" % "restfb" % "1.30.0"
+  "com.restfb" % "restfb" % "1.30.0",
+  "org.mongodb" % "mongodb-driver" % "3.3.0"
 )

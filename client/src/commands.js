@@ -1,10 +1,10 @@
 import store from './AppState';
 
-const server = 'webtoolstudio.bizzdesign.com';
-const port = '3001';
+const server = 'localhost';
+const port = '9000';
 
 export function reload() {
-  const url = 'http://' + server + ':' + port + '/models/0';
+  const url = 'http://' + server + ':' + port + '/api/models/';
   fetch(url)
   .then(function(response) {
     return response.json();
@@ -17,13 +17,16 @@ export function reload() {
 
 export function save() {
   const json = JSON.stringify(store.model);
-  const url = 'http://' + server + ':' + port + '/models/0';
+  const url = 'http://' + server + ':' + port + '/api/models/' + store.model.modelId;
   fetch(url, {
   	method: 'put',
     headers: new Headers({
   		'Content-Type': 'application/json'
   	}),
     body: json
+  }).then((response) => {
+    //const location = response.headers.Location;
+    console.log(response);
   });
 };
 
@@ -32,4 +35,3 @@ export function exportToJson() {
   const url = 'http://' + server + ':' + port + '/models/0';
   window.open(url, '_blank');
 };
-
