@@ -52,7 +52,7 @@ class App extends Component {
       <MuiThemeProvider muiTheme={envisionTheme}>
       <div onClick={(e) => this.props.store.selection = null}>
         {/*<AppBarIconMenu title={this.props.store.model.title} reload={this.props.reload} save={this.props.save} exportToJson={this.props.exportToJson}/>*/}
-        <FacebookLogin
+        {/*<FacebookLogin
     appId="1193159677397239"
     autoLoad={true}
     fields="name,email,picture"
@@ -64,7 +64,7 @@ class App extends Component {
       .then(function(response) {
         console.log(response);
       });
-    }} />
+    }} />*/}
     {/*  <GoogleLogin socialId="845584361979-q2l55qpmfi89otg7eakrkjl4pton64qa.apps.googleusercontent.com"
                          class="google-login"
                          scope="profile"
