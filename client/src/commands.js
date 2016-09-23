@@ -32,6 +32,6 @@ export function save() {
 
 export function exportToJson() {
   const json = JSON.stringify(store.model);
-  const url = 'http://' + server + ':' + port + '/models/0';
+  const url = 'http://' + server + ':' + port + '/api/models/' + store.model.modelId;
   window.open(url, '_blank');
 };

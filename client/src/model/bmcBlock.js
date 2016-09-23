@@ -1,5 +1,6 @@
 import {observable, computed} from 'mobx';
 import {guid} from '../AppState';
+import helpTexts from './bmcHelp';
 
 export default class bmcBlock {
     id;
@@ -10,16 +11,15 @@ export default class bmcBlock {
     @observable w = 0;
     @observable h = 0;
     @observable showHelp = false;
-    helpText = '';
+    @computed get helpText() { return helpTexts.get(this.title) };
 
-    constructor( title, x, y, w, h, helpText ) {
+    constructor( title, x, y, w, h ) {
         this.id = guid();
         this.title = title;
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-        this.helpText = helpText;
     }
 
 
