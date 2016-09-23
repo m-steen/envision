@@ -1,10 +1,10 @@
 import store from './AppState';
 
-const server = 'localhost';
+const server = window.location.hostname;
 const port = '9000';
 
 export function reload() {
-  const url = 'http://' + server + ':' + port + '/api/models/';
+  const url = 'http://' + server + ':' + port + '/api/models/' + store.model.modelId;
   fetch(url)
   .then(function(response) {
     return response.json();

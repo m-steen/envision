@@ -140,7 +140,13 @@ public class HomeController extends Controller {
 		MongoDatabase database = mongoClient.getDatabase("envision");
 		MongoCollection<Document> collection = database.getCollection("models");
 		UpdateResult result = collection.replaceOne(filter(userId, modelId), doc);
-		Logger.info("Updated model " + modelId + " for user " + userId + ": " + result);
+		if (result.getMatchedCount() != 0) {
+			Logger.info("Updated model " + modelId + " for user " + userId + ": " + result);
+		}
+		else {
+			collection.insertOne(doc);
+			Logger.info("Inserted new model " + modelId + " for user " + userId);
+		}
 		Logger.info("There are now " + collection.count() + " documents");
 	}
 	
