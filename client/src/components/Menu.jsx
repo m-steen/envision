@@ -16,6 +16,7 @@ import ActionHelp from 'material-ui/svg-icons/action/help'
 import Download from 'material-ui/svg-icons/file/file-download'
 import store from '../AppState';
 import {reload, save, exportToJson} from '../commands.js';
+import FacebookLogin from 'react-facebook-login';
 
 @observer
 export default class AppMenu extends React.Component {
@@ -23,42 +24,44 @@ export default class AppMenu extends React.Component {
 	@observable selected = false;
 	@observable open = false;
 
-	@action handleToggle = () => { 
+	@action handleToggle = () => {
 		this.open = !this.open;
 		this.selected = false;
 	}
 
-	@action handleClose = () => { 
+	@action handleClose = () => {
 		this.open = false;
 		this.selected = false;
 	}
 
 	render() {
-		const titleElem = this.selected ? 
+		const name = store.authenticated? store.authenticated.name : "Not logged in";
+		const titleElem = this.selected ?
 			<input value={store.model.title} style={{margin: "0px", padding: "0px", fontSize: "24px", width: "initial", height: "64px" }}
 				autoFocus
 				onBlur={this.handleClose}
-				onChange={(e) => store.model.title = e.target.value}/> : 
+				onChange={(e) => store.model.title = e.target.value}/> :
 			<span onClick={(e) => { this.selected = true; }}>{store.model.title}</span>;
 
 		return (
 			<div>
-				<AppBar 
-					title={titleElem} 
+				<AppBar
+					title={titleElem}
 					onLeftIconButtonTouchTap={this.handleToggle}
 					// iconElementLeft={
 					// 	<IconButton onTouchTap={this.handleToggle}><MenuIcon /></IconButton>
 					// }
-					className="menubar"
-					/>
+					className="menubar">
+					<p>{name}</p>
+				</AppBar>
 				<Drawer
 					docked={false}
 					open={this.open}
-					
+
 					onRequestChange={(open) => this.handleToggle()}
 					>
-					<AppBar 
-						title="Menu" 
+					<AppBar
+						title="Menu"
 						onLeftIconButtonTouchTap={this.handleToggle}
 						// iconElementLeft={
 						// 	<IconButton onTouchTap={this.handleToggle}><MenuIcon /></IconButton>
@@ -70,18 +73,28 @@ export default class AppMenu extends React.Component {
 					<MenuItem primaryText="Print" leftIcon={<ActionPrint />} onClick={this.print}/>
 					<MenuItem primaryText="Help" leftIcon={<ActionHelp />} onClick={this.help}/>
 					<MenuItem primaryText="Export" leftIcon={<Download />} onClick={exportToJson}/>
+					<MenuItem>
+						<FacebookLogin appId="1193159677397239" cssClass="fb-login"
+					    autoLoad={true} fields="name,email,picture"
+					    callback={this.facebookResponse} />
+					</MenuItem>
 				</Drawer>
 			</div>
 
 		)
 	};
 
+	facebookResponse = (response) => {
+		this.handleClose();
+		store.authenticated = {name: response.name, accessToken: response.accessToken};
+	}
+
 	print = () => {
 		this.handleClose();
 		setTimeout(() => {
 			window.print();
 		}, 100);
-		
+
 	};
 
 	help = () => {

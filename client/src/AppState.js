@@ -5,7 +5,8 @@ const store = observable({
   model: new bmcModel('Your Business Model'),
   selection: null,
   dragging: null,
-  showHelp: false
+  showHelp: false,
+  authenticated: null
 });
 
 export function guid() {
