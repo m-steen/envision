@@ -10,6 +10,7 @@ import Canvas from './Canvas';
 import {findBlockForPostItXY, findBlockFor} from '../AppState';
 import bmcPostIt from '../model/bmcPostIt';
 import HelpDialog from './HelpDialog';
+import ErrorDialog from './ErrorDialog';
 
 const envisionTheme = getMuiTheme({
   palette: {
@@ -146,6 +147,7 @@ class App extends Component {
           Creative Commons Attribution-Share Alike 3.0 Unported License.</div>
       </div>
       <HelpDialog key="F1" store={this.props.store} />
+      <ErrorDialog store={this.props.store} />
       </div>
       </MuiThemeProvider>
     );

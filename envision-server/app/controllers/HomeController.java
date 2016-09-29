@@ -58,7 +58,7 @@ public class HomeController extends Controller {
     	String json = loadModel(userId, modelId);
     	if (json == null) {
     		Logger.info("Model " + modelId + " for user " + userId + " not found");
-    		return notFound();
+    		return notFound("Model " + modelId + " for user " + userId + " not found");
     	}
     	
     	Logger.info("Model " + modelId + " for user " + userId + " found, " + json.length() + " chars");

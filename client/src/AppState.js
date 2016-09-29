@@ -6,7 +6,8 @@ const store = observable({
   selection: null,
   dragging: null,
   showHelp: false,
-  authenticated: null
+  authenticated: null,
+  error: null
 });
 
 export function guid() {
