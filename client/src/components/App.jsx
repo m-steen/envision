@@ -8,9 +8,11 @@ import AppMenu from './Menu'
 import Canvas from './Canvas';
 // import Sidebar from './Sidebar';
 import {findBlockForPostItXY, findBlockFor} from '../AppState';
+import {loadModel} from '../commands';
 import bmcPostIt from '../model/bmcPostIt';
 import HelpDialog from './HelpDialog';
 import ErrorDialog from './ErrorDialog';
+import OpenModelsDialog from './OpenModelsDialog';
 
 const envisionTheme = getMuiTheme({
   palette: {
@@ -148,6 +150,7 @@ class App extends Component {
       </div>
       <HelpDialog key="F1" store={this.props.store} />
       <ErrorDialog store={this.props.store} />
+      <OpenModelsDialog store={this.props.store} onLoadModel={model => loadModel(model.id)}/>
       </div>
       </MuiThemeProvider>
     );

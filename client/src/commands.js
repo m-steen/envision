@@ -19,6 +19,38 @@ function communicationFailed(op, response) {
     details: response? "Response message: " + response.statusText + " (code: " + response.status + ")" : null
   }
 }
+
+function loadJson(uri, accessToken, op) {
+  if (store.authenticated) {
+    const url = 'http://' + server + ':' + port + uri + "?accessToken=" + accessToken;
+    return fetch(url).then((response) => {
+      if (response.ok) {
+        return response.json()
+          .catch(ex => {
+            store.error = {
+              title: "Unable to " + op,
+              message: "The response from the server could not be processed",
+              details: ex.toString()};
+          });
+      }
+      else {
+        store.error = communicationFailed(op, response);
+      }
+    }).catch(ex => store.error = communicationFailed(op, null));
+  }
+  else {
+    store.error = notAuthenticated();
+  }
+};
+
+export function loadModels() {
+  loadJson('/api/models', store.authenticated.accessToken, 'load models').then(json => store.openModelsDialog = json);
+}
+
+export function loadModel(id) {
+  loadJson('/api/models/' + id, store.authenticated.accessToken, 'load model').then(json => store.model = json);
+}
+
 export function reload() {
   if (store.authenticated) {
     const url = 'http://' + server + ':' + port + '/api/models/' + store.model.modelId + "?accessToken=" + store.authenticated.accessToken;

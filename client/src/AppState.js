@@ -7,7 +7,8 @@ const store = observable({
   dragging: null,
   showHelp: false,
   authenticated: null,
-  error: null
+  error: null,
+  openModelsDialog: null
 });
 
 export function guid() {
