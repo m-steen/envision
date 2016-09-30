@@ -92,7 +92,6 @@ export default class AppMenu extends React.Component {
 		else {
 			store.authenticated = null;
 		}
-		console.log(store.authenticated.accessToken);
 	}
 
 	print = () => {
