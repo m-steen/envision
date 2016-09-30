@@ -7,9 +7,9 @@ import PostIt from './PostIt';
 class Canvas extends Component {
 
   render() {
-    return <div style={{
-        height: '700px'
-    }}>
+    return <div id="canvas" style={{
+          height: '700px'
+        }}>
 
       <div>
         {this.props.model.blocks.map((block) =>

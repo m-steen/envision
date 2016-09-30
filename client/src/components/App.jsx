@@ -145,9 +145,10 @@ class App extends Component {
           }
         }}/>
       <div id="footer" style={{width: "1012px"}}>
-        <div style={{position: "relative", float: "right", textAlign: "right", fontStyle: "italic"}}>
+        <p style={{position: "relative", float: "right", textAlign: "right", fontStyle: "italic"}}>
           The Business Model Canvas from Strategyzer.com is licensed under the <br/>
-          Creative Commons Attribution-Share Alike 3.0 Unported License.</div>
+          Creative Commons Attribution-Share Alike 3.0 Unported License.
+        </p>
       </div>
       <HelpDialog key="F1" store={this.props.store} />
       <ErrorDialog store={this.props.store} />

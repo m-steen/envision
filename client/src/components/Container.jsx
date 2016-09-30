@@ -14,14 +14,14 @@ class Container extends Component {
     const postIts = block.postIts;
     const titleClass = block.title.replace(/ /g,'').toLowerCase();
     const helpText = block.helpText;
-    const tooltip = block.showHelp ? 
+    const tooltip = block.showHelp ?
                      <div className="tooltiptext">{helpText}</div> : undefined;
     return <div className={"block " + titleClass} style={{
           position: 'absolute',
           left: block.x,
           top: block.y,
-          width: block.w,
-          height: block.h,
+          width: block.w + borderWidth,
+          height: block.h + borderWidth,
           border: borderWidth + 'px solid grey',
           boxSizing: 'border-box',
           backgroundColor: 'inherit'
@@ -30,11 +30,11 @@ class Container extends Component {
         onClick={(e) => this.props.onSelect(null)}>
         <div style={{ width: "100%" }}>
           <div style={{float: "right"}}>
-            <IconButton iconClassName="fa fa-question-circle" 
-              style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px", color: "#424242"}}
+            <IconButton iconClassName="fa fa-question-circle"
+              style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px", color: "#898989"}}
               onClick={this.toggleHelp} onMouseOver={this.showHelp} onMouseOut={this.hideHelp}/>
             <IconButton iconClassName="fa fa-plus-circle" tooltip="Add a new post-it" tooltipPosition="bottom-right"
-              style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px", cursor: "pointer", color: "#424242"}} 
+              style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px", cursor: "pointer", color: "#01789E"}}
               onClick={this.onAdd} onDoubleClick={(e) => e.stopPropagation()}/>
           </div>
           <h1 style={{float: "left", width: "60%"}}>{block.title}</h1>

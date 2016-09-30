@@ -15,15 +15,15 @@ export default class bmcModel {
     modelId;
     @observable title = 'Business Model Canvas';
     @observable blocks = [
-        new bmcBlock('Key Partnerships',             12, 100, 200, 440),
+        new bmcBlock('Key Partnerships',         12, 100, 200, 440),
         new bmcBlock('Key Activities',          212, 100, 200, 220),
         new bmcBlock('Key Resources',           212, 320, 200, 220),
-        new bmcBlock('Value Proposition & Services',      412, 100, 200, 440),
+        new bmcBlock('Value & Services',        412, 100, 200, 440),
         new bmcBlock('Customer Relationships',  612, 100, 200, 220),
         new bmcBlock('Channels',                612, 320, 200, 220),
         new bmcBlock('Customer Segments',       812, 100, 200, 440),
         new bmcBlock('Cost Structure',           12, 540, 500, 220),
-        new bmcBlock('Revenue Streams',         512, 540, 500, 220)
+        new bmcBlock('Revenue Structure',       512, 540, 500, 220)
     ];
     // allow postits also outside of blocks
     @observable postIts = [];
