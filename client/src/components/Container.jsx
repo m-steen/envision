@@ -13,9 +13,8 @@ class Container extends Component {
     const block = this.props.block;
     const postIts = block.postIts;
     const titleClass = block.title.replace(/ /g,'').toLowerCase();
-    const helpText = block.helpText;
-    const tooltip = block.showHelp ?
-                     <div className="tooltiptext">{helpText}</div> : undefined;
+    const helpText = block.showHelp ?
+                     <div className="tooltiptext">{block.helpText}</div> : undefined;
     return <div className={"block " + titleClass} style={{
           position: 'absolute',
           left: block.x,
@@ -33,13 +32,15 @@ class Container extends Component {
             <IconButton iconClassName="fa fa-question-circle"
               style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px", color: "#898989"}}
               onClick={this.toggleHelp} onMouseOver={this.showHelp} onMouseOut={this.hideHelp}/>
-            <IconButton iconClassName="fa fa-plus-circle" tooltip="Add a new post-it" tooltipPosition="bottom-right"
-              style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px", cursor: "pointer", color: "#01789E"}}
-              onClick={this.onAdd} onDoubleClick={(e) => e.stopPropagation()}/>
+            <IconButton iconClassName="fa fa-plus-circle addbutton" 
+              style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px", color: "#01789E"}}
+              onClick={this.onAdd} onDoubleClick={(e) => e.stopPropagation()}>
+              <span className="tooltip">Add a new Post-It</span>
+            </IconButton>
           </div>
           <h1 style={{float: "left", width: "60%"}}>{block.title}</h1>
         </div>
-        {tooltip}
+        {helpText}
 
       </div>;
   }
