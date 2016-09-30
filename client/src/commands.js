@@ -62,13 +62,25 @@ function loadJson(uri, op, success, error) {
 export function loadModels() {
   store.openModelsDialog.open = true;
   loadJson('/api/models', 'load models',
-      json => store.openModelsDialog.models = json,
+      json => {
+        if (store.openModelsDialog.open) {
+          store.openModelsDialog.models = json
+        }
+      },
       () => store.openModelsDialog = {open: false, models: null});
 }
 
 export function loadModel(id) {
+  store.loadingModel = true;
   loadJson('/api/models/' + id, 'load model',
-    json => store.model = json);
+      json => {
+        // only if we are loading
+        if (store.loadingModel) {
+          store.model = json;
+          store.loadingModel = false;
+        }
+      },
+      err => store.loadingModel = false);
 }
 
 export function reload() {

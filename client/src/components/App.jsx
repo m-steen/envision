@@ -13,6 +13,7 @@ import bmcPostIt from '../model/bmcPostIt';
 import HelpDialog from './HelpDialog';
 import ErrorDialog from './ErrorDialog';
 import OpenModelsDialog from './OpenModelsDialog';
+import OpenModelDialog from './OpenModelDialog';
 
 const envisionTheme = getMuiTheme({
   palette: {
@@ -151,6 +152,7 @@ class App extends Component {
       <HelpDialog key="F1" store={this.props.store} />
       <ErrorDialog store={this.props.store} />
       <OpenModelsDialog store={this.props.store} onLoadModel={model => loadModel(model.id)}/>
+      <OpenModelDialog store={this.props.store} />
       </div>
       </MuiThemeProvider>
     );

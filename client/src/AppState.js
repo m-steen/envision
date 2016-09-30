@@ -8,6 +8,7 @@ const store = observable({
   showHelp: false,
   authenticated: null,
   error: null,
+  loadingModel: false,
   openModelsDialog: {
     open: false,
     models: null
