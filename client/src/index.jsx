@@ -5,6 +5,7 @@ import store from './AppState';
 import App from './components/App';
 
 import bmcPostIt from './model/bmcPostIt';
+import {newBmcModel} from './commands';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -38,10 +39,7 @@ function exportToJson() {
   window.open('http://webtoolstudio.bizzdesign.com:3001/models/0', '_blank');
 };
 
-// add a dummy post it
-const postIt = new bmcPostIt('Click to edit', 20, 50);
-store.model.blocks[0].postIts.push(postIt);
-//store.selection = postIt;
+newBmcModel();
 
 render(
   //<AppContainer>
@@ -52,5 +50,3 @@ render(
   //</AppContainer>,
   , document.getElementById('root')
 );
-
-
