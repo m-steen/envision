@@ -8,7 +8,10 @@ const store = observable({
   showHelp: false,
   authenticated: null,
   error: null,
-  openModelsDialog: null
+  openModelsDialog: {
+    open: false,
+    models: null
+  }
 });
 
 export function guid() {

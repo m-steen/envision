@@ -20,13 +20,18 @@ function communicationFailed(op, response) {
   }
 }
 
-function loadJson(uri, accessToken, op) {
+function loadJson(uri, op, success, error) {
   if (store.authenticated) {
-    const url = 'http://' + server + ':' + port + uri + "?accessToken=" + accessToken;
+    const url = 'http://' + server + ':' + port + uri + "?accessToken=" + store.authenticated.accessToken;
     return fetch(url).then((response) => {
       if (response.ok) {
         return response.json()
+          .then(success)
           .catch(ex => {
+            console.log("Error");
+            if (error) {
+              error();
+            }
             store.error = {
               title: "Unable to " + op,
               message: "The response from the server could not be processed",
@@ -34,21 +39,36 @@ function loadJson(uri, accessToken, op) {
           });
       }
       else {
+        if (error) {
+          error();
+        }
         store.error = communicationFailed(op, response);
       }
-    }).catch(ex => store.error = communicationFailed(op, null));
+    }).catch(ex => {
+      if (error) {
+        error();
+      }
+      store.error = communicationFailed(op, null);
+    });
   }
   else {
+    if (error) {
+      error();
+    }
     store.error = notAuthenticated();
   }
 };
 
 export function loadModels() {
-  loadJson('/api/models', store.authenticated.accessToken, 'load models').then(json => store.openModelsDialog = json);
+  store.openModelsDialog.open = true;
+  loadJson('/api/models', 'load models',
+      json => store.openModelsDialog.models = json,
+      () => store.openModelsDialog = {open: false, models: null});
 }
 
 export function loadModel(id) {
-  loadJson('/api/models/' + id, store.authenticated.accessToken, 'load model').then(json => store.model = json);
+  loadJson('/api/models/' + id, 'load model',
+    json => store.model = json);
 }
 
 export function reload() {

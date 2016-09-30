@@ -86,8 +86,13 @@ export default class AppMenu extends React.Component {
 
 	facebookResponse = (response) => {
 		this.handleClose();
-		store.authenticated = {name: response.name, accessToken: response.accessToken};
-		console.log(response.accessToken);
+		if (response.accessToken) {
+			store.authenticated = {name: response.name, accessToken: response.accessToken};
+		}
+		else {
+			store.authenticated = null;
+		}
+		console.log(store.authenticated.accessToken);
 	}
 
 	print = () => {

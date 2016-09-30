@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {List, ListItem} from 'material-ui/List';
+import CircularProgress from 'material-ui/CircularProgress';
 
 /**
  * Dialog with action buttons. The actions are passed in as an array of React objects,
@@ -14,12 +15,14 @@ import {List, ListItem} from 'material-ui/List';
 export default class OpenModelsDialog extends React.Component {
 
   handleClose = () => {
-    this.props.store.openModelsDialog = null;
+    const {openModelsDialog} = this.props.store;
+    openModelsDialog.open = false;
+    openModelsDialog.models = null;
   };
 
   handleClick = (model) => {
     this.props.onLoadModel(model);
-    this.props.store.openModelsDialog = null;
+    this.handleClose();
   }
 
   render() {
@@ -32,26 +35,36 @@ export default class OpenModelsDialog extends React.Component {
           />
     ];
 
-    const contents = openModelsDialog && openModelsDialog.length > 0?
-      <div>
-        <p>
-          Please select the models that you want to open:
-        </p>
-        <List>
-          {openModelsDialog.map(model =>
-            <ListItem key={model.id} primaryText={model.title? model.title : "<untitled model>"}
-              onClick={e => this.handleClick(model)}></ListItem>
-          )}
-        </List>
-      </div>
-      : <p>You have no models available.</p>;
+    // loading: open, but no contents
+    let contents;
+    if (openModelsDialog.models) {
+      contents = openModelsDialog.models.length > 0?
+        <div>
+          <p>
+            Please select the models that you want to open:
+          </p>
+          <List>
+            {openModelsDialog.models.map(model =>
+              <ListItem key={model.id} primaryText={model.title? model.title : "<untitled model>"}
+                onClick={e => this.handleClick(model)}></ListItem>
+            )}
+          </List>
+        </div>
+        : <p>You have no models available.</p>;
+    }
+    else {
+      contents = <div>
+        <p>Loading your models from the server. Please wait...</p>
+        <CircularProgress/>
+      </div>;
+    }
 
     return (
       <Dialog
           title={"Open a model"}
           actions={actions}
           modal={true}
-          open={openModelsDialog != null}
+          open={openModelsDialog.open}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}>
 
