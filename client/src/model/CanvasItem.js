@@ -1,7 +1,7 @@
 import {observable, computed} from 'mobx';
 import {guid} from '../AppState';
 
-export default class bmcPostIt {
+export default class CanvasItem {
     id;
     @observable title = 'Click to edit';
     @observable color = 'yellow';

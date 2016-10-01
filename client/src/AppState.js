@@ -1,8 +1,8 @@
 import { observable } from 'mobx';
-import bmcModel from './model/bmcModel';
+import CanvasModel from './model/CanvasModel';
 
 const store = observable({
-  model: new bmcModel('Your Business Model'),
+  model: new CanvasModel('', ''),
   selection: null,
   dragging: null,
   showHelp: false,

@@ -10,12 +10,13 @@ import IconButton from 'material-ui/IconButton/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import FileFolderOpen from 'material-ui/svg-icons/file/folder-open';
 import ContentSave from 'material-ui/svg-icons/content/save';
-import FileFileUpload from 'material-ui/svg-icons/file/file-upload'
-import ActionPrint from 'material-ui/svg-icons/action/print'
-import ActionHelp from 'material-ui/svg-icons/action/help'
-import Download from 'material-ui/svg-icons/file/file-download'
+import FileFileUpload from 'material-ui/svg-icons/file/file-upload';
+import ActionPrint from 'material-ui/svg-icons/action/print';
+import ActionHelp from 'material-ui/svg-icons/action/help';
+import Download from 'material-ui/svg-icons/file/file-download';
+import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 import store from '../AppState';
-import {loadModels, reload, save, exportToJson, newBmcModel} from '../commands.js';
+import {loadModels, reload, save, exportToJson, newBmcModel, newSWOTModel, newPESTLEModel} from '../commands.js';
 import FacebookLogin from 'react-facebook-login';
 
 @observer
@@ -67,7 +68,12 @@ export default class AppMenu extends React.Component {
 						// 	<IconButton onTouchTap={this.handleToggle}><MenuIcon /></IconButton>
 						// }
 						/>
-					<MenuItem primaryText="New" leftIcon={<FileFolderOpen />} onClick={() => {this.handleClose(); newBmcModel();}}/>
+					<MenuItem primaryText="New" leftIcon={<FileFolderOpen />} rightIcon={<ArrowDropRight />}
+						menuItems={[
+							<MenuItem primaryText="Business Model Canvas" onClick={() => {this.handleClose(); newBmcModel();}}/>,
+							<MenuItem primaryText="SWOT" onClick={() => {this.handleClose(); newSWOTModel();}}/>,
+							<MenuItem primaryText="PESTLE" onClick={() => {this.handleClose(); newPESTLEModel();}}/>
+						]}/>
 					<MenuItem primaryText="Open" leftIcon={<FileFolderOpen />} onClick={() => {this.handleClose(); loadModels();}}/>
 					<MenuItem primaryText="Save" leftIcon={<ContentSave />} onClick={() => {this.handleClose(); save();}}/>
 					<MenuItem primaryText="SaveAs" leftIcon={<FileFileUpload />} onClick={() => {this.handleClose(); save();}}/>
