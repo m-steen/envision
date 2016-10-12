@@ -38,7 +38,7 @@ class Container extends Component {
               <span className="tooltip">Add a new Post-It</span>
             </IconButton>
           </div>
-          <h1 style={{float: "left", width: "60%"}}>{block.title}</h1>
+          <h1 >{block.title}</h1>
         </div>
         {helpText}
 
