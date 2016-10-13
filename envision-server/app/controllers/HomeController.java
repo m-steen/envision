@@ -12,6 +12,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 
 import static com.mongodb.client.model.Filters.*;
@@ -116,12 +117,20 @@ public class HomeController extends Controller {
     	return ok();
     }
     
+    public Result deleteModel(String modelId, String accessToken) {
+    	String userId = loadFacebookUserId(accessToken);
+    	boolean result = removeModel(userId, modelId);
+    	Logger.info("Deleting model " + modelId + " for user " + userId);
+    	return result? ok() : notFound();
+    }
+    
     // facebook access
     
     private String loadFacebookUserId(String accessToken) {
-    	User user = loadFacebookUser(accessToken);
-    	Logger.info("Access token " + accessToken + " is associate with user " + user.getId() + " (" + user.getName() + ")");
-    	return user.getId();
+//    	User user = loadFacebookUser(accessToken);
+//    	Logger.info("Access token " + accessToken + " is associate with user " + user.getId() + " (" + user.getName() + ")");
+//    	return user.getId();
+    	return "<debug-user-id>";
     }
     
     private User loadFacebookUser(String accessToken) {
@@ -182,6 +191,13 @@ public class HomeController extends Controller {
 			Logger.info("Inserted new model " + modelId + " for user " + userId);
 		}
 		Logger.info("There are now " + collection.count() + " documents");
+	}
+	
+	private boolean removeModel(String userId, String modelId) {
+		MongoDatabase database = mongoClient.getDatabase("envision");
+		MongoCollection<Document> collection = database.getCollection("models");
+		DeleteResult result = collection.deleteOne(filter(userId, modelId));
+		return result.getDeletedCount() > 0;
 	}
 	
 	private Bson filter(String userId, String modelId) {

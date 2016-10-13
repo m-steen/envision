@@ -14,6 +14,7 @@ import HelpDialog from './HelpDialog';
 import ErrorDialog from './ErrorDialog';
 import OpenModelsDialog from './OpenModelsDialog';
 import OpenModelDialog from './OpenModelDialog';
+import DeleteModelDialog from './DeleteModelDialog';
 
 const envisionTheme = getMuiTheme({
   palette: {
@@ -150,10 +151,14 @@ class App extends Component {
           Creative Commons Attribution-Share Alike 3.0 Unported License.
         </p>
       </div>
-      <HelpDialog key="F1" store={this.props.store} />
-      <ErrorDialog store={this.props.store} />
-      <OpenModelsDialog store={this.props.store} onLoadModel={model => loadModel(model.id)}/>
-      <OpenModelDialog store={this.props.store} />
+
+        <HelpDialog key="F1" store={this.props.store} />
+        <OpenModelsDialog store={this.props.store} onLoadModel={model => loadModel(model.id)}/>
+        <OpenModelDialog store={this.props.store} />
+        <DeleteModelDialog store={this.props.store} />
+
+        {/* The error dialog is explicitly rendered as last, so it is always on top.*/}
+        <ErrorDialog store={this.props.store} />
       </div>
       </MuiThemeProvider>
     );

@@ -74,11 +74,11 @@ export default class AppMenu extends React.Component {
 					<MenuItem primaryText="Print" leftIcon={<ActionPrint />} onClick={this.print}/>
 					<MenuItem primaryText="Help" leftIcon={<ActionHelp />} onClick={this.help}/>
 					<MenuItem primaryText="Export" leftIcon={<Download />} onClick={exportToJson}/>
-					<MenuItem>
+					{/*<MenuItem>
 						<FacebookLogin appId="1193159677397239" cssClass="fb-login"
 					    autoLoad={true} fields="name,email,picture"
 					    callback={this.facebookResponse} />
-					</MenuItem>
+					</MenuItem>*/}
 				</Drawer>
 			</div>
 

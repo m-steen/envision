@@ -139,6 +139,29 @@ export function save() {
   }
 };
 
+export function deleteModel() {
+  store.deleteModelDialog.deleting = true;
+  const model = store.deleteModelDialog.model;
+  if (store.authenticated) {
+    const url = 'http://' + server + ':' + port + '/api/models/' + model.id + "?accessToken=" + store.authenticated.accessToken;
+    fetch(url, {
+    	method: 'delete'
+    }).then((response) => {
+      if (!response.ok) {
+        store.error = communicationFailed("delete model", response);
+      }
+      else if (store.openModelsDialog.open) {
+        loadModels();
+      }
+      store.deleteModelDialog.model = null;
+      store.deleteModelDialog.deleting = false;
+    }).catch(ex => store.error = communicationFailed("delete model", null));
+  }
+  else {
+    store.error = notAuthenticated();
+  }
+};
+
 export function exportToJson() {
   if (store.authenticated) {
     const json = JSON.stringify(store.model);

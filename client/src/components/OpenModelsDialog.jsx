@@ -4,6 +4,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {List, ListItem} from 'material-ui/List';
 import CircularProgress from 'material-ui/CircularProgress';
+import IconButton from 'material-ui/IconButton';
 
 /**
  * Dialog with action buttons. The actions are passed in as an array of React objects,
@@ -25,6 +26,13 @@ export default class OpenModelsDialog extends React.Component {
     this.handleClose();
   }
 
+  handleDelete = (e, model) => {
+    e.preventDefault();
+    const {deleteModelDialog} = this.props.store;
+    deleteModelDialog.deleting = false;
+    deleteModelDialog.model = model;
+  }
+  
   render() {
     const {openModelsDialog} = this.props.store;
     const actions = [
@@ -39,14 +47,20 @@ export default class OpenModelsDialog extends React.Component {
     let contents;
     if (openModelsDialog.models) {
       contents = openModelsDialog.models.length > 0?
-        <div>
+        <div className="open-dialog-contents">
           <p>
             Please select the models that you want to open:
           </p>
           <List>
             {openModelsDialog.models.map(model =>
               <ListItem key={model.id} primaryText={model.title? model.title : "<untitled model>"}
-                onClick={e => this.handleClick(model)}></ListItem>
+                onTouchTap={e => this.handleClick(model)}
+                rightIconButton={<IconButton
+                  iconClassName="fa fa-trash-o"
+                  onTouchTap={e => this.handleDelete(e, model)}
+                  />}>
+
+                </ListItem>
             )}
           </List>
         </div>

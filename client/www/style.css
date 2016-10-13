@@ -276,3 +276,7 @@ input {
 
 /*  margin-left: 0px; padding: 0px 16px 0px 72px; position: relative;*/
 }
+
+.open-dialog-contents {
+  overflow-x: hidden;
+}

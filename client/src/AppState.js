@@ -9,6 +9,10 @@ const store = observable({
   authenticated: null,
   error: null,
   loadingModel: false,
+  deleteModelDialog: {
+    deleting: false,
+    model: null
+  },
   openModelsDialog: {
     open: false,
     models: null

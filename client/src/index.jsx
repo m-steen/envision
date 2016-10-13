@@ -5,7 +5,7 @@ import store from './AppState';
 import App from './components/App';
 
 import bmcPostIt from './model/bmcPostIt';
-import {newBmcModel} from './commands';
+import {newBmcModel, loadModels} from './commands';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -38,6 +38,12 @@ function exportToJson() {
   const json = JSON.stringify(store.model);
   window.open('http://webtoolstudio.bizzdesign.com:3001/models/0', '_blank');
 };
+
+// for debug: set authentication with dummy values
+store.authenticated = {name: "De Bug", accessToken: "<access-token>"};
+
+// debug: by default, open the open menu
+//loadModels();
 
 newBmcModel();
 

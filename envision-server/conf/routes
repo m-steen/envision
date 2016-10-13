@@ -17,5 +17,6 @@ GET		/demo/:accessToken			controllers.HomeController.demo(accessToken: String)
 GET		/api/models					controllers.HomeController.getModels(accessToken: String ?= null)
 GET		/api/models/:modelId		controllers.HomeController.getModel(modelId: String, accessToken: String ?= null)
 PUT		/api/models/:modelId		controllers.HomeController.putModel(modelId: String, accessToken: String ?= null)
+DELETE	/api/models/:modelId		controllers.HomeController.deleteModel(modelId: String, accessToken: String ?= null)
 POST	/api/models					controllers.HomeController.postModel(accessToken: String ?= null)
 	
