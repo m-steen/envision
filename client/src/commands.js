@@ -132,6 +132,9 @@ export function save() {
       if (!response.ok) {
         store.error = communicationFailed("save model", response);
       }
+      else {
+        store.snackbarMessage = "Model saved!";
+      }
     }).catch(ex => store.error = communicationFailed("save model", null));
   }
   else {
