@@ -130,10 +130,10 @@ public class HomeController extends Controller {
     // facebook access
     
     private String loadFacebookUserId(String accessToken) {
-//    	User user = loadFacebookUser(accessToken);
-//    	Logger.info("Access token " + accessToken + " is associate with user " + user.getId() + " (" + user.getName() + ")");
-//    	return user.getId();
-    	return "<debug-user-id>";
+    	User user = loadFacebookUser(accessToken);
+    	Logger.info("Access token " + accessToken + " is associate with user " + user.getId() + " (" + user.getName() + ")");
+    	return user.getId();
+//    	return "<debug-user-id>";
     }
     
     private User loadFacebookUser(String accessToken) {
