@@ -1,5 +1,7 @@
 package controllers;
 
+import models.Model;
+
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -63,13 +65,14 @@ public class HomeController extends Controller {
 
     public Result getModels(String accessToken) {
     	String userId = loadFacebookUserId(accessToken);
-    	Map<String, String> models = loadModels(userId);
+    	Map<String, Model> models = loadModels(userId);
     	ArrayNode arr = mapper.createArrayNode();
     	models.forEach((key, value) -> {
     		ObjectNode child = mapper.createObjectNode();
     		child.put("id", key);
     		child.put("uri", "/api/models/" + key + "?accessToken=" + accessToken);
-    		child.put("title", value);
+    		child.put("title", value.name);
+    		child.put("date", value.date);
     		arr.add(child);
     	});
     	return ok(arr);
@@ -143,15 +146,16 @@ public class HomeController extends Controller {
     
 	private MongoClient mongoClient = new MongoClient("localhost");
 
-	private Map<String, String> loadModels(String userId) {
-		Map<String, String> result = new HashMap<>();
+	private Map<String, Model> loadModels(String userId) {
+		Map<String, Model> result = new HashMap<>();
 		MongoDatabase database = mongoClient.getDatabase("envision");
 		MongoCollection<Document> collection = database.getCollection("models");
 		FindIterable<Document> it = collection.find(userIdFilter(userId));
 		for (Document doc: it) {
 			String id = doc.getString("modelId");
 			String name = doc.getString("title");
-			result.put(id, name);
+			String date = doc.getString("date");
+			result.put(id, new Model(id, name, date));
 		}
 		Logger.info("Loaded " + result.size() + " models for user " + userId);
 		return result;

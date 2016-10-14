@@ -75,7 +75,11 @@ export function loadModels() {
   loadJson('/api/models', 'load models',
       json => {
         if (store.openModelsDialog.open) {
-          store.openModelsDialog.models = json
+          store.openModelsDialog.models = json.sort((a, b) => {
+            const dateA = a.date? Date.parse(a.date) : 0;
+            const dateB = b.date? Date.parse(b.date) : 0;
+            return dateB - dateA;
+          });
         }
       },
       () => store.openModelsDialog = {open: false, models: null});
@@ -120,6 +124,10 @@ export function reload() {
 
 export function save() {
   if (store.authenticated) {
+    // remember the current date, if the save fails we can set it back
+    const currentDate = store.model.date;
+    store.model.date = new Date().toISOString();
+
     const json = JSON.stringify(store.model);
     const url = 'http://' + server + ':' + port + '/api/models/' + store.model.modelId + "?accessToken=" + store.authenticated.accessToken;
     fetch(url, {
@@ -131,11 +139,15 @@ export function save() {
     }).then((response) => {
       if (!response.ok) {
         store.error = communicationFailed("save model", response);
+        store.model.date = currentDate;
       }
       else {
         store.snackbarMessage = "Model saved!";
       }
-    }).catch(ex => store.error = communicationFailed("save model", null));
+    }).catch(ex => {
+      store.error = communicationFailed("save model", null);
+      store.model.date = currentDate;
+    });
   }
   else {
     store.error = notAuthenticated();

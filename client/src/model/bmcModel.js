@@ -13,6 +13,7 @@ import bmcBlock from './bmcBlock';
 // this leaves 668. Use height of 220px.
 export default class bmcModel {
     modelId;
+    @observable date;
     @observable title = 'Business Model Canvas';
     @observable blocks = [
         new bmcBlock('Key Partnerships',         12, 100, 200, 440),
