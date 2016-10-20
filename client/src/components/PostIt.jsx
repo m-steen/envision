@@ -77,7 +77,7 @@ class PostIt extends Component {
           {toolBarElem}
 
           <Resizable height={h} width={w} minConstraints={[98, 50]} onResize={(event, {size}) => onResize(event, this.props.postIt, size)}>
-            <div className={"postit " + color + (selected? " selected" : "")} style={{
+            <div className={"postit COLOR" + color + (selected? " selected" : "")} style={{
                   position: 'absolute',
                   left: x,
                   top: y,
@@ -86,7 +86,17 @@ class PostIt extends Component {
                 }}
                 onClick={(e) => { e.stopPropagation(); this.props.onSelect(this.props.postIt); }}>
 
-              <div className="handle"></div>
+              <div className="postit-color-layer">
+                <svg width={w - 2} height={h - 2} viewBox={"0 0 " + (w - 2) + " " + (h - 2)} xmlns="http://www.w3.org/2000/svg">
+                  <rect x="0" y="0" width={w - 2} height={h - 2}/>
+                </svg>
+              </div>
+
+              <div className="handle">
+                <svg width={w - 2} height="12" viewBox={"0 0 " + (w - 2) + " 12"} xmlns="http://www.w3.org/2000/svg">
+                  <rect x="0" y="0" width={w - 2} height="12"/>
+                </svg>
+              </div>
 
               {titleElem}
 

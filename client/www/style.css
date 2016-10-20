@@ -30,6 +30,13 @@
   .postit {
     border: 1px solid grey !important;
   }
+
+  .postit textarea {
+    background-color: transparent !important;
+  }
+  .react-resizable-handle, .toolbar, .toolbar-color-dropdown, .tooltiptext {
+    display: none !important;
+  }
 }
 
 html {
@@ -90,17 +97,32 @@ input {
 .orange {
   background-color: #F9904A !important;
 }
+.postit.orange .postit-color-layer svg {
+  fill: #F9904A !important;
+}
 .blue {
   background-color: #699FC9 !important;
+}
+.postit.blue .postit-color-layer svg {
+  fill: #699FC9 !important;
 }
 .yellow {
   background-color: #F4E96F !important;
 }
+.postit.yellow .postit-color-layer svg {
+  fill: #F4E96F !important;
+}
 .green {
   background-color: #7EBA59 !important;
 }
+.postit.green .postit-color-layer svg {
+  fill: #7EBA59 !important;
+}
 .pink {
   background-color: #E86F9B !important;
+}
+.postit.pink .postit-color-layer svg {
+  fill: #E86F9B !important;
 }
 
 /* block styling */
@@ -127,12 +149,21 @@ input {
 /* post it styling */
 .postit {
   padding: 0;
-  background-color: #F4E96F;
+/*  background-color: #F4E96F;*/
   z-index: 999;
   overflow: hidden;
   word-wrap: break-word;
   border: none;
   box-shadow: 2px 2px lightgray;
+}
+
+.postit-color-layer {
+  position: absolute;
+  z-index: -1;
+}
+
+.postit-color-layer svg {
+  fill: #F4E96F;
 }
 
 .postit p, .postit textarea {
@@ -155,8 +186,13 @@ input {
 
 .postit .handle {
   cursor: move;
-  background-color: rgba(255, 255, 255, 0.5);
+/*  background-color: rgba(255, 255, 255, 0.5);*/
   height: 12px;
+}
+
+.postit .handle svg {
+  fill: white;
+  fill-opacity: 0.5;
 }
 
 .toolbar {

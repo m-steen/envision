@@ -57,6 +57,7 @@ class PostItToolbar extends Component {
         </div>
 
         <Popover
+          className="toolbar-color-dropdown"
           open={this.state.open}
           anchorEl={this.state.anchorEl}
           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}

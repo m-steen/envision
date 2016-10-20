@@ -58,6 +58,7 @@ class Canvas extends Component {
               isSelected={this.props.isSelected}/>
           )}
       </div>
+
     </div>;
   }
 }
