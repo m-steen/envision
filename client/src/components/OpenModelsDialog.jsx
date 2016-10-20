@@ -32,7 +32,7 @@ export default class OpenModelsDialog extends React.Component {
     deleteModelDialog.deleting = false;
     deleteModelDialog.model = model;
   }
-  
+
   render() {
     const {openModelsDialog} = this.props.store;
     const actions = [
@@ -52,15 +52,19 @@ export default class OpenModelsDialog extends React.Component {
             Please select the models that you want to open:
           </p>
           <List>
-            {openModelsDialog.models.map(model =>
-              <ListItem key={model.id} primaryText={model.title? model.title : "<untitled model>"}
+            {openModelsDialog.models.map(model => {
+              const date = model.date? new Date(model.date) : null;
+              return <ListItem key={model.id}
+                primaryText={model.title? model.title : "<untitled model>"}
+                secondaryText={date? date.toLocaleString() : ""}
                 onTouchTap={e => this.handleClick(model)}
                 rightIconButton={<IconButton
                   iconClassName="fa fa-trash-o"
                   onTouchTap={e => this.handleDelete(e, model)}
                   />}>
 
-                </ListItem>
+                </ListItem>;
+              }
             )}
           </List>
         </div>

@@ -16,7 +16,8 @@ const store = observable({
   openModelsDialog: {
     open: false,
     models: null
-  }
+  },
+  snackbarMessage: null
 });
 
 export function guid() {

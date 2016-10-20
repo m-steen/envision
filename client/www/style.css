@@ -313,6 +313,12 @@ input {
 /*  margin-left: 0px; padding: 0px 16px 0px 72px; position: relative;*/
 }
 
+/* fixes for material-ui */
+
 .open-dialog-contents {
   overflow-x: hidden;
+}
+
+.message-snackbar span {
+  color: white;
 }

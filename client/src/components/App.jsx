@@ -15,6 +15,7 @@ import ErrorDialog from './ErrorDialog';
 import OpenModelsDialog from './OpenModelsDialog';
 import OpenModelDialog from './OpenModelDialog';
 import DeleteModelDialog from './DeleteModelDialog';
+import Snackbar from 'material-ui/Snackbar';
 
 const envisionTheme = getMuiTheme({
   palette: {
@@ -29,6 +30,11 @@ const envisionTheme = getMuiTheme({
 
 @observer
 class App extends Component {
+
+  handleRequestClose = () => {
+    this.props.store.snackbarMessage = null;
+  }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={envisionTheme}>
@@ -145,12 +151,19 @@ class App extends Component {
             }
           }
         }}/>
-      <div id="footer" style={{width: "1012px"}}>
-        <p style={{position: "relative", float: "right", textAlign: "right", fontStyle: "italic"}}>
-          The Business Model Canvas from Strategyzer.com is licensed under the <br/>
-          Creative Commons Attribution-Share Alike 3.0 Unported License.
-        </p>
-      </div>
+        <div id="footer" style={{width: "1012px"}}>
+          <p style={{position: "relative", float: "right", textAlign: "right", fontStyle: "italic"}}>
+            The Business Model Canvas from Strategyzer.com is licensed under the <br/>
+            Creative Commons Attribution-Share Alike 3.0 Unported License.
+          </p>
+        </div>
+
+        <Snackbar open={this.props.store.snackbarMessage != null}
+                message={this.props.store.snackbarMessage? this.props.store.snackbarMessage : "<none>"}
+                autoHideDuration={4000}
+                onRequestClose={this.handleRequestClose}
+                className="message-snackbar"
+              />
 
         <HelpDialog key="F1" store={this.props.store} />
         <OpenModelsDialog store={this.props.store} onLoadModel={model => loadModel(model.id)}/>

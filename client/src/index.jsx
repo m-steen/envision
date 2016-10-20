@@ -40,7 +40,7 @@ function exportToJson() {
 };
 
 // for debug: set authentication with dummy values
-store.authenticated = {name: "De Bug", accessToken: "<access-token>"};
+//store.authenticated = {name: "De Bug", accessToken: "<access-token>"};
 
 // debug: by default, open the open menu
 //loadModels();
