@@ -57,6 +57,7 @@ export default class AppMenu extends React.Component {
 				<Drawer
 					docked={false}
 					open={this.open}
+					className="menu-drawer"
 
 					onRequestChange={(open) => this.handleToggle()}
 					>

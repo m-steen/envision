@@ -40,6 +40,13 @@ class App extends Component {
       <MuiThemeProvider muiTheme={envisionTheme}>
       <div onClick={(e) => this.props.store.selection = null}>
         <AppMenu />
+
+
+        <div className="print-header">
+          <h1>{this.props.store.model.title}</h1>
+          <img src="resources/businessmakeover_background.png"/>
+        </div>
+
         <Canvas store={this.props.store} model={this.props.store.model} onSelect={(object) => {
           this.props.store.selection = object;
         }}

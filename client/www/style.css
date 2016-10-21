@@ -4,26 +4,35 @@
 }
 
 @media print {
-  .menubar {
-    display: none !important;
-  }
-
-  #canvas {
-    position: relative;
-    top: -90px !important;
-  }
-
-  #footer {
+  body {
+    transform: scale(0.8);
     position: absolute;
-    top: 660px !important;
+    top: -30px;
   }
 
-  #footer, #footer p {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
+  .print-header {
+    display: block;
+    width: 1024px;
+    height: 64px;
+  }
+  .print-header img {
+    float: right;
+    height: 64px;
   }
 
-  button {
+  .print-header h1 {
+    float: left;
+    white-space: nowrap;
+    letter-spacing: 0px;
+    font-size: 24px;
+    font-weight: 400;
+    color: rgb(66, 66, 66);
+    line-height: 64px;
+    padding-left: 12px;
+    margin: 0;
+  }
+
+  .menubar, .menu-drawer, .react-resizable-handle, .toolbar, .toolbar-color-dropdown, .tooltiptext, button {
     display: none !important;
   }
 
@@ -34,8 +43,11 @@
   .postit textarea {
     background-color: transparent !important;
   }
-  .react-resizable-handle, .toolbar, .toolbar-color-dropdown, .tooltiptext {
-    display: none !important;
+}
+
+@media screen {
+  .print-header {
+    display: none;
   }
 }
 
