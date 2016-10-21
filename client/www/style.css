@@ -244,6 +244,7 @@ input {
 }
 
 .tooltip {
+  position: absolute;
   visibility: hidden;
 }
 
