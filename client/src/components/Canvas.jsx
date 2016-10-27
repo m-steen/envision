@@ -16,7 +16,8 @@ class Canvas extends Component {
     const {kind} = this.props.model;
 
     return <div id="canvas" style={{
-          height: '700px'
+          height: '700px',
+          width: '1024px'
         }}>
 
       <div>

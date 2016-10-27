@@ -77,7 +77,7 @@ class PostIt extends Component {
           {toolBarElem}
 
           <Resizable height={h} width={w} minConstraints={[98, 50]} onResize={(event, {size}) => onResize(event, this.props.postIt, size)}>
-            <div className={"postit COLOR" + color + (selected? " selected" : "")} style={{
+            <div className={"postit " + color + (selected? " selected" : "")} style={{
                   position: 'absolute',
                   left: x,
                   top: y,
