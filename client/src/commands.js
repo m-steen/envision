@@ -1,18 +1,10 @@
 import store from './AppState';
 import 'whatwg-fetch';
-import bmcModel from './model/bmcModel';
-import bmcPostIt from './model/bmcPostIt';
 
 const server = window.location.hostname;
 const port = '9000';
 
 export function newBmcModel() {
-  store.model = new bmcModel("Your Business Model");
-
-  // add a dummy post it
-  const postIt = new bmcPostIt('Click to edit', 20, 50);
-  store.model.blocks[6].postIts.push(postIt);
-  //store.selection = postIt;
 }
 
 function notAuthenticated() {

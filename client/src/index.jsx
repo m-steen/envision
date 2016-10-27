@@ -1,10 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
-//import { AppContainer } from 'react-hot-loader';
 import store from './AppState';
 import App from './components/App';
 
 import {newBmcModel, loadModels} from './commands';
+
+//import { AppContainer } from 'react-hot-loader';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -22,13 +23,18 @@ function exportToJson() {
 // debug: by default, open the open menu
 //loadModels();
 
-//newBmcModel();
+/*
+const router = new Router({
+    "/{kind}": (kind) => console.log("Kind: " + kind)
+}).configure({
+    notfound: () => console.log("No kind configured"),
+    html5history: true
+}).init();
+*/
 
 render(
   //<AppContainer>
     <App store={store}
-      save={() => save()}
-      reload={() => reload()}
       exportToJson={() => exportToJson()}/>
   //</AppContainer>,
   , document.getElementById('root')

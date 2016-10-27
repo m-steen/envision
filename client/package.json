@@ -40,6 +40,8 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "director": "^1.2.8",
+    "history": "^4.3.0",
     "material-ui": "^0.15.4",
     "mobx": "^2.5.0",
     "mobx-react": "^3.5.5",

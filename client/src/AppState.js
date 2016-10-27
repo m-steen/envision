@@ -1,7 +1,8 @@
 import { observable } from 'mobx';
+import { Router } from 'director';
 
 const store = observable({
-  model: createBMCModel('Your Business Model'),
+  model: createNewModel('bmc'),
   selection: null,
   dragging: null,
   showHelp: false,
@@ -20,6 +21,19 @@ const store = observable({
   snackbarMessage: null
 });
 
+// set up routing
+// routing will determine the kind of model that is being edited.
+const router = Router({
+  '/:kind': (kind) => {
+    store.model = createNewModel(kind.toLowerCase());
+  }
+});
+router.configure({
+  notfound: () => { store.model = createNewModel('bmc'); }
+});
+router.init();
+
+
 export function guid() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -28,6 +42,19 @@ export function guid() {
   }
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
     s4() + '-' + s4() + s4() + s4();
+}
+
+export function createNewModel(kind, title) {
+  switch (kind) {
+    case 'persona':
+      return createPersonaModel(title || 'Your persona analysis');
+    case 'swot':
+      return createSWOTModel(title || 'Your SWOT analysis');
+    case 'pestle':
+      return createPESTLEModel(title || 'Your PESTLE analysis');
+    default:
+      return createBMCModel(title || 'Your business model');
+  }
 }
 
 // positioning of the blocks:

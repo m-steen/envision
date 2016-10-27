@@ -15,7 +15,8 @@ import ActionPrint from 'material-ui/svg-icons/action/print'
 import ActionHelp from 'material-ui/svg-icons/action/help'
 import Download from 'material-ui/svg-icons/file/file-download'
 import store from '../AppState';
-import {loadModels, reload, save, exportToJson, newBmcModel} from '../commands.js';
+import {loadModels, reload, save, exportToJson} from '../commands.js';
+import {createNewModel} from '../AppState';
 import FacebookLogin from 'react-facebook-login';
 
 @observer
@@ -68,7 +69,7 @@ export default class AppMenu extends React.Component {
 						// 	<IconButton onTouchTap={this.handleToggle}><MenuIcon /></IconButton>
 						// }
 						/>
-					<MenuItem primaryText="New" leftIcon={<FileFolderOpen />} onClick={() => {this.handleClose(); newBmcModel();}}/>
+					<MenuItem primaryText="New" leftIcon={<FileFolderOpen />} onClick={() => {this.handleClose(); store.model = createNewModel(store.model.kind);}}/>
 					<MenuItem primaryText="Open" leftIcon={<FileFolderOpen />} onClick={() => {this.handleClose(); loadModels();}}/>
 					<MenuItem primaryText="Save" leftIcon={<ContentSave />} onClick={() => {this.handleClose(); save();}}/>
 					<MenuItem primaryText="SaveAs" leftIcon={<FileFileUpload />} onClick={() => {this.handleClose(); save();}}/>

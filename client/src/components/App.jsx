@@ -9,7 +9,6 @@ import Canvas from './Canvas';
 // import Sidebar from './Sidebar';
 import {findBlockForPostItXY, findBlockFor} from '../AppState';
 import {loadModel} from '../commands';
-import bmcPostIt from '../model/bmcPostIt';
 import HelpDialog from './HelpDialog';
 import ErrorDialog from './ErrorDialog';
 import OpenModelsDialog from './OpenModelsDialog';
