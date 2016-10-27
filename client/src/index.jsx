@@ -45,7 +45,7 @@ function exportToJson() {
 // debug: by default, open the open menu
 //loadModels();
 
-newBmcModel();
+//newBmcModel();
 
 render(
   //<AppContainer>

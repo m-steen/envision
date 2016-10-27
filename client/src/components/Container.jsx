@@ -13,8 +13,8 @@ class Container extends Component {
     const block = this.props.block;
     const postIts = block.postIts;
     const titleClass = block.title.replace(/ /g,'').toLowerCase();
-    const helpText = block.showHelp ?
-                     <div className="tooltiptext">{block.helpText}</div> : undefined;
+    const helpText = this.props.showHelp ?
+                     <div className="tooltiptext">{this.props.help}</div> : undefined;
     return <div className={"block " + titleClass} style={{
           position: 'absolute',
           left: block.x,
@@ -32,7 +32,7 @@ class Container extends Component {
             <IconButton iconClassName="fa fa-question-circle"
               style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px", color: "#898989"}}
               onClick={this.toggleHelp} onMouseOver={this.showHelp} onMouseOut={this.hideHelp}/>
-            <IconButton iconClassName="fa fa-plus-circle addbutton" 
+            <IconButton iconClassName="fa fa-plus-circle addbutton"
               style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px", color: "#01789E"}}
               onClick={this.onAdd} onDoubleClick={(e) => e.stopPropagation()}>
               <span className="tooltip">Add a new Post-It</span>
@@ -50,13 +50,20 @@ class Container extends Component {
   }
 
   toggleHelp = (e) => {
-    this.props.block.showHelp = !this.props.block.showHelp;
+    if (this.props.showHelp) {
+      this.props.onHideHelp();
+    }
+    else {
+      this.props.onShowHelp();
+    }
   }
+
   showHelp = (e) => {
-    this.props.block.showHelp = true;
+    this.props.onShowHelp();
   }
+
   hideHelp = (e) => {
-    this.props.block.showHelp = false;
+    this.props.onHideHelp();
   }
 }
 

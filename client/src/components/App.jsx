@@ -17,6 +17,8 @@ import OpenModelDialog from './OpenModelDialog';
 import DeleteModelDialog from './DeleteModelDialog';
 import Snackbar from 'material-ui/Snackbar';
 
+import help from './Help';
+
 const envisionTheme = getMuiTheme({
   palette: {
     textColor: grey800,
