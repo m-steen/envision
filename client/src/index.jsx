@@ -1,38 +1,16 @@
 import React from 'react';
 import { render } from 'react-dom';
-//import { AppContainer } from 'react-hot-loader';
 import store from './AppState';
 import App from './components/App';
 
-import bmcPostIt from './model/bmcPostIt';
 import {newBmcModel, loadModels} from './commands';
+
+//import { AppContainer } from 'react-hot-loader';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
-
-function reload() {
-  fetch('http://webtoolstudio.bizzdesign.com:3001/models/0')
-  .then(function(response) {
-    return response.json();
-  }).then(function(json) {
-    store.model = json;
-  }).catch(function(ex) {
-    console.log('parsing failed', ex);
-  })
-};
-
-function save() {
-  const json = JSON.stringify(store.model);
-  fetch('http://webtoolstudio.bizzdesign.com:3001/models/0', {
-  	method: 'put',
-    headers: new Headers({
-  		'Content-Type': 'application/json'
-  	}),
-    body: json
-  });
-};
 
 function exportToJson() {
   const json = JSON.stringify(store.model);
@@ -45,13 +23,18 @@ function exportToJson() {
 // debug: by default, open the open menu
 //loadModels();
 
-newBmcModel();
+/*
+const router = new Router({
+    "/{kind}": (kind) => console.log("Kind: " + kind)
+}).configure({
+    notfound: () => console.log("No kind configured"),
+    html5history: true
+}).init();
+*/
 
 render(
   //<AppContainer>
     <App store={store}
-      save={() => save()}
-      reload={() => reload()}
       exportToJson={() => exportToJson()}/>
   //</AppContainer>,
   , document.getElementById('root')

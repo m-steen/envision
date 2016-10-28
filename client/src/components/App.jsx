@@ -9,13 +9,14 @@ import Canvas from './Canvas';
 // import Sidebar from './Sidebar';
 import {findBlockForPostItXY, findBlockFor} from '../AppState';
 import {loadModel} from '../commands';
-import bmcPostIt from '../model/bmcPostIt';
 import HelpDialog from './HelpDialog';
 import ErrorDialog from './ErrorDialog';
 import OpenModelsDialog from './OpenModelsDialog';
 import OpenModelDialog from './OpenModelDialog';
 import DeleteModelDialog from './DeleteModelDialog';
 import Snackbar from 'material-ui/Snackbar';
+
+import help from './Help';
 
 const envisionTheme = getMuiTheme({
   palette: {
