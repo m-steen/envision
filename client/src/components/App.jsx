@@ -7,7 +7,7 @@ import {grey50, grey800} from 'material-ui/styles/colors';
 import AppMenu from './Menu'
 import Canvas from './Canvas';
 // import Sidebar from './Sidebar';
-import {findBlockForPostItXY, findBlockFor} from '../AppState';
+import {findBlockForPostItXY, findBlockFor, createItem} from '../AppState';
 import {loadModel} from '../commands';
 import HelpDialog from './HelpDialog';
 import ErrorDialog from './ErrorDialog';
@@ -42,7 +42,7 @@ class App extends Component {
     const size = block.postIts.length;
     const px = x === undefined? 20+10*size : x - 60 - block.x;
     const py = y === undefined? 50+20*size : y - 40 - block.y;
-    const postIt = new bmcPostIt('Click to edit', px, py);
+    const postIt = createItem('Click to edit', px, py);
     block.postIts.push(postIt);
     this.props.store.selection = postIt;
   }
@@ -156,7 +156,7 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider muiTheme={envisionTheme}>
-        <div onClick={(e) => this.select(null)}>
+        <div onClick={(e) => this.onSelect(null)}>
           <AppMenu />
 
           <div className="print-header">
