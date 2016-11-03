@@ -20,18 +20,6 @@ function exportToJson() {
 // for debug: set authentication with dummy values
 //store.authenticated = {name: "De Bug", accessToken: "<access-token>"};
 
-// debug: by default, open the open menu
-//loadModels();
-
-/*
-const router = new Router({
-    "/{kind}": (kind) => console.log("Kind: " + kind)
-}).configure({
-    notfound: () => console.log("No kind configured"),
-    html5history: true
-}).init();
-*/
-
 render(
   //<AppContainer>
     <App store={store}
