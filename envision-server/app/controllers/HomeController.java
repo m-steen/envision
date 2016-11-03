@@ -55,6 +55,30 @@ public class HomeController extends Controller {
         return ok();
     }
     
+    public Result postIndex() {
+    	Map<String, String[]> formData = request().body().asFormUrlEncoded();
+    	String userId = singleArrayElement(formData.get("userId"));
+    	String secret = singleArrayElement(formData.get("secret"));
+    	
+    	if (userId == null || secret == null) {
+    		return badRequest("The parameters 'userId' and 'secret' not provided");
+    	}
+    	Logger.info("Starting tool for user " + userId + ", secret " + secret);
+    	return ok();
+    }
+    
+    private static String singleArrayElement(String[] arr) {
+    	if (arr == null) {
+    		return null;
+    	}
+    	else if (arr.length != 1) {
+    		return null;
+    	}
+    	else {
+    		return arr[0];
+    	}
+    }
+    
     public Result demo(String accessToken) {
     	FacebookClient fbClient = new DefaultFacebookClient(accessToken, Version.VERSION_2_7);
     	User user = fbClient.fetchObject("me", User.class, Parameter.with("fields", "email,first_name,last_name,gender"));
