@@ -87,6 +87,12 @@ body {
     transform: translate3d(-340px, 0, 0)
 }
 
+#footer p {
+  float: right;
+  text-align: right;
+  font-style: italic;
+}
+
 input {
     width: 100%;
     padding: 4px;
