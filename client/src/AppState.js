@@ -33,6 +33,12 @@ router.configure({
 });
 router.init();
 
+// set up authentication.
+// it should have been provided by cookies
+store.authenticated = {
+  name: null,//response.name,
+  userId: "691f9cd6dd826701x6a797679x15869400418x-371f",
+  secret: "728b0c53-9554-493a-b414-0f8e9787e713"};
 
 export function guid() {
   function s4() {

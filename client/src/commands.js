@@ -7,6 +7,10 @@ const port = '9000';
 export function newBmcModel() {
 }
 
+function queryParam(store) {
+  return "?userId=" + store.authenticated.userId + "&secret=" + store.authenticated.secret;
+}
+
 function notAuthenticated() {
   return {
     title: "Not authenticated",
@@ -25,13 +29,12 @@ function communicationFailed(op, response) {
 
 function loadJson(uri, op, success, error) {
   if (store.authenticated) {
-    const url = 'http://' + server + ':' + port + uri + "?accessToken=" + store.authenticated.accessToken;
+    const url = 'http://' + server + ':' + port + uri + queryParam(store);
     return fetch(url).then((response) => {
       if (response.ok) {
         return response.json()
           .then(success)
           .catch(ex => {
-            console.log("Error");
             if (error) {
               error();
             }
@@ -92,7 +95,7 @@ export function loadModel(id) {
 
 export function reload() {
   if (store.authenticated) {
-    const url = 'http://' + server + ':' + port + '/api/models/' + store.model.modelId + "?accessToken=" + store.authenticated.accessToken;
+    const url = 'http://' + server + ':' + port + '/api/models/' + store.model.modelId + queryParam(store);
     fetch(url).then((response) => {
       if (response.ok) {
         return response.json()
@@ -121,7 +124,7 @@ export function save() {
     store.model.date = new Date().toISOString();
 
     const json = JSON.stringify(store.model);
-    const url = 'http://' + server + ':' + port + '/api/models/' + store.model.modelId + "?accessToken=" + store.authenticated.accessToken;
+    const url = 'http://' + server + ':' + port + '/api/models/' + store.model.modelId + queryParam(store);
     fetch(url, {
     	method: 'put',
       headers: new Headers({
@@ -150,7 +153,7 @@ export function deleteModel() {
   store.deleteModelDialog.deleting = true;
   const model = store.deleteModelDialog.model;
   if (store.authenticated) {
-    const url = 'http://' + server + ':' + port + '/api/models/' + model.id + "?accessToken=" + store.authenticated.accessToken;
+    const url = 'http://' + server + ':' + port + '/api/models/' + model.id + queryParam(store);
     fetch(url, {
     	method: 'delete'
     }).then((response) => {
@@ -172,7 +175,7 @@ export function deleteModel() {
 export function exportToJson() {
   if (store.authenticated) {
     const json = JSON.stringify(store.model);
-    const url = 'http://' + server + ':' + port + '/api/models/' + store.model.modelId + "?accessToken=" + store.authenticated.accessToken;
+    const url = 'http://' + server + ':' + port + '/api/models/' + store.model.modelId + queryParam(store);
     window.open(url, '_blank');
   }
   else {

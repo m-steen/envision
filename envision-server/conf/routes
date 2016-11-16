@@ -15,9 +15,9 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 GET		/demo/:accessToken			controllers.HomeController.demo(accessToken: String)
 
-GET		/api/models					controllers.HomeController.getModels(accessToken: String ?= null)
-GET		/api/models/:modelId		controllers.HomeController.getModel(modelId: String, accessToken: String ?= null)
-PUT		/api/models/:modelId		controllers.HomeController.putModel(modelId: String, accessToken: String ?= null)
-DELETE	/api/models/:modelId		controllers.HomeController.deleteModel(modelId: String, accessToken: String ?= null)
-POST	/api/models					controllers.HomeController.postModel(accessToken: String ?= null)
+GET		/api/models					controllers.HomeController.getModels(userId: String ?= null, secret: String ?= null)
+GET		/api/models/:modelId		controllers.HomeController.getModel(modelId: String, userId: String ?= null, secret: String ?= null)
+PUT		/api/models/:modelId		controllers.HomeController.putModel(modelId: String, userId: String ?= null, secret: String ?= null)
+DELETE	/api/models/:modelId		controllers.HomeController.deleteModel(modelId: String, userId: String ?= null, secret: String ?= null)
+POST	/api/models					controllers.HomeController.postModel(userId: String ?= null, secret: String ?= null)
 	
