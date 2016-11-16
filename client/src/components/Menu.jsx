@@ -36,7 +36,7 @@ export default class AppMenu extends React.Component {
 	}
 
 	render() {
-		const name = store.authenticated? store.authenticated.name : "Not logged in";
+		const authInfo = store.authenticated? "" : "You are not authenticated";
 		const titleElem = this.selected ?
 			<input value={store.model.title} style={{margin: "0px", padding: "0px", fontSize: "24px", width: "initial", height: "64px" }}
 				autoFocus
@@ -53,7 +53,7 @@ export default class AppMenu extends React.Component {
 					// 	<IconButton onTouchTap={this.handleToggle}><MenuIcon /></IconButton>
 					// }
 					className="menubar">
-					<p>{name}</p>
+					<p>{authInfo}</p>
 				</AppBar>
 				<Drawer
 					docked={false}

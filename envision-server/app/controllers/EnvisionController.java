@@ -3,6 +3,7 @@ package controllers;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -10,12 +11,14 @@ import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 
 import models.Model;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import play.Application;
 import play.Logger;
 import play.libs.Json;
 import play.libs.ws.WSClient;
@@ -46,8 +49,11 @@ import com.restfb.types.User;
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
  */
-public class HomeController extends Controller {
+public class EnvisionController extends Controller {
 
+	@Inject
+	private Provider<Application> application;
+	
 	@SuppressWarnings("unused")
 	private static final String APP_ID = "1193159677397239";
 	@SuppressWarnings("unused")
@@ -59,35 +65,50 @@ public class HomeController extends Controller {
     private WSClient ws;
     
 	private MongoClient mongoClient = new MongoClient("localhost");
-
-
+	 
 	/**
      * An action that renders an HTML page with a welcome message.
      * The configuration in the <code>routes</code> file means that
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
-    public Result index() {
-    	String user = "691f9cd6dd826701x6a797679x15869400418x-371f";
-    	String secret = "728b0c53-9554-493a-b414-0f8e9787e713";
-
-    	validateEvolarisUser(user, secret);
-    	response().setCookie(new Cookie("userId", user, null, null, null, false, false));
-    	response().setCookie(new Cookie("secret", secret, null, null, null, false, false));
-    	
-        return ok();
+    //public Result index() {
+	public Result index(String userId, String secret) {
+		// to use for debug purposes
+//		if (userId == null && secret == null) {
+//			userId = "691f9cd6dd826701x6a797679x15869400418x-371f";
+//			secret = "728b0c53-9554-493a-b414-0f8e9787e713";
+//		}
+		
+    	return indexResponse(userId, secret);
     }
     
     public Result postIndex() {
     	Map<String, String[]> formData = request().body().asFormUrlEncoded();
     	String userId = singleArrayElement(formData.get("userId"));
     	String secret = singleArrayElement(formData.get("secret"));
-    	
+
     	if (userId == null || secret == null) {
     		return badRequest("The parameters 'userId' and 'secret' not provided");
     	}
-    	Logger.info("Starting tool for user " + userId + ", secret " + secret);
-    	return ok();
+
+    	return indexResponse(userId, secret);
+    }
+    
+    private Result indexResponse(String userId, String secret) {
+    	Logger.info("Checking access for user " + userId);
+    	if (userId != null && secret != null) {
+    		validateEvolarisUser(userId, secret);
+    		response().setCookie(new Cookie("userId", userId, null, null, null, false, false));
+    		response().setCookie(new Cookie("secret", secret, null, null, null, false, false));
+    	}
+    	else {
+    		response().discardCookie("userId");
+    		response().discardCookie("secret");
+    	}
+    	
+    	File file = application.get().getFile("public/index.html");
+        return ok(file);
     }
     
     private static String singleArrayElement(String[] arr) {
@@ -220,7 +241,7 @@ public class HomeController extends Controller {
 				if (responseResult == null || !responseResult.isTextual() || !responseResult.textValue().equals("ok") ||
 						responseData == null || !responseData.isBoolean() || responseData.booleanValue() != true) {
 					Logger.info("Failed to validate");
-					throw new RuntimeException("Could not validate user " + user);
+					throw new UnauthenticatedException(user);
 				}
 				Logger.info("Validated user " + user);
 	    	}

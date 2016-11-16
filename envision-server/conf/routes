@@ -3,21 +3,16 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-POST	/							controllers.HomeController.postIndex
-# An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
-# An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
+GET     /                           controllers.EnvisionController.index(userId: String ?= null, secret: String ?= null)
+POST	/							controllers.EnvisionController.postIndex
+
+GET		/api/models					controllers.EnvisionController.getModels(userId: String ?= null, secret: String ?= null)
+GET		/api/models/:modelId		controllers.EnvisionController.getModel(modelId: String, userId: String ?= null, secret: String ?= null)
+PUT		/api/models/:modelId		controllers.EnvisionController.putModel(modelId: String, userId: String ?= null, secret: String ?= null)
+DELETE	/api/models/:modelId		controllers.EnvisionController.deleteModel(modelId: String, userId: String ?= null, secret: String ?= null)
+POST	/api/models					controllers.EnvisionController.postModel(userId: String ?= null, secret: String ?= null)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET     /*file               controllers.Assets.versioned(path="/public", file: Asset)
 
-GET		/demo/:accessToken			controllers.HomeController.demo(accessToken: String)
-
-GET		/api/models					controllers.HomeController.getModels(userId: String ?= null, secret: String ?= null)
-GET		/api/models/:modelId		controllers.HomeController.getModel(modelId: String, userId: String ?= null, secret: String ?= null)
-PUT		/api/models/:modelId		controllers.HomeController.putModel(modelId: String, userId: String ?= null, secret: String ?= null)
-DELETE	/api/models/:modelId		controllers.HomeController.deleteModel(modelId: String, userId: String ?= null, secret: String ?= null)
-POST	/api/models					controllers.HomeController.postModel(userId: String ?= null, secret: String ?= null)
 	

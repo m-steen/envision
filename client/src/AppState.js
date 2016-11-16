@@ -1,13 +1,43 @@
 import { observable } from 'mobx';
 import { Router } from 'director';
 
+// http://www.quirksmode.org/js/cookies.html
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+function authenticationInfo() {
+  console.log(document.cookie);
+  var userId = readCookie("userId");
+  console.log("User id: " + userId);
+  var secret = readCookie("secret");
+  console.log("Secret: " + secret);
+
+  if (userId && secret) {
+    return {
+      "userId": userId,
+      "secret": secret
+    };
+  }
+  else {
+    return null;
+  }
+}
+
 const store = observable({
   model: createNewModel('bmc'),
   selection: null,
   dragging: null,
   showHelp: false,
   showBlockHelp: null,
-  authenticated: null,
+  authenticated: authenticationInfo(),
   error: null,
   loadingModel: false,
   deleteModelDialog: {
@@ -32,13 +62,6 @@ router.configure({
   notfound: () => { store.model = createNewModel('bmc'); }
 });
 router.init();
-
-// set up authentication.
-// it should have been provided by cookies
-store.authenticated = {
-  name: null,//response.name,
-  userId: "691f9cd6dd826701x6a797679x15869400418x-371f",
-  secret: "728b0c53-9554-493a-b414-0f8e9787e713"};
 
 export function guid() {
   function s4() {
