@@ -27,9 +27,13 @@ function communicationFailed(op, response) {
   }
 }
 
-function loadJson(uri, op, success, error) {
+function paramsToString(params) {
+  return Object.keys(params).reduce((previous, key) => previous + "&" + key + "=" + params[key], "");
+}
+
+function loadJson(uri, op, success, error, params = {}) {
   if (store.authenticated) {
-    const url = 'http://' + server + ':' + port + uri + queryParam(store);
+    const url = 'http://' + server + ':' + port + uri + queryParam(store) + paramsToString(params);
     return fetch(url).then((response) => {
       if (response.ok) {
         return response.json()
@@ -77,7 +81,8 @@ export function loadModels() {
           });
         }
       },
-      () => store.openModelsDialog = {open: false, models: null});
+      () => store.openModelsDialog = {open: false, models: null},
+      {kind: store.model.kind});
 }
 
 export function loadModel(id) {

@@ -54,9 +54,11 @@ export default class OpenModelsDialog extends React.Component {
           <List>
             {openModelsDialog.models.map(model => {
               const date = model.date? new Date(model.date) : null;
+              const secondaryText = (model.kind? (model.kind + " model, ") : "") +
+                "last modified: " + (date? date.toLocaleString() : "unknown");
               return <ListItem key={model.id}
                 primaryText={model.title? model.title : "<untitled model>"}
-                secondaryText={date? date.toLocaleString() : ""}
+                secondaryText={secondaryText}
                 onTouchTap={e => this.handleClick(model)}
                 rightIconButton={<IconButton
                   iconClassName="fa fa-trash-o"
