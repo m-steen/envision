@@ -30,9 +30,21 @@ public class ErrorHandler extends DefaultHttpErrorHandler {
     public CompletionStage<Result> onServerError(RequestHeader request, Throwable exception) {
     	if (exception instanceof UnauthenticatedException) {
     		UnauthenticatedException ue = (UnauthenticatedException) exception;
-    		Logger.info("Unauthorized access for user " + ue.getUserId());
+    		Logger.info("Unauthorized access for user " + ue.getUserId() + ".");
     		return CompletableFuture.completedFuture(
     				Results.unauthorized("Unable to authenticate for user " + ue.getUserId())
+    		);
+    	}
+    	if (exception instanceof ModelTooLargeException) {
+    		Logger.info("Uploaded a model that is too large");
+    		return CompletableFuture.completedFuture(
+    				Results.badRequest("The uploaded model is too large.")
+    		);
+    	}
+    	if (exception instanceof TooManyModelsStoredException) {
+    		Logger.info("Uploaded a model that is too large");
+    		return CompletableFuture.completedFuture(
+    				Results.badRequest("You have exceeded the number of models you can store.")
     		);
     	}
     	return super.onServerError(request, exception);

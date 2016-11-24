@@ -19,11 +19,26 @@ function notAuthenticated() {
   };
 }
 
-function communicationFailed(op, response) {
+function errorObject(op, message, details) {
   return {
     title: "Could not " + op,
-    message: response? "The server responded with an error message." : "The server could not be reached",
-    details: response? "Response message: " + response.statusText + " (code: " + response.status + ")" : null
+    message: message,
+    details: details
+  }
+}
+
+function communicationFailed(op, response) {
+  if (response) {
+    response.text().then(text => {
+      console.log("Resolved " + text);
+      const details = "Response message: " + response.statusText +
+        " (code: " + response.status + "). " +
+        (text? text : "");
+      store.error = errorObject(op, "The server responded with an error message.", details);
+    });
+  }
+  else {
+    store.error = errorObject(op, "The server could not be reached", null);
   }
 }
 
@@ -52,13 +67,13 @@ function loadJson(uri, op, success, error, params = {}) {
         if (error) {
           error();
         }
-        store.error = communicationFailed(op, response);
+        communicationFailed(op, response);
       }
     }).catch(ex => {
       if (error) {
         error();
       }
-      store.error = communicationFailed(op, null);
+      communicationFailed(op, null);
     });
   }
   else {
@@ -113,9 +128,9 @@ export function reload() {
           });
       }
       else {
-        store.error = communicationFailed("load model", response);
+        communicationFailed("load model", response);
       }
-    }).catch(ex => store.error = communicationFailed("load model", null));
+    }).catch(ex => communicationFailed("load model", null));
   }
   else {
     store.error = notAuthenticated();
@@ -138,14 +153,14 @@ export function save() {
       body: json
     }).then((response) => {
       if (!response.ok) {
-        store.error = communicationFailed("save model", response);
+        communicationFailed("save model", response);
         store.model.date = currentDate;
       }
       else {
         store.snackbarMessage = "Model saved!";
       }
     }).catch(ex => {
-      store.error = communicationFailed("save model", null);
+      communicationFailed("save model", null);
       store.model.date = currentDate;
     });
   }
@@ -163,14 +178,14 @@ export function deleteModel() {
     	method: 'delete'
     }).then((response) => {
       if (!response.ok) {
-        store.error = communicationFailed("delete model", response);
+        communicationFailed("delete model", response);
       }
       else if (store.openModelsDialog.open) {
         loadModels();
       }
       store.deleteModelDialog.model = null;
       store.deleteModelDialog.deleting = false;
-    }).catch(ex => store.error = communicationFailed("delete model", null));
+    }).catch(ex => fcommunicationFailed("delete model", null));
   }
   else {
     store.error = notAuthenticated();

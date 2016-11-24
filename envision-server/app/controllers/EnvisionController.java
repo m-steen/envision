@@ -59,6 +59,10 @@ public class EnvisionController extends Controller {
 	@SuppressWarnings("unused")
 	private static final String APP_SECRET = "6a5e79d7cabb0b0198f5ce94469b4e8a";
 
+	private static final int MAX_MODEL_LENGTH = 50000;
+	private static final int MAX_STORED_MODELS = 100;
+	
+	
     private ObjectMapper mapper = new ObjectMapper();
 
     @Inject 
@@ -290,12 +294,24 @@ public class EnvisionController extends Controller {
 	}
 	
 	private void saveModel(String model, String userId, String modelId) {
+		// 50.000 characters in its serialized form, maximum of 100 models
+		// results in maximum of 5.000.000 (5MB max)
+		if (model.length() > MAX_MODEL_LENGTH) {
+			throw new ModelTooLargeException();
+		}
+		
+		// check how many documents are stored.
+		MongoDatabase database = mongoClient.getDatabase("envision");
+		MongoCollection<Document> collection = database.getCollection("models");
+		long stored = collection.count(userIdFilter(userId));
+		if (stored > MAX_STORED_MODELS) {
+			throw new TooManyModelsStoredException();
+		}
+		
 		Document doc = Document.parse(model);
 		doc.put("userId", userId);
 		doc.put("modelId", modelId);
 		
-		MongoDatabase database = mongoClient.getDatabase("envision");
-		MongoCollection<Document> collection = database.getCollection("models");
 		UpdateResult result = collection.replaceOne(filter(userId, modelId), doc);
 		if (result.getMatchedCount() != 0) {
 			Logger.info("Updated model " + modelId + " for user " + userId + ": " + result);
