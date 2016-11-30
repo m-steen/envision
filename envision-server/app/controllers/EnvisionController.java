@@ -96,8 +96,8 @@ public class EnvisionController extends Controller {
     }
     
     private Result indexResponse(String userId, String secret) {
-    	Logger.info("Checking access for user " + userId);
     	if (userId != null && secret != null) {
+        	Logger.info("Checking access for user " + userId);
     		validateEvolarisUser(userId, secret);
     		response().setCookie(new Cookie("userId", userId, null, null, null, false, false));
     		response().setCookie(new Cookie("secret", secret, null, null, null, false, false));
@@ -107,8 +107,7 @@ public class EnvisionController extends Controller {
     		response().discardCookie("secret");
     	}
     	
-    	File file = application.get().getFile("public/index.html");
-        return ok(file);
+        return ok(application.get().resourceAsStream("public/index.html"));
     }
     
     private static String singleArrayElement(String[] arr) {
