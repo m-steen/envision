@@ -6,7 +6,7 @@
 GET     /                           controllers.EnvisionController.index(userId: String ?= null, secret: String ?= null)
 POST	/							controllers.EnvisionController.postIndex
 
-GET		/api/models					controllers.EnvisionController.getModels(userId: String ?= null, secret: String ?= null)
+GET		/api/models					controllers.EnvisionController.getModels(userId: String ?= null, secret: String ?= null, kind: String ?= null)
 GET		/api/models/:modelId		controllers.EnvisionController.getModel(modelId: String, userId: String ?= null, secret: String ?= null)
 PUT		/api/models/:modelId		controllers.EnvisionController.putModel(modelId: String, userId: String ?= null, secret: String ?= null)
 DELETE	/api/models/:modelId		controllers.EnvisionController.deleteModel(modelId: String, userId: String ?= null, secret: String ?= null)

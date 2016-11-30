@@ -59,6 +59,10 @@ public class EnvisionController extends Controller {
 	@SuppressWarnings("unused")
 	private static final String APP_SECRET = "6a5e79d7cabb0b0198f5ce94469b4e8a";
 
+	private static final int MAX_MODEL_LENGTH = 50000;
+	private static final int MAX_STORED_MODELS = 100;
+	
+	
     private ObjectMapper mapper = new ObjectMapper();
 
     @Inject 
@@ -130,11 +134,11 @@ public class EnvisionController extends Controller {
         return ok();
     }
 
-    public Result getModels(String userId, String secret) {
+    public Result getModels(String userId, String secret, String kind) {
     	//String userId = loadFacebookUserId(accessToken);
     	validateEvolarisUser(userId, secret);
     	
-    	Map<String, Model> models = loadModels(userId);
+    	Map<String, Model> models = loadModels(userId, kind);
     	ArrayNode arr = mapper.createArrayNode();
     	models.forEach((key, value) -> {
     		ObjectNode child = mapper.createObjectNode();
@@ -142,6 +146,7 @@ public class EnvisionController extends Controller {
     		child.put("uri", "/api/models/" + key + "?userId=" + userId + "&secret=" + secret);
     		child.put("title", value.name);
     		child.put("date", value.date);
+    		child.put("kind", value.kind);
     		arr.add(child);
     	});
     	return ok(arr);
@@ -253,16 +258,17 @@ public class EnvisionController extends Controller {
     
     // mongo database access
 	
-  private Map<String, Model> loadModels(String userId) {
+  private Map<String, Model> loadModels(String userId, String kind) {
 		Map<String, Model> result = new HashMap<>();
 		MongoDatabase database = mongoClient.getDatabase("envision");
 		MongoCollection<Document> collection = database.getCollection("models");
-		FindIterable<Document> it = collection.find(userIdFilter(userId));
+		FindIterable<Document> it = collection.find(modelsFilder(userId, kind));
 		for (Document doc: it) {
 			String id = doc.getString("modelId");
 			String name = doc.getString("title");
 			String date = doc.getString("date");
-			result.put(id, new Model(id, name, date));
+			String modelKind = doc.getString("kind");
+			result.put(id, new Model(id, name, date, modelKind));
 		}
 		Logger.info("Loaded " + result.size() + " models for user " + userId);
 		return result;
@@ -287,12 +293,24 @@ public class EnvisionController extends Controller {
 	}
 	
 	private void saveModel(String model, String userId, String modelId) {
+		// 50.000 characters in its serialized form, maximum of 100 models
+		// results in maximum of 5.000.000 (5MB max)
+		if (model.length() > MAX_MODEL_LENGTH) {
+			throw new ModelTooLargeException();
+		}
+		
+		// check how many documents are stored.
+		MongoDatabase database = mongoClient.getDatabase("envision");
+		MongoCollection<Document> collection = database.getCollection("models");
+		long stored = collection.count(userIdFilter(userId));
+		if (stored > MAX_STORED_MODELS) {
+			throw new TooManyModelsStoredException();
+		}
+		
 		Document doc = Document.parse(model);
 		doc.put("userId", userId);
 		doc.put("modelId", modelId);
 		
-		MongoDatabase database = mongoClient.getDatabase("envision");
-		MongoCollection<Document> collection = database.getCollection("models");
 		UpdateResult result = collection.replaceOne(filter(userId, modelId), doc);
 		if (result.getMatchedCount() != 0) {
 			Logger.info("Updated model " + modelId + " for user " + userId + ": " + result);
@@ -314,6 +332,12 @@ public class EnvisionController extends Controller {
 	private Bson filter(String userId, String modelId) {
 		Bson result = and(userIdFilter(userId), eq("modelId", modelId));
 		return result;
+	}
+	
+	private Bson modelsFilder(String userId, String kind) {
+		return kind != null?
+				and(userIdFilter(userId), eq("kind", kind)) :
+				userIdFilter(userId);
 	}
 	
 	private Bson userIdFilter(String userId) {
