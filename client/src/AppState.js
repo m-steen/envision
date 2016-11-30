@@ -14,12 +14,6 @@ function readCookie(name) {
 }
 
 function authenticationInfo() {
-  console.log(document.cookie);
-  var userId = readCookie("userId");
-  console.log("User id: " + userId);
-  var secret = readCookie("secret");
-  console.log("Secret: " + secret);
-
   if (userId && secret) {
     return {
       "userId": userId,

@@ -3,7 +3,6 @@ package controllers;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -15,6 +14,7 @@ import javax.inject.Provider;
 
 import models.Model;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -92,15 +92,11 @@ public class EnvisionController extends Controller {
     	String userId = singleArrayElement(formData.get("userId"));
     	String secret = singleArrayElement(formData.get("secret"));
 
-    	if (userId == null || secret == null) {
-    		return badRequest("The parameters 'userId' and 'secret' not provided");
-    	}
-
     	return indexResponse(userId, secret);
     }
     
     private Result indexResponse(String userId, String secret) {
-    	if (userId != null && secret != null) {
+    	if (!StringUtils.isBlank(userId) && !StringUtils.isBlank(secret)) {
         	Logger.info("Checking access for user " + userId);
     		validateEvolarisUser(userId, secret);
     		response().setCookie(new Cookie("userId", userId, null, null, null, false, false));
