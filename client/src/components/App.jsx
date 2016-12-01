@@ -80,7 +80,7 @@ class App extends Component {
       for (let i = 0; i < b.postIts.length; i++) {
         if (b.postIts[i] === postIt) {
           const {title, x, y, w, h, color} = postIt;
-          const duplicate = new bmcPostIt(title, x + 20, y + 20, color);
+          const duplicate = createItem(title, x + 20, y + 20, w, h, color);
           b.postIts.push(duplicate);
           this.props.store.selection = duplicate;
           return;

@@ -103,13 +103,6 @@ input {
     position: fixed;
     bottom: 0;
 }
-.color-button {
-  float: left;
-  width: 20px;
-  border: 1px solid darkgrey;
-  height: 20px;
-  cursor: pointer;
-}
 
 /* colors */
 .orange {
@@ -220,6 +213,24 @@ input {
   border: none;
   background-color: lightgrey;
   z-index: 1000;
+}
+
+.color-button {
+  float: left;
+  width: 20px;
+  border: 1px solid darkgrey !important;
+  border-color: darkgrey;
+  height: 20px;
+  cursor: pointer;
+}
+
+.toolbar-color-dropdown {
+  background-color: lightgrey !important;
+  padding: 2px;
+  width: 24px;
+}
+.toolbar-color-dropdown .color-button {
+  float: none;
 }
 
 .react-draggable-dragging {

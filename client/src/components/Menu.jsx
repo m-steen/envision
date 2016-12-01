@@ -42,33 +42,26 @@ export default class AppMenu extends React.Component {
 				autoFocus
 				onBlur={this.handleClose}
 				onChange={(e) => store.model.title = e.target.value}/> :
-			<span onClick={(e) => { this.selected = true; }}>{store.model.title}</span>;
+			<span onClick={(e) => { this.selected = true; }}>{store.model.title}
+				<IconButton
+					iconClassName="fa fa-pencil"/>
+			</span>;
 
 		return (
 			<div>
 				<AppBar
 					title={titleElem}
 					onLeftIconButtonTouchTap={this.handleToggle}
-					// iconElementLeft={
-					// 	<IconButton onTouchTap={this.handleToggle}><MenuIcon /></IconButton>
-					// }
 					className="menubar">
-					<p>{authInfo}</p>
+					{/*<p>{authInfo}</p>*/}
 				</AppBar>
 				<Drawer
 					docked={false}
 					open={this.open}
 					className="menu-drawer"
+					onRequestChange={(open) => this.handleToggle()}>
 
-					onRequestChange={(open) => this.handleToggle()}
-					>
-					<AppBar
-						title="Menu"
-						onLeftIconButtonTouchTap={this.handleToggle}
-						// iconElementLeft={
-						// 	<IconButton onTouchTap={this.handleToggle}><MenuIcon /></IconButton>
-						// }
-						/>
+					<AppBar title="Menu" onLeftIconButtonTouchTap={this.handleToggle}/>
 					<MenuItem primaryText="New" leftIcon={<FileFolderOpen />} onClick={() => {this.handleClose(); store.model = createNewModel(store.model.kind);}}/>
 					<MenuItem primaryText="Open" leftIcon={<FileFolderOpen />} onClick={() => {this.handleClose(); loadModels();}}/>
 					<MenuItem primaryText="Save" leftIcon={<ContentSave />} onClick={() => {this.handleClose(); save();}}/>

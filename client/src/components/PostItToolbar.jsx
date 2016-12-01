@@ -50,7 +50,7 @@ class PostItToolbar extends Component {
         <div>
           <a className="color-button handle" onClick={(e) => e.stopPropagation()}><i className="fa fa-arrows" style={{fontSize: "18px", padding: "1px", width: "18px", textAlign: "center", cursor: "pointer"}}></i></a>
           <a className="color-button" onClick={(e) => this.props.onDuplicatePostIt(e)}><i className="fa fa-files-o" style={{fontSize: "18px", padding: "1px", width: "18px", textAlign: "center", cursor: "pointer"}}></i></a>
-          <a className="color-button" onClick={(e) => this.props.onDelete(e)}><i className="fa fa-remove" style={{fontSize: "18px", padding: "1px", width: "18px", textAlign: "center", cursor: "pointer"}}></i></a>
+          <a className="color-button" onClick={(e) => this.props.onDelete(e)}><i className="fa fa-trash-o" style={{fontSize: "18px", padding: "1px", width: "18px", textAlign: "center", cursor: "pointer"}}></i></a>
           <a className="color-button" onClick={this.props.onMoveToFront}><img src="resources/bring-forward.svg" style={{padding: "1px", width: "18px", height: "18px", border: "0"}}/></a>
           <a className="color-button" onClick={this.props.onMoveToBack}><img src="resources/bring-backward.svg" style={{padding: "1px", width: "18px", height: "18px", border: "0"}}/></a>
           <a onClick={this.handleTouchTap} className={"color-button " + selectedColor}></a>
@@ -65,11 +65,11 @@ class PostItToolbar extends Component {
           onRequestClose={this.handleRequestClose}>
 
           <Menu>
-            <MenuItem className="orange" primaryText="Orange" onClick={(e) => this.props.onChangeColor(e, "orange")}/>
-            <MenuItem className="blue" primaryText="Blue" onClick={(e) => this.props.onChangeColor(e, "blue")}/>
-            <MenuItem className="yellow" primaryText="Yellow" onClick={(e) => this.props.onChangeColor(e, "yellow")}/>
-            <MenuItem className="green" primaryText="Green" onClick={(e) => this.props.onChangeColor(e, "green")}/>
-            <MenuItem className="pink" primaryText="Pink" onClick={(e) => this.props.onChangeColor(e, "Pink")}/>
+            <MenuItem className="color-button orange" primaryText="" onClick={(e) => this.props.onChangeColor(e, "orange")}/>
+            <MenuItem className="color-button blue" primaryText="" onClick={(e) => this.props.onChangeColor(e, "blue")}/>
+            <MenuItem className="color-button yellow" primaryText="" onClick={(e) => this.props.onChangeColor(e, "yellow")}/>
+            <MenuItem className="color-button green" primaryText="" onClick={(e) => this.props.onChangeColor(e, "green")}/>
+            <MenuItem className="color-button pink" primaryText="" onClick={(e) => this.props.onChangeColor(e, "Pink")}/>
           </Menu>
         </Popover>
       </div>;
