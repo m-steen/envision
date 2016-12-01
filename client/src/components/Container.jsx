@@ -35,7 +35,7 @@ class Container extends Component {
             <IconButton iconClassName="fa fa-plus-circle addbutton"
               style={{padding: "4px", width: "32px", height: "32px", fontSize: "24px", color: "#01789E"}}
               onClick={this.onAdd} onDoubleClick={(e) => e.stopPropagation()}>
-              <span className="tooltip">Add a new Post-It</span>
+              <span className="tooltip">Add a new item</span>
             </IconButton>
           </div>
           <h1 style={{float: "left", width: "60%"}}>{block.title}</h1>
