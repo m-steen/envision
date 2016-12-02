@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, autorun } from 'mobx';
 import { Router } from 'director';
 
 // http://www.quirksmode.org/js/cookies.html
@@ -17,6 +17,9 @@ function authenticationInfo() {
   var userId = readCookie("userId");
   var secret = readCookie("secret");
 
+  userId = userId || "691f9cd6dd826701x6a797679x15869400418x-371f";
+  secret = secret || "728b0c53-9554-493a-b414-0f8e9787e713";
+
   if (userId && secret) {
     return {
       "userId": userId,
@@ -28,8 +31,10 @@ function authenticationInfo() {
   }
 }
 
+const initialModel = createNewModel('bmc');
+
 const store = observable({
-  model: createNewModel('bmc'),
+  model: initialModel,
   selection: null,
   dragging: null,
   showHelp: false,
@@ -45,18 +50,27 @@ const store = observable({
     open: false,
     models: null
   },
-  snackbarMessage: null
+  snackbarMessage: null,
+
+  showSaveModelDialog: false,
+  savedModelJson: JSON.stringify(initialModel)
 });
+
+export function replaceNewModel(kind, title) {
+  const model = createNewModel(kind, title);
+  store.model = model;
+  store.savedModelJson = JSON.stringify(model);
+}
 
 // set up routing
 // routing will determine the kind of model that is being edited.
 const router = Router({
   '/:kind': (kind) => {
-    store.model = createNewModel(kind.toLowerCase());
+    replaceNewModel(kind.toLowerCase());
   }
 });
 router.configure({
-  notfound: () => { store.model = createNewModel('bmc'); }
+  notfound: () => { replaceNewModel('bmc'); }
 });
 router.init();
 

@@ -7,13 +7,14 @@ import {grey50, grey800} from 'material-ui/styles/colors';
 import AppMenu from './Menu'
 import Canvas from './Canvas';
 // import Sidebar from './Sidebar';
-import {findBlockForPostItXY, findBlockFor, createItem} from '../AppState';
-import {loadModel} from '../commands';
+import {findBlockForPostItXY, findBlockFor, createItem, replaceNewModel} from '../AppState';
+import {loadModel, save, saveAndCreateNewModel} from '../commands';
 import HelpDialog from './HelpDialog';
 import ErrorDialog from './ErrorDialog';
 import OpenModelsDialog from './OpenModelsDialog';
 import OpenModelDialog from './OpenModelDialog';
 import DeleteModelDialog from './DeleteModelDialog';
+import SaveModelDialog from './SaveModelDialog';
 import Snackbar from 'material-ui/Snackbar';
 
 import help from './Help';
@@ -153,6 +154,10 @@ class App extends Component {
     }
   }
 
+  onCreateNewModel = (doSave) => {
+    saveAndCreateNewModel(doSave);
+  }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={envisionTheme}>
@@ -196,9 +201,10 @@ class App extends Component {
             onLoadModel={model => loadModel(model.id)}/>
           <OpenModelDialog store={this.props.store} />
           <DeleteModelDialog store={this.props.store} />
+          <SaveModelDialog store={this.props.store} onNewModel={this.onCreateNewModel}/>
 
           {/* The error dialog is explicitly rendered as last, so it is always on top.*/}
-          <ErrorDialog store={this.props.store} />
+          <ErrorDialog store={this.props.store}/>
         </div>
       </MuiThemeProvider>
     );

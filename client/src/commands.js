@@ -1,11 +1,10 @@
-import store from './AppState';
+import store, {replaceNewModel} from './AppState';
 import 'whatwg-fetch';
+//import isEqual from 'lodash.isequal';
+import cloneDeep from 'lodash.cloneDeep';
 
 const server = window.location.hostname;
 const port = '9000';
-
-export function newBmcModel() {
-}
 
 function queryParam(store) {
   return "?userId=" + store.authenticated.userId + "&secret=" + store.authenticated.secret;
@@ -27,7 +26,7 @@ function errorObject(op, message, details) {
   }
 }
 
-function communicationFailed(op, response) {
+function communicationFailed(op, response, reject) {
   if (response) {
     response.text().then(text => {
       console.log("Resolved " + text);
@@ -35,10 +34,20 @@ function communicationFailed(op, response) {
         " (code: " + response.status + "). " +
         (text? text : "");
       store.error = errorObject(op, "The server responded with an error message.", details);
+      if (reject) {
+        reject();
+      }
+    }).catch(ex => {
+      if (reject) {
+        reject();
+      }
     });
   }
   else {
     store.error = errorObject(op, "The server could not be reached", null);
+    if (reject) {
+      reject();
+    }
   }
 }
 
@@ -113,60 +122,42 @@ export function loadModel(id) {
       err => store.loadingModel = false);
 }
 
-export function reload() {
-  if (store.authenticated) {
-    const url = 'http://' + server + ':' + port + '/api/models/' + store.model.modelId + queryParam(store);
-    fetch(url).then((response) => {
-      if (response.ok) {
-        return response.json()
-          .then(json => store.model = json)
-          .catch(ex => {
-            store.error = {
-              title: "Unable to load model",
-              message: "The response from the server could not be processed",
-              details: ex.toString()};
-          });
-      }
-      else {
-        communicationFailed("load model", response);
-      }
-    }).catch(ex => communicationFailed("load model", null));
-  }
-  else {
-    store.error = notAuthenticated();
-  }
-};
-
 export function save() {
-  if (store.authenticated) {
-    // remember the current date, if the save fails we can set it back
-    const currentDate = store.model.date;
-    store.model.date = new Date().toISOString();
+  return new Promise((resolve, reject) => {
 
-    const json = JSON.stringify(store.model);
-    const url = 'http://' + server + ':' + port + '/api/models/' + store.model.modelId + queryParam(store);
-    fetch(url, {
-    	method: 'put',
-      headers: new Headers({
-    		'Content-Type': 'application/json'
-    	}),
-      body: json
-    }).then((response) => {
-      if (!response.ok) {
-        communicationFailed("save model", response);
+    if (store.authenticated) {
+      // remember the current date, if the save fails we can set it back
+      const currentDate = store.model.date;
+      store.model.date = new Date().toISOString();
+
+      const json = JSON.stringify(store.model);
+      const url = 'http://' + server + ':' + port + '/api/models/' + store.model.modelId + queryParam(store);
+      fetch(url, {
+      	method: 'put',
+        headers: new Headers({
+      		'Content-Type': 'application/json'
+      	}),
+        body: json
+      }).then((response) => {
+        if (!response.ok) {
+          communicationFailed("save model", response, reject);
+          store.model.date = currentDate;
+        }
+        else {
+          store.snackbarMessage = "Model saved!";
+          store.savedModelJson = JSON.stringify(store.model);
+          resolve();
+        }
+      }).catch(ex => {
+        communicationFailed("save model", null, reject);
         store.model.date = currentDate;
-      }
-      else {
-        store.snackbarMessage = "Model saved!";
-      }
-    }).catch(ex => {
-      communicationFailed("save model", null);
-      store.model.date = currentDate;
-    });
-  }
-  else {
-    store.error = notAuthenticated();
-  }
+      });
+    }
+    else {
+      store.error = notAuthenticated();
+      reject();
+    }
+  })
 };
 
 export function deleteModel() {
@@ -191,6 +182,31 @@ export function deleteModel() {
     store.error = notAuthenticated();
   }
 };
+
+export function initiateNewModel() {
+  const modelJson = JSON.stringify(store.model);
+  const savedJson = store.savedModelJson;
+
+  // compare json. if the two are not equal, then we have a different model.
+  // if so, we want the user to save their changes. otherwise, we can just
+  // create a new model.
+  if (modelJson !== savedJson) {
+    store.showSaveModelDialog = true;
+  }
+  else {
+    saveAndCreateNewModel(false);
+  }
+}
+
+export function saveAndCreateNewModel(doSave) {
+  const replace = () => replaceNewModel(store.model.kind);
+  if (doSave) {
+    save().then(replace);
+  }
+  else {
+    replace();
+  }
+}
 
 export function exportToJson() {
   if (store.authenticated) {
