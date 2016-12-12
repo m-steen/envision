@@ -1,4 +1,4 @@
-import store, {replaceNewModel} from './AppState';
+import store, {replaceNewModel, guid} from './AppState';
 import 'whatwg-fetch';
 //import isEqual from 'lodash.isequal';
 import cloneDeep from 'lodash.cloneDeep';
@@ -120,6 +120,28 @@ export function loadModel(id) {
         }
       },
       err => store.loadingModel = false);
+}
+
+export function saveACopyDialog() {
+  if (store.authenticated) {
+    store.showSaveCopyDialog.open = true;
+    store.showSaveCopyDialog.title = store.model.title || "";
+  }
+  else {
+    store.error = notAuthenticated();
+  }
+}
+
+export function saveACopy(title) {
+  const origId = store.model.modelId;
+  const origTitle = store.model.title;
+
+  store.model.modelId = guid();
+  store.model.title = title;
+  save().catch(() => {
+    store.model.modelId = origId;
+    store.model.title = origTitle;
+  });
 }
 
 export function save() {

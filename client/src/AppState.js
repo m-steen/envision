@@ -52,6 +52,10 @@ const store = observable({
   },
   snackbarMessage: null,
 
+  showSaveCopyDialog: {
+    open: false,
+    title: null
+  },
   showSaveModelDialog: false,
   savedModelJson: JSON.stringify(initialModel)
 });

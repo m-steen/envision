@@ -15,7 +15,7 @@ import ActionPrint from 'material-ui/svg-icons/action/print'
 import ActionHelp from 'material-ui/svg-icons/action/help'
 import Download from 'material-ui/svg-icons/file/file-download'
 import store from '../AppState';
-import {loadModels, save, initiateNewModel, exportToJson} from '../commands.js';
+import {loadModels, save, saveACopy, saveACopyDialog, initiateNewModel, exportToJson} from '../commands.js';
 import FacebookLogin from 'react-facebook-login';
 
 @observer
@@ -63,7 +63,7 @@ export default class AppMenu extends React.Component {
 					<MenuItem primaryText="New" leftIcon={<FileFolderOpen />} onClick={() => {this.handleClose(); initiateNewModel();}}/>
 					<MenuItem primaryText="Open" leftIcon={<FileFolderOpen />} onClick={() => {this.handleClose(); loadModels();}}/>
 					<MenuItem primaryText="Save" leftIcon={<ContentSave />} onClick={() => {this.handleClose(); save();}}/>
-					<MenuItem primaryText="SaveAs" leftIcon={<FileFileUpload />} onClick={() => {this.handleClose(); save();}}/>
+					<MenuItem primaryText="Save a copy" leftIcon={<FileFileUpload />} onClick={() => {this.handleClose(); saveACopyDialog();}}/>
 					<MenuItem primaryText="Print" leftIcon={<ActionPrint />} onClick={this.print}/>
 					<MenuItem primaryText="Help" leftIcon={<ActionHelp />} onClick={this.help}/>
 					<MenuItem primaryText="Export" leftIcon={<Download />} onClick={exportToJson}/>
