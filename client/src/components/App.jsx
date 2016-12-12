@@ -164,6 +164,15 @@ class App extends Component {
   }
 
   render() {
+    const footer = this.props.store.model.kind === "bmc"?
+      <div id="footer" style={{width: "1012px"}}>
+        <p>
+          The Business Model Canvas from Strategyzer.com is licensed under the <br/>
+          Creative Commons Attribution-Share Alike 3.0 Unported License.
+        </p>
+      </div> :
+      undefined;
+
     return (
       <MuiThemeProvider muiTheme={envisionTheme}>
         <div onClick={(e) => this.onSelect(null)}>
@@ -188,12 +197,7 @@ class App extends Component {
             onDragPostIt={this.onDragPostIt}
             onDropPostIt={this.onDropPostIt}/>
 
-          <div id="footer" style={{width: "1012px"}}>
-            <p>
-              The Business Model Canvas from Strategyzer.com is licensed under the <br/>
-              Creative Commons Attribution-Share Alike 3.0 Unported License.
-            </p>
-          </div>
+          {footer}
 
           <Snackbar open={this.props.store.snackbarMessage != null}
             message={this.props.store.snackbarMessage? this.props.store.snackbarMessage : "<none>"}
