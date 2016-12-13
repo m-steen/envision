@@ -51,6 +51,9 @@ import com.restfb.types.User;
  */
 public class EnvisionController extends Controller {
 
+	private static final String ENVISION_PLATFORM_URL = "https://businessmakeover.evolaris.net/";
+	//private static final String ENVISION_PLATFORM_URL = "http://evodeployment.evolaris.net:8080/";
+	
 	@Inject
 	private Provider<Application> application;
 	
@@ -227,7 +230,7 @@ public class EnvisionController extends Controller {
     	try {
 	    	
 	    	Logger.info("Validating evolaris user " + user);
-	    	String url = "http://evodeployment.evolaris.net:8080/platform/external/checkUserAuth";
+	    	String url = ENVISION_PLATFORM_URL + "platform/external/checkUserAuth";
 	    	String data = String.format("user=%s&secret=%s", user, secret);
 	    	WSRequest request = ws.url(url).setContentType("application/x-www-form-urlencoded");
 	    	CompletionStage<JsonNode> response = request.post(data).thenApply(WSResponse::asJson);
