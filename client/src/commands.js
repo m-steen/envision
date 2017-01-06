@@ -1,4 +1,4 @@
-import store, {replaceNewModel, guid} from './AppState';
+import store, {replaceNewModel, replaceTemplateModel, guid} from './AppState';
 import 'whatwg-fetch';
 //import isEqual from 'lodash.isequal';
 import cloneDeep from 'lodash.cloneDeep';
@@ -220,13 +220,41 @@ export function initiateNewModel() {
   }
 }
 
+function loadTemplates() {
+  store.openTemplatesDialog.open = true;
+  loadJson('/api/templates', 'load templates',
+      json => {
+        if (store.openTemplatesDialog.open) {
+          store.openTemplatesDialog.models = json.sort((a, b) => {
+            if (a.title < b.title) return -1;
+            if (a.title > b.title) return 1;
+            return 0;
+          });
+        }
+      },
+      () => store.openModelsDialog = {open: false, models: null},
+      {kind: store.model.kind});
+}
+
+export function loadTemplate(id) {
+  store.loadingTemplate = true;
+  loadJson('/api/templates/' + id, 'load model',
+      json => {
+        // only if we are loading
+        if (store.loadingTemplate) {
+          replaceTemplateModel(json);
+          store.loadingTemplate = false;
+        }
+      },
+      err => store.loadingTemplate = false);
+}
+
 export function saveAndCreateNewModel(doSave) {
-  const replace = () => replaceNewModel(store.model.kind);
   if (doSave) {
-    save().then(replace);
+    save().then(loadTemplates);
   }
   else {
-    replace();
+    loadTemplates();
   }
 }
 

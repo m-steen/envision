@@ -1,5 +1,106 @@
 [
   {
+    "modelId": "5efac4ee-ec10-df75-f4ab-21673b27c29e",
+    "kind": "bmc",
+    "date": null,
+    "title": "Another test",
+    "blocks": [
+      {
+        "id": "fb075a70-d1ec-686e-58c6-b12318ab6fe9",
+        "title": "Key Partnerships",
+        "x": 12,
+        "y": 100,
+        "w": 200,
+        "h": 440,
+        "postIts": []
+      },
+      {
+        "id": "6c8f31e4-7093-5056-ba51-03d42d2f1f4f",
+        "title": "Key Activities",
+        "x": 212,
+        "y": 100,
+        "w": 200,
+        "h": 220,
+        "postIts": []
+      },
+      {
+        "id": "4b6721ab-6d02-1ed2-6de6-b3484c8c9142",
+        "title": "Key Resources",
+        "x": 212,
+        "y": 320,
+        "w": 200,
+        "h": 220,
+        "postIts": []
+      },
+      {
+        "id": "1ccb1348-d771-8bc1-b402-cc7e980267b9",
+        "title": "Value & Services",
+        "x": 412,
+        "y": 100,
+        "w": 200,
+        "h": 440,
+        "postIts": [
+          {
+            "id": "ec71834d-cb0b-949c-8ced-f8825e7a39bb",
+            "title": "Click to edit",
+            "x": 48,
+            "y": 110,
+            "w": 98,
+            "h": 281,
+            "color": "yellow"
+          }
+        ]
+      },
+      {
+        "id": "eaf0fd1e-541d-0b2e-442d-32c59e3e2080",
+        "title": "Customer Relationships",
+        "x": 612,
+        "y": 100,
+        "w": 200,
+        "h": 220,
+        "postIts": []
+      },
+      {
+        "id": "b8c82264-7cf7-604a-befd-dfbe8fe620d4",
+        "title": "Channels",
+        "x": 612,
+        "y": 320,
+        "w": 200,
+        "h": 220,
+        "postIts": []
+      },
+      {
+        "id": "f0908fec-02ed-16a4-2607-33176d2af7eb",
+        "title": "Customer Segments",
+        "x": 812,
+        "y": 100,
+        "w": 200,
+        "h": 440,
+        "postIts": []
+      },
+      {
+        "id": "9621ac19-dbff-2c6f-d933-94aa376ab44c",
+        "title": "Cost Structure",
+        "x": 12,
+        "y": 540,
+        "w": 500,
+        "h": 220,
+        "postIts": []
+      },
+      {
+        "id": "31183e28-ee8c-5d01-05c8-876ad73f8d67",
+        "title": "Revenue Structure",
+        "x": 512,
+        "y": 540,
+        "w": 500,
+        "h": 220,
+        "postIts": []
+      }
+    ],
+    "postIts": []
+  },
+
+  {
     "modelId": "199678fe-f600-7258-9dd6-b8dc567c4c5e",
     "kind": "bmc",
     "date": null,

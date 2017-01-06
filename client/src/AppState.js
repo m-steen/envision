@@ -41,15 +41,23 @@ const store = observable({
   showBlockHelp: null,
   authenticated: authenticationInfo(),
   error: null,
-  loadingModel: false,
   deleteModelDialog: {
     deleting: false,
     model: null
   },
+
   openModelsDialog: {
     open: false,
     models: null
   },
+  loadingModel: false,
+
+  openTemplatesDialog: {
+    open: false,
+    models: null
+  },
+  loadingTemplate: false,
+
   snackbarMessage: null,
 
   showExportModelDialog: false,
@@ -66,6 +74,12 @@ export function replaceNewModel(kind, title) {
   const model = createNewModel(kind, title);
   store.model = model;
   store.savedModelJson = JSON.stringify(model);
+}
+
+export function replaceTemplateModel(template) {
+  template.modelId = guid();
+  store.model = template;
+  store.savedModelJson = JSON.stringify(template);
 }
 
 // set up routing

@@ -8,11 +8,13 @@ import AppMenu from './Menu'
 import Canvas from './Canvas';
 // import Sidebar from './Sidebar';
 import {findBlockForPostItXY, findBlockFor, createItem, replaceNewModel} from '../AppState';
-import {loadModel, save, saveACopy, saveAndCreateNewModel} from '../commands';
+import {loadModel, save, saveACopy, saveAndCreateNewModel, loadTemplate} from '../commands';
 import HelpDialog from './HelpDialog';
 import ErrorDialog from './ErrorDialog';
 import OpenModelsDialog from './OpenModelsDialog';
 import OpenModelDialog from './OpenModelDialog';
+import OpenTemplatesDialog from './OpenTemplatesDialog';
+import OpenTemplateDialog from './OpenTemplateDialog';
 import DeleteModelDialog from './DeleteModelDialog';
 import SaveModelDialog from './SaveModelDialog';
 import SaveCopyDialog from './SaveCopyDialog';
@@ -207,9 +209,12 @@ class App extends Component {
             className="message-snackbar"/>
 
           <HelpDialog key="F1" store={this.props.store} />
-          <OpenModelsDialog store={this.props.store}
-            onLoadModel={model => loadModel(model.id)}/>
-          <OpenModelDialog store={this.props.store} />
+          <OpenModelsDialog store={this.props.store} onLoadModel={model => loadModel(model.id)}/>
+          <OpenModelDialog store={this.props.store}/>
+          <OpenTemplatesDialog store={this.props.store}
+            onLoadDefaultTemplate={() => replaceNewModel()}
+            onLoadTemplate={template => loadTemplate(template.templateId)}/>
+          <OpenTemplateDialog store={this.props.store}/>
           <DeleteModelDialog store={this.props.store} />
           <SaveModelDialog store={this.props.store} onNewModel={this.onCreateNewModel}/>
           <SaveCopyDialog store={this.props.store} onSaveCopy={this.onSaveCopy}/>

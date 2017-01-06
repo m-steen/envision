@@ -345,8 +345,7 @@ input {
 
 /* fixes for material-ui */
 
-.open-dialog-contents {
-  overflow-x: hidden;
+.open-dialog-contents, .template-dialog-contents {
 }
 
 .message-snackbar span {
