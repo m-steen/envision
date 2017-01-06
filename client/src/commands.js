@@ -224,6 +224,15 @@ export function initiateNewModel() {
   }
 }
 
+export function saveAndCreateNewModel(doSave) {
+  if (doSave) {
+    save().then(loadTemplates);
+  }
+  else {
+    loadTemplates();
+  }
+}
+
 function loadTemplates() {
   store.openTemplatesDialog.open = true;
   loadJson('/api/templates', 'load templates',
@@ -254,15 +263,6 @@ export function loadTemplate(id) {
       err => store.loadingTemplate = false,
       {},       // options
       false);   // require auth
-}
-
-export function saveAndCreateNewModel(doSave) {
-  if (doSave) {
-    save().then(loadTemplates);
-  }
-  else {
-    loadTemplates();
-  }
 }
 
 export function exportToJson() {

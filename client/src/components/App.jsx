@@ -212,7 +212,7 @@ class App extends Component {
           <OpenModelsDialog store={this.props.store} onLoadModel={model => loadModel(model.id)}/>
           <OpenModelDialog store={this.props.store}/>
           <OpenTemplatesDialog store={this.props.store}
-            onLoadDefaultTemplate={() => replaceNewModel()}
+            onLoadDefaultTemplate={() => replaceNewModel(this.props.store.model.kind)}
             onLoadTemplate={template => loadTemplate(template.templateId)}/>
           <OpenTemplateDialog store={this.props.store}/>
           <DeleteModelDialog store={this.props.store} />
