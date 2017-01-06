@@ -54,7 +54,8 @@ const store = observable({
 
   openTemplatesDialog: {
     open: false,
-    models: null
+    models: null,
+    failedToLoad: false
   },
   loadingTemplate: false,
 

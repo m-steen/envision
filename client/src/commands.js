@@ -59,7 +59,7 @@ function communicationFailed(op, response, reject) {
   }
 }
 
-function loadJson(uri, op, success, error, params = {}, requireAuth = true) {
+function loadJson(uri, op, success, error, params = {}, requireAuth = true, showErrors = true) {
   if (!requireAuth || store.authenticated) {
     const url = 'http://' + server + ':' + port + uri + queryParam(store, params);
     return fetch(url).then((response) => {
@@ -70,30 +70,38 @@ function loadJson(uri, op, success, error, params = {}, requireAuth = true) {
             if (error) {
               error();
             }
-            store.error = {
-              title: "Unable to " + op,
-              message: "The response from the server could not be processed",
-              details: ex.toString()};
+            if (showErrors) {
+              store.error = {
+                title: "Unable to " + op,
+                message: "The response from the server could not be processed",
+                details: ex.toString()};
+            }
           });
       }
       else {
         if (error) {
           error();
         }
-        communicationFailed(op, response);
+        if (showErrors) {
+          communicationFailed(op, response);
+        }
       }
     }).catch(ex => {
       if (error) {
         error();
       }
-      communicationFailed(op, null);
+      if (showErrors) {
+        communicationFailed(op, null);
+      }
     });
   }
   else {
     if (error) {
       error();
     }
-    store.error = notAuthenticated();
+    if (showErrors) {
+      store.error = notAuthenticated();
+    }
   }
 };
 
@@ -245,9 +253,13 @@ function loadTemplates() {
           });
         }
       },
-      () => store.openTemplatesDialog = {open: false, models: null},
+      () => {
+        store.openTemplatesDialog.models = [];
+        store.openTemplatesDialog.failedToLoad = true;
+      },
       {kind: store.model.kind},   // options
-      false);                     // require auth
+      false,                      // require auth
+      false);                     // show errors
 }
 
 export function loadTemplate(id) {

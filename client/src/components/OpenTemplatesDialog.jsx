@@ -19,6 +19,7 @@ export default class OpenTemplatesDialog extends React.Component {
     const {openTemplatesDialog} = this.props.store;
     openTemplatesDialog.open = false;
     openTemplatesDialog.models = null;
+    openTemplatesDialog.failedToLoad = false;
   };
 
   handleDefaultClick = () => {
@@ -42,11 +43,16 @@ export default class OpenTemplatesDialog extends React.Component {
     ];
 
     // loading: open, but no contents
-    let loadingDiv = openTemplatesDialog.models === null?
+    let loadingDiv = undefined;
+    if (openTemplatesDialog.failedToLoad) {
+      loadingDiv = <div><p><em>Failed to load templates from the server</em></p></div>;
+    }
+    else if (openTemplatesDialog.models === null) {
       loadingDiv = <div>
         <p>Loading templates from the server. Please wait...</p>
         <CircularProgress/>
-      </div> : undefined;
+      </div>
+    }
 
     const models = openTemplatesDialog.models || [];
 
