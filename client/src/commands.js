@@ -6,8 +6,16 @@ import cloneDeep from 'lodash.cloneDeep';
 const server = window.location.hostname;
 const port = '9000';
 
-function queryParam(store) {
-  return "?userId=" + store.authenticated.userId + "&secret=" + store.authenticated.secret;
+function queryParam(store, params = {}) {
+  const extraParams = Object.keys(params).length > 0;
+  return store.authenticated?
+    "?userId=" + store.authenticated.userId + "&secret=" + store.authenticated.secret +
+      (extraParams? "&" + paramsToString(params) : "") :
+    "?" + paramsToString(params);
+}
+
+function paramsToString(params) {
+  return Object.keys(params).reduce((previous, key, i) => previous + (i > 0? "&" : "") + key + "=" + params[key], "");
 }
 
 function notAuthenticated() {
@@ -51,13 +59,9 @@ function communicationFailed(op, response, reject) {
   }
 }
 
-function paramsToString(params) {
-  return Object.keys(params).reduce((previous, key) => previous + "&" + key + "=" + params[key], "");
-}
-
-function loadJson(uri, op, success, error, params = {}) {
-  if (store.authenticated) {
-    const url = 'http://' + server + ':' + port + uri + queryParam(store) + paramsToString(params);
+function loadJson(uri, op, success, error, params = {}, requireAuth = true) {
+  if (!requireAuth || store.authenticated) {
+    const url = 'http://' + server + ':' + port + uri + queryParam(store, params);
     return fetch(url).then((response) => {
       if (response.ok) {
         return response.json()
@@ -232,8 +236,9 @@ function loadTemplates() {
           });
         }
       },
-      () => store.openModelsDialog = {open: false, models: null},
-      {kind: store.model.kind});
+      () => store.openTemplatesDialog = {open: false, models: null},
+      {kind: store.model.kind},   // options
+      false);                     // require auth
 }
 
 export function loadTemplate(id) {
@@ -246,7 +251,9 @@ export function loadTemplate(id) {
           store.loadingTemplate = false;
         }
       },
-      err => store.loadingTemplate = false);
+      err => store.loadingTemplate = false,
+      {},       // options
+      false);   // require auth
 }
 
 export function saveAndCreateNewModel(doSave) {
