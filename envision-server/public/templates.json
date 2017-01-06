@@ -1,0 +1,488 @@
+[
+  {
+    "modelId": "199678fe-f600-7258-9dd6-b8dc567c4c5e",
+    "kind": "bmc",
+    "date": null,
+    "title": "Also dog ugly",
+    "blocks": [
+      {
+        "id": "33b546f4-6293-b20e-bc0f-a02e53d6e527",
+        "title": "Key Partnerships",
+        "x": 12,
+        "y": 100,
+        "w": 200,
+        "h": 440,
+        "postIts": [
+          {
+            "id": "7a854dbb-06b4-dd7b-4ebc-d9f59e23eb8b",
+            "title": "Click to edit",
+            "x": 20,
+            "y": 50,
+            "w": 100,
+            "h": 60,
+            "color": "yellow"
+          },
+          {
+            "id": "d08c7eb6-b96a-ed6d-1c4f-9aef16f0c363",
+            "title": "Click to edit",
+            "x": 30,
+            "y": 70,
+            "w": 100,
+            "h": 60,
+            "color": "yellow"
+          },
+          {
+            "id": "fd75e2da-093f-01ff-4832-8aa60d092184",
+            "title": "Click to edit",
+            "x": 40,
+            "y": 90,
+            "w": 100,
+            "h": 60,
+            "color": "yellow"
+          },
+          {
+            "id": "0578c9f6-7ed7-1b07-4726-3803589c6819",
+            "title": "Click to edit",
+            "x": 50,
+            "y": 110,
+            "w": 100,
+            "h": 60,
+            "color": "yellow"
+          },
+          {
+            "id": "586297de-7bb8-5a65-3da5-cf3a64b24e41",
+            "title": "Click to edit",
+            "x": 60,
+            "y": 130,
+            "w": 100,
+            "h": 60,
+            "color": "yellow"
+          },
+          {
+            "id": "6753f900-fe6f-60b4-fde8-76c9478ca344",
+            "title": "Click to edit",
+            "x": 70,
+            "y": 150,
+            "w": 100,
+            "h": 60,
+            "color": "yellow"
+          }
+        ]
+      },
+      {
+        "id": "a8b7b8dc-f5e8-c726-a3b6-3eb452790f34",
+        "title": "Key Activities",
+        "x": 212,
+        "y": 100,
+        "w": 200,
+        "h": 220,
+        "postIts": []
+      },
+      {
+        "id": "552c280c-81c6-5130-f6b4-0a615417582c",
+        "title": "Key Resources",
+        "x": 212,
+        "y": 320,
+        "w": 200,
+        "h": 220,
+        "postIts": []
+      },
+      {
+        "id": "d1130648-86cd-1ec3-b890-3b5bd28469a0",
+        "title": "Value & Services",
+        "x": 412,
+        "y": 100,
+        "w": 200,
+        "h": 440,
+        "postIts": []
+      },
+      {
+        "id": "c058ae39-7f46-7ddc-7fa4-2528d695bfd0",
+        "title": "Customer Relationships",
+        "x": 612,
+        "y": 100,
+        "w": 200,
+        "h": 220,
+        "postIts": []
+      },
+      {
+        "id": "e5941c33-d4b9-5f4d-eea6-a65aa415b777",
+        "title": "Channels",
+        "x": 612,
+        "y": 320,
+        "w": 200,
+        "h": 220,
+        "postIts": []
+      },
+      {
+        "id": "0445cb7f-276a-0c6f-f4ba-4d098c157fd2",
+        "title": "Customer Segments",
+        "x": 812,
+        "y": 100,
+        "w": 200,
+        "h": 440,
+        "postIts": [
+          {
+            "id": "4f543c16-2f55-13b6-29e6-1b8cb33e1fe3",
+            "title": "Click to edit",
+            "x": 20,
+            "y": 50,
+            "w": 100,
+            "h": 60,
+            "color": "yellow"
+          }
+        ]
+      },
+      {
+        "id": "9542262e-519e-2363-a400-cb572d8eefea",
+        "title": "Cost Structure",
+        "x": 12,
+        "y": 540,
+        "w": 500,
+        "h": 220,
+        "postIts": []
+      },
+      {
+        "id": "26bdb7d3-7a07-a9aa-7c7c-56618341045f",
+        "title": "Revenue Structure",
+        "x": 512,
+        "y": 540,
+        "w": 500,
+        "h": 220,
+        "postIts": []
+      }
+    ],
+    "postIts": []
+  },
+
+  {
+  "modelId": "0c198a9d-bf9b-24b8-eaca-c74700273958",
+  "kind": "bmc",
+  "date": null,
+  "title": "Most horrible template",
+  "blocks": [
+    {
+      "id": "0a4165fc-0881-f1d8-cc9a-a75f131f2c40",
+      "title": "Key Partnerships",
+      "x": 12,
+      "y": 100,
+      "w": 200,
+      "h": 440,
+      "postIts": []
+    },
+    {
+      "id": "b73d4b20-bc3d-32cb-e1cc-f74f95e8f73a",
+      "title": "Key Activities",
+      "x": 212,
+      "y": 100,
+      "w": 200,
+      "h": 220,
+      "postIts": []
+    },
+    {
+      "id": "18f40042-c1c6-59dc-d2e6-0ac268f7f78d",
+      "title": "Key Resources",
+      "x": 212,
+      "y": 320,
+      "w": 200,
+      "h": 220,
+      "postIts": [
+        {
+          "id": "18ad401b-eb44-d94e-ba26-e7607043752d",
+          "title": "Waaa",
+          "x": -109,
+          "y": -100,
+          "w": 243,
+          "h": 85,
+          "color": "Pink"
+        }
+      ]
+    },
+    {
+      "id": "300f4a36-0c2d-6d3c-7f27-a35d500f100c",
+      "title": "Value & Services",
+      "x": 412,
+      "y": 100,
+      "w": 200,
+      "h": 440,
+      "postIts": [
+        {
+          "id": "8f8b4cfd-8c0e-590c-f254-20203fe03a14",
+          "title": "Click to edit",
+          "x": 22,
+          "y": 127,
+          "w": 290,
+          "h": 236,
+          "color": "blue"
+        },
+        {
+          "id": "cb3a5c76-599e-883a-159a-90f8aef22f66",
+          "title": "Click to edit",
+          "x": 42,
+          "y": 147,
+          "w": 290,
+          "h": 236,
+          "color": "blue"
+        }
+      ]
+    },
+    {
+      "id": "646a1244-3f6d-f451-406c-9ff96cb51034",
+      "title": "Customer Relationships",
+      "x": 612,
+      "y": 100,
+      "w": 200,
+      "h": 220,
+      "postIts": [
+        {
+          "id": "c3add0bd-ea13-d700-be35-517c7141f59a",
+          "title": "Click to edit",
+          "x": 20,
+          "y": 50,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        }
+      ]
+    },
+    {
+      "id": "88d97e74-3f14-d0b4-a592-8a031a4235db",
+      "title": "Channels",
+      "x": 612,
+      "y": 320,
+      "w": 200,
+      "h": 220,
+      "postIts": []
+    },
+    {
+      "id": "528f689a-7ad8-e9b9-08d8-69273778a4f0",
+      "title": "Customer Segments",
+      "x": 812,
+      "y": 100,
+      "w": 200,
+      "h": 440,
+      "postIts": [
+        {
+          "id": "f96f4b30-05b7-da2d-47b6-8844415e05e3",
+          "title": "Click to edit",
+          "x": 20,
+          "y": 50,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        }
+      ]
+    },
+    {
+      "id": "862f78ae-83b2-e421-cf14-04f8e8fa19d8",
+      "title": "Cost Structure",
+      "x": 12,
+      "y": 540,
+      "w": 500,
+      "h": 220,
+      "postIts": []
+    },
+    {
+      "id": "79a0fdac-99ba-ff66-68ad-b97690381ec0",
+      "title": "Revenue Structure",
+      "x": 512,
+      "y": 540,
+      "w": 500,
+      "h": 220,
+      "postIts": []
+    }
+  ],
+  "postIts": []
+},
+
+{
+  "modelId": "2558abfb-2fe3-a474-b795-6a1ff4b2640a",
+  "kind": "pestle",
+  "date": null,
+  "title": "Your PESTLE analysis",
+  "blocks": [
+    {
+      "id": "42ccdfaa-9669-db4e-2313-b16feebda869",
+      "title": "Policical",
+      "x": 12,
+      "y": 100,
+      "w": 333,
+      "h": 330,
+      "postIts": [
+        {
+          "id": "1ea10360-af58-6161-0541-8fb921fd1674",
+          "title": "Click to edit",
+          "x": 20,
+          "y": 50,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        },
+        {
+          "id": "eb7a06a2-8a26-d441-d7fe-9a1ffff1a090",
+          "title": "Click to edit",
+          "x": 30,
+          "y": 70,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        },
+        {
+          "id": "0c172df9-1040-807d-4ad9-65407a5d548b",
+          "title": "Click to edit",
+          "x": 40,
+          "y": 90,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        },
+        {
+          "id": "229bd7a6-5ba5-b8b2-6eb9-bc246d821795",
+          "title": "Click to edit",
+          "x": 50,
+          "y": 110,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        },
+        {
+          "id": "00726fec-cb56-bb23-b4ea-a3657c1113cc",
+          "title": "Click to edit",
+          "x": 60,
+          "y": 130,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        },
+        {
+          "id": "dcbacc95-a3d1-bbc9-a3e2-a41ec99a9798",
+          "title": "Click to edit",
+          "x": 70,
+          "y": 150,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        },
+        {
+          "id": "a3bb1c8f-65b2-e567-35e5-8859ccd4de60",
+          "title": "Click to edit",
+          "x": 80,
+          "y": 170,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        },
+        {
+          "id": "f8f18431-c693-294e-3496-917c032a44db",
+          "title": "Click to edit",
+          "x": 90,
+          "y": 190,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        },
+        {
+          "id": "09a67b89-9338-93bd-43be-a3a948bf5542",
+          "title": "Click to edit",
+          "x": 100,
+          "y": 210,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        },
+        {
+          "id": "f42506c9-8629-279b-6275-e36e4a7209db",
+          "title": "Click to edit",
+          "x": 110,
+          "y": 230,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        },
+        {
+          "id": "513bdcc5-fae9-df02-e451-9907d6822768",
+          "title": "Click to edit",
+          "x": 120,
+          "y": 250,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        },
+        {
+          "id": "90c5c6c1-e5cc-db61-4b61-22bed2c6066f",
+          "title": "Click to edit",
+          "x": 130,
+          "y": 270,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        },
+        {
+          "id": "a4e57b1b-c216-3913-b820-f21ce20eaa61",
+          "title": "Click to edit",
+          "x": 140,
+          "y": 290,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        },
+        {
+          "id": "06404297-c904-c1e4-1425-c92e31f49935",
+          "title": "Click to edit",
+          "x": 150,
+          "y": 310,
+          "w": 100,
+          "h": 60,
+          "color": "yellow"
+        }
+      ]
+    },
+    {
+      "id": "3d7a1082-2d07-95a7-dc66-49d40171ee7b",
+      "title": "Economical",
+      "x": 345,
+      "y": 100,
+      "w": 333,
+      "h": 330,
+      "postIts": []
+    },
+    {
+      "id": "4cdd1175-8d44-c847-3745-ef541e2f952e",
+      "title": "Social",
+      "x": 678,
+      "y": 100,
+      "w": 333,
+      "h": 330,
+      "postIts": []
+    },
+    {
+      "id": "1e102012-6b14-e3b3-7545-0bf2eeda4ff5",
+      "title": "Technological",
+      "x": 12,
+      "y": 430,
+      "w": 333,
+      "h": 330,
+      "postIts": []
+    },
+    {
+      "id": "a6c7b678-221d-933f-0440-303681e64691",
+      "title": "Legal",
+      "x": 345,
+      "y": 430,
+      "w": 333,
+      "h": 330,
+      "postIts": []
+    },
+    {
+      "id": "cbb60714-22a4-f30f-0a56-4e8ce54e3a67",
+      "title": "Environmental",
+      "x": 678,
+      "y": 430,
+      "w": 333,
+      "h": 330,
+      "postIts": []
+    }
+  ],
+  "postIts": []
+}
+]

@@ -16,6 +16,7 @@ import OpenModelDialog from './OpenModelDialog';
 import DeleteModelDialog from './DeleteModelDialog';
 import SaveModelDialog from './SaveModelDialog';
 import SaveCopyDialog from './SaveCopyDialog';
+import ExportDialog from './ExportDialog';
 import Snackbar from 'material-ui/Snackbar';
 
 import help from './Help';
@@ -212,6 +213,7 @@ class App extends Component {
           <DeleteModelDialog store={this.props.store} />
           <SaveModelDialog store={this.props.store} onNewModel={this.onCreateNewModel}/>
           <SaveCopyDialog store={this.props.store} onSaveCopy={this.onSaveCopy}/>
+          <ExportDialog store={this.props.store}/>
 
           {/* The error dialog is explicitly rendered as last, so it is always on top.*/}
           <ErrorDialog store={this.props.store}/>

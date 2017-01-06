@@ -3,6 +3,8 @@ package controllers;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -13,6 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 import models.Model;
+import models.Template;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bson.Document;
@@ -139,16 +142,17 @@ public class EnvisionController extends Controller {
     	
     	Map<String, Model> models = loadModels(userId, kind);
     	ArrayNode arr = mapper.createArrayNode();
-    	models.forEach((key, value) -> {
-    		ObjectNode child = mapper.createObjectNode();
-    		child.put("id", key);
-    		child.put("uri", "/api/models/" + key + "?userId=" + userId + "&secret=" + secret);
-    		child.put("title", value.name);
-    		child.put("date", value.date);
-    		child.put("kind", value.kind);
-    		arr.add(child);
-    	});
+    	models.forEach((key, value) -> arr.add(createModelJson(value)));
     	return ok(arr);
+    }
+    
+    private ObjectNode createModelJson(Model model) {
+		ObjectNode child = mapper.createObjectNode();
+		child.put("id", model.id);
+		child.put("title", model.name);
+		child.put("date", model.date);
+		child.put("kind", model.kind);
+    	return child;
     }
     
     public Result getModel(String modelId, String userId, String secret) {
@@ -207,6 +211,76 @@ public class EnvisionController extends Controller {
     	Logger.info("Deleting model " + modelId + " for user " + userId);
     	return result? ok() : notFound();
     }
+    
+    private JsonNode templatesJson = null;
+    
+    private JsonNode getTemplatesJsonNode() throws IOException {
+    	if (templatesJson == null) {
+	    	try (InputStream in = application.get().resourceAsStream("public/templates.json")) {
+	    		templatesJson = Json.parse(in);
+	    		templatesJson.forEach(template -> {
+	    			if (!template.isObject()) {
+	    				throw new RuntimeException("Incorrect templates file");
+	    			}
+	    			ObjectNode object = (ObjectNode) template;
+	    			JsonNode idNode = object.get("modelId");
+	    			if (idNode != null) {
+	    				object.remove("modelId");
+	    				object.set("templateId", idNode);
+	    			}
+	    		});
+	    	}
+    	}
+    	return templatesJson;
+    }
+    
+    /**
+     * Returns the template models, optionally filtered for a specific kind.
+     * @param kind
+     * @return
+     */
+    public Result getTemplates(String kind) throws IOException {
+		ArrayNode arr = mapper.createArrayNode(); 
+		
+		getTemplatesJsonNode().forEach(child -> {
+			if (child.isObject()) {
+				String templateKind = child.path("kind").asText();
+				if (kind == null || kind.toLowerCase().equals(templateKind)) {
+					
+					String id = child.path("templateId").asText();
+					String name = child.path("title").asText();
+					Template model = new Template(id, name, kind);
+					arr.add(createTemplateJson(model));
+				}
+			}
+		});
+
+		return ok(arr);
+    }
+
+    private ObjectNode createTemplateJson(Template model) {
+		ObjectNode child = mapper.createObjectNode();
+		child.put("templateId", model.id);
+		child.put("title", model.name);
+		child.put("kind", model.kind);
+    	return child;
+    }
+
+    /**
+     * Returns the template for the given id.
+     * @param modelId
+     * @return
+     */
+    public Result getTemplate(String modelId) throws IOException {
+    	for (JsonNode template: getTemplatesJsonNode()) {
+    		String templateId = template.path("templateId").asText();
+    		if (modelId.equalsIgnoreCase(templateId)) {
+    			return ok(template);
+    		}
+    	}
+    	return notFound("Template with id " + modelId + " doesn't exist.");
+    }
+    
     
     // facebook access
     

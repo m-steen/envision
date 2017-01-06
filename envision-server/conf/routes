@@ -12,6 +12,9 @@ PUT		/api/models/:modelId		controllers.EnvisionController.putModel(modelId: Stri
 DELETE	/api/models/:modelId		controllers.EnvisionController.deleteModel(modelId: String, userId: String ?= null, secret: String ?= null)
 POST	/api/models					controllers.EnvisionController.postModel(userId: String ?= null, secret: String ?= null)
 
+GET		/api/templates				controllers.EnvisionController.getTemplates(kind: String ?= null)
+GET		/api/templates/:modelId		controllers.EnvisionController.getTemplate(modelId: String)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /*file               controllers.Assets.versioned(path="/public", file: Asset)
 

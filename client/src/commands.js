@@ -231,12 +231,5 @@ export function saveAndCreateNewModel(doSave) {
 }
 
 export function exportToJson() {
-  if (store.authenticated) {
-    const json = JSON.stringify(store.model);
-    const url = 'http://' + server + ':' + port + '/api/models/' + store.model.modelId + queryParam(store);
-    window.open(url, '_blank');
-  }
-  else {
-    store.error = notAuthenticated();
-  }
+  store.showExportModelDialog = true;
 };
