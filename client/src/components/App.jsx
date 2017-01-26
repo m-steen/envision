@@ -7,7 +7,7 @@ import {grey50, grey800} from 'material-ui/styles/colors';
 import AppMenu from './Menu'
 import Canvas from './Canvas';
 // import Sidebar from './Sidebar';
-import {findBlockForPostItXY, findBlockFor, createItem, replaceNewModel} from '../AppState';
+import {findBlockForPostItXY, findBlockFor, createItem, replaceNewModel, addItem, removeItem, moveItem, duplicateItem, moveToFront, moveToBack} from '../AppState';
 import {loadModel, save, saveACopy, saveAndCreateNewModel, loadTemplate} from '../commands';
 import HelpDialog from './HelpDialog';
 import ErrorDialog from './ErrorDialog';
@@ -44,78 +44,33 @@ class App extends Component {
   onSelect = (postIt) => this.props.store.selection = postIt;
 
   onAddPostIt = (block, x, y) => {
-    const size = block.postIts.length;
-    const px = x === undefined? 20+10*size : x - 60 - block.x;
-    const py = y === undefined? 50+20*size : y - 40 - block.y;
-    const postIt = createItem('Click to edit', px, py);
-    block.postIts.push(postIt);
+    const postIt = addItem(block, x, y);
     this.props.store.selection = postIt;
   }
 
   onDeletePostIt = (postIt) => {
-    for (let block of this.props.store.model.blocks) {
-      for (let i = 0; i < block.postIts.length; i++) {
-        if (block.postIts[i] === postIt) {
-          block.postIts.splice(i, 1);
-        }
-      }
-    }
+    removeItem(this.props.store.model, postIt);
     if (this.props.store.selection === postIt) {
       this.props.store.selection = null;
     }
   }
 
   onMovePostIt = (postIt, block, x, y) => {
-    // detect if we move to another block
-    for (let b of this.props.store.model.blocks) {
-      for (let i = 0; i < b.postIts.length; i++) {
-        if (b.postIts[i] === postIt && b !== block) {
-          b.postIts.splice(i, 1);
-          block.postIts.push(postIt);
-        }
-      }
-    }
-
-    postIt.x = x;
-    postIt.y = y;
+    console.log("Moving to block " + block.title);
+    moveItem(this.props.store.model, postIt, block, x, y);
   }
 
   onDuplicatePostIt = (postIt) => {
-    for (let b of this.props.store.model.blocks) {
-      for (let i = 0; i < b.postIts.length; i++) {
-        if (b.postIts[i] === postIt) {
-          const {title, x, y, w, h, color} = postIt;
-          const duplicate = createItem(title, x + 20, y + 20, w, h, color);
-          b.postIts.push(duplicate);
-          this.props.store.selection = duplicate;
-          return;
-        }
-      }
-    }
+    const duplicate = duplicateItem(this.props.store.model, postIt);
+    this.props.store.selection = duplicate;
   }
 
   onMoveToFront = (postIt) => {
-    for (let b of this.props.store.model.blocks) {
-      for (let i = 0; i < b.postIts.length; i++) {
-        if (b.postIts[i] === postIt) {
-          b.postIts.splice(i, 1);
-          b.postIts.push(postIt);
-          return;
-        }
-      }
-    }
+    moveToFront(this.props.store.model, postIt);
   }
 
   onMoveToBack = (postIt) => {
-    for (let b of this.props.store.model.blocks) {
-      for (let i = 0; i < b.postIts.length; i++) {
-        if (b.postIts[i] === postIt) {
-          b.postIts.splice(i, 1);
-          b.postIts.unshift(postIt);
-          return;
-        }
-      }
-    }
+    moveToBack(this.props.store.model, postIt);
   }
 
   isSelected = (postIt) => this.props.store.selection === postIt;

@@ -306,14 +306,103 @@ export function findBlockForPostItXY(model, postIt) {
   return model;
 }
 
-export function isOver(store, block) {
-  if (!store.dragging) {
-    return false;
+export function addItem(block, x, y) {
+  const size = block.postIts.length;
+  const px = x === undefined? 20+10*size : x - 60 - block.x;
+  const py = y === undefined? 50+20*size : y - 40 - block.y;
+  const postIt = createItem('Click to edit', px, py);
+  block.postIts.push(postIt);
+  return postIt;
+}
+
+export function removeItem(model, item) {
+  for (let block of model.blocks) {
+    for (let i = 0; i < block.postIts.length; i++) {
+      if (block.postIts[i] === item) {
+        block.postIts.splice(i, 1);
+      }
+    }
+  }
+}
+
+export function moveItem(model, postIt, block, x, y) {
+  // detect if we move to another block
+  for (let b of model.blocks) {
+    for (let i = 0; i < b.postIts.length; i++) {
+      if (b.postIts[i] === postIt && b !== block) {
+        b.postIts.splice(i, 1);
+        block.postIts.push(postIt);
+      }
+    }
   }
 
-  const blockForPoint = findBlockForPostItXY(store.model, store.dragging);
-  console.log("Dragging over " + blockForPoint.title);
-  return blockForPoint === block;
+  postIt.x = x;
+  postIt.y = y;
 }
+
+export function duplicateItem(model, postIt) {
+  for (let b of model.blocks) {
+    for (let i = 0; i < b.postIts.length; i++) {
+      if (b.postIts[i] === postIt) {
+        const {title, x, y, w, h, color} = postIt;
+        const duplicate = createItem(title, x + 20, y + 20, w, h, color);
+        b.postIts.push(duplicate);
+        return duplicate;
+      }
+    }
+  }
+}
+
+export function moveToFront(model, postIt) {
+  for (let b of model.blocks) {
+    for (let i = 0; i < b.postIts.length; i++) {
+      if (b.postIts[i] === postIt) {
+        b.postIts.splice(i, 1);
+        b.postIts.push(postIt);
+        return;
+      }
+    }
+  }
+}
+
+export function moveToBack(model, postIt) {
+  for (let b of model.blocks) {
+    for (let i = 0; i < b.postIts.length; i++) {
+      if (b.postIts[i] === postIt) {
+        b.postIts.splice(i, 1);
+        b.postIts.unshift(postIt);
+        return;
+      }
+    }
+  }
+}
+
+export function dropPostIt = (postIt, bx, by, deltaX, deltaY) => {
+  const store = this.props.store;
+  store.dragging = null;
+
+  // find the current block
+  const currentBlock = findBlockFor(store.model, postIt);
+  const targetBlock = findBlockForPostItXY(store.model, postIt);
+
+  if (currentBlock !== targetBlock) {
+    for (let i = 0; i < currentBlock.postIts.length; i++) {
+      if (currentBlock.postIts[i] === postIt) {
+        currentBlock.postIts.splice(i, 1);
+        targetBlock.postIts.push(postIt);
+      }
+    }
+
+    // ajust coordinates to relatives
+    if (targetBlock === store.model) {
+      postIt.x += currentBlock.x;
+      postIt.y += currentBlock.y;
+    } else {
+      postIt.x -= targetBlock.x - currentBlock.x;// - targetBlock.x;
+      postIt.y -= targetBlock.y - currentBlock.y;// - targetBlock.y;
+    }
+  }
+}
+
 
 export default store;
