@@ -1,6 +1,31 @@
 import React from 'react';
 
-export const bmcHelp = {
+// bmc
+
+export const bmcHelpTitle = "About the Business Model Canvas";
+export const bmcHelp = <div>
+			<p>The Business Model Canvas helps you to visualize your business model.
+					With a business model you describe how your company creates, delivers, and captures value.
+					It creates a shared understanding of what your business actually is and does.
+					With the Business Model Canvas it is easy to discuss your business model with others.</p>
+
+			<h2>How to use?</h2>
+
+			<p>The Business Model Canvas consists of nine components.
+					Together these components show the logic of how your company intends to make money.
+					Use sticky notes to add items to the business model components.
+					Try to be brief and make sure that Sticky notes contain only one aspect of your business model.
+					Use different colors to show which sticky notes belong together.</p>
+
+			<p>When designing a new business model start with the customer segments and value proposition.</p>
+
+			<p>When you are ready, you can save your Business Model Canvas for future reference.
+					You can also open examples of existing Business Model Canvases for inspiration or as starting point for your own canvas.</p>
+
+			<p>Good luck!</p>
+		</div>;
+
+export const bmcTooltips = {
 	'Key Partnerships':
 		<div>
 			<p>Describe the suppliers and partners on which your company depends.
@@ -87,50 +112,175 @@ export const bmcHelp = {
 		</div>
 };
 
-export const personaHelp = {
+// persona
+
+export const personaHelpTitle = "About Persona";
+export const personaHelp = <div>
+			<p>A Persona helps you to better understand and visualize your target customers. It is a fictional,
+				generalized character that describes the personality, interests, pains, goals and behavior of a
+				typical customer. With a Persona it is easier to make deliberate decisions about developing and
+				targeting your product or service.</p>
+
+			<h2>How to use?</h2>
+
+			<p>The Persona consists of six components. Together these components represent a visualization of
+				your target customer. Use sticky notes to add items to the Persona elements. Try to be brief and
+				make sure that Sticky notes contain only one element of your Persona. Use different colors to
+				show which sticky notes belong together.</p>
+
+			<p>When you are ready, you can save your Persona for future reference. You can also open examples
+				of existing Personas for inspiration or as starting point for your own Persona.</p>
+
+			<p>Good luck!</p>
+		</div>;
+
+export const personaTooltips = {
   'Personality':
-    <p>Help text here</p>,
+    <p>Give your Persona personalized characteristics: i.e. name, age, gender, occupation,
+			marital status, location, etc.</p>,
   'Pains':
-    <p>Help text here</p>,
+    <p>What are reasons why your Persona is unhappy or what aspects is your Persona missing
+			in her life?</p>,
   'Goals':
-    <p>Help text here</p>,
+    <p>What does your Persona want to achieve or live for?</p>,
   'Interests':
-    <p>Help text here</p>,
+    <p>What hobbies and passions does your Persona follow besides her job?</p>,
   'Lifestyle':
-    <p>Help text here</p>,
+    <p>What are your Persona&apos;s main work and leisure behavior patterns and activities,
+			attitudes, interests, opinions and values?</p>,
   'Buying behaviour':
-    <p>Help text here</p>
+    <p>What, how, where and when does your Persona buy?</p>
 };
 
-export const swotHelp = {
+// SWOT
+
+export const swotHelpTitle = "About the SWOT analysis";
+export const swotHelp = <div>
+			<p>
+				The SWOT analysis helps you to be more aware of your own company and recognize what is happening
+				around your company. In the SWOT analysis you describe your company’s strengths and weaknesses,
+				and you identify opportunities and threats affecting your company. With the use of your company’s
+				strengths you can exploit opportunities, and by understanding your company’s weaknesses you can
+				manage threats.</p>
+
+			<h2>How to use?</h2>
+
+			<p>The SWOT consists of four components. Together these components show the strong and weak point
+				of your business and where there are opportunities and threats. Use sticky notes to add items to
+				the SWOT elements. Try to be brief and make sure that Sticky notes contain only one element of
+				your SWOT. Use different colors to show which sticky notes belong together.</p>
+
+			<p>When you are ready, you can save your SWOT for future reference. You can also open examples of
+				existing SWOT analyses for inspiration or as starting point for your own SWOT.</p>
+
+			<p>Good luck!</p>
+		</div>;
+
+export const swotTooltips = {
   'Strengths':
-    <p>Help text here</p>,
+		<div>
+	    <p>Strengths are the things that give you an advantage over others.</p>
+			<ul>
+				<li>What can your business do better than anyone else?</li>
+				<li>What advantages does your organization have?</li>
+			</ul>
+		</div>,
   'Weaknesses':
-    <p>Help text here</p>,
+		<div>
+    	<p>Weaknesses are the things that place you at a disadvantage relative to your competitors.</p>
+			<ul>
+				<li>What could you improve?</li>
+				<li>What causes you to lose sales?</li>
+			</ul>
+		</div>,
   'Opportunities':
-    <p>Help text here</p>,
+		<div>
+    	<p>Opportunities are the elements in the environment that you can exploit to your advantage.</p>
+			<ul>
+				<li>What interesting trends are you aware of?</li>
+				<li>What good opportunities can you spot?</li>
+			</ul>
+		</div>,
   'Threats':
-    <p>Help text here</p>
+		<div>
+    	<p>Threats are the elements in your environment that could harm your business.</p>
+			<ul>
+				<li>What obstacles or challenges do you face?</li>
+				<li>What are your competitors doing?</li>
+			</ul>
+		</div>
 };
 
-export const pestleHelp = {
+// pestle
+
+export const pestleHelpTitle = "About the PESTLE analysis";
+export const pestleHelp = <div>
+		<p>PESTLE analysis helps you to analyze six categories of external factors, all of which can affect
+			your business. Factors can be political, economic, social, technological, legal or environmental.
+			With a clear overview of these factors you can better understand the position and potential of
+			your business in the market</p>
+
+		<h2>How to use?</h2>
+
+		<p>The PESTLE consists of six components. Together these components represent the environment of
+			your business. Use sticky notes to add items to the PESTLE elements. Try to be brief and make
+			sure that Sticky notes contain only one element of your PESTLE. Use different colors to show
+			which sticky notes belong together.</p>
+
+		<p>When you are ready, you can save your PESTLE for future reference. You can also open examples
+			of existing PESTLEs for inspiration or as starting point for your own PESTLE.</p>
+
+		<p>Good luck!</p>
+	</div>;
+
+export const pestleTooltips = {
   'Policical':
-    <p>Help text here</p>,
+    <p>Decisions made by the government are political factors. Think of decisions regarding to policies,
+			laws, restrictions, tariffs, etc. Tax regulation and governmental programs and grants can have a
+			large impact on the success of a business. Write down those policies, laws, restrictions, grants,
+			tariffs, etc. that influence your business.</p>,
   'Economical':
-    <p>Help text here</p>,
+    <p>The economic situation of a country greatly influences how your business can operate and be
+			successful. Think of economic factors like interest rates, exchange rates, inflation, economic
+			growth, unemployment etc. </p>,
   'Social':
-    <p>Help text here</p>,
+    <p>Social factors have to do with the demographic within a country or region and with cultural
+			aspects. Important demographical statistics are age distribution, education levels, population
+			growth rate, ratio of males to females, etc. Cultural aspects consist of the attitudes, beliefs
+			or values of the population.</p>,
   'Technological':
-    <p>Help text here</p>,
+    <p>Technology advancement of your market determines the barriers to entry for new businesses.
+			Technology factors are for instance automation, technical innovations, R&D investments, and rate
+			of technology exchange.</p>,
   'Legal':
-    <p>Help text here</p>,
+    <p>There is a wide range of laws that influence the way your business operates. Think of employment
+			regulations, privacy and data security, discrimination laws, tax laws, advertising and marketing
+			laws, online business laws, and many others.</p>,
   'Environmental':
-    <p>Help text here</p>
+    <p>Environmental factors consist of aspects like weather, geographical location, climate and
+			climate change. Elements that influence the ecology are also important, like limited natural
+			resources, recycling, waste disposal, and other element. </p>
 };
 
 export default {
-  'bmc': bmcHelp,
-  'persona': personaHelp,
-  'swot': swotHelp,
-  'pestle': pestleHelp
+  bmc: {
+		title: bmcHelpTitle,
+		contents: bmcHelp,
+		tooltips: bmcTooltips
+	},
+  persona: {
+		title: personaHelpTitle,
+		contents: personaHelp,
+		tooltips: personaTooltips
+	},
+  swot: {
+		title: swotHelpTitle,
+		contents: swotHelp,
+		tooltips: swotTooltips
+	},
+  pestle: {
+		title: pestleHelpTitle,
+		contents: pestleHelp,
+		tooltips: pestleTooltips
+	},
 };

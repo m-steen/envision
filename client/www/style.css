@@ -63,6 +63,11 @@ body {
     color: #424242; /* grey800 */
 }
 
+h2 {
+  font-weight: normal;
+  font-size: 1.2em;
+}
+
 .menubar {
   background-image: url('resources/businessmakeover_background.png');
   background-repeat: no-repeat;

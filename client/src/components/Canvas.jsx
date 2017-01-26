@@ -5,7 +5,7 @@ import PostIt from './PostIt';
 import help from './Help';
 
 function findHelp(kind, blockName) {
-  const helpMap = help[kind] || {};
+  const helpMap = help[kind]? help[kind].tooltips : undefined || {};
   return helpMap[blockName] || <p>Cannot find help for {blockName}.</p>;
 }
 
