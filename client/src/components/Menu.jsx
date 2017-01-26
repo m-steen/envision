@@ -23,6 +23,7 @@ export default class AppMenu extends React.Component {
 
 	@observable selected = false;
 	@observable open = false;
+	@observable showHiddenFeatures = false;
 
 	@action handleToggle = () => {
 		this.open = !this.open;
@@ -32,6 +33,14 @@ export default class AppMenu extends React.Component {
 	@action handleClose = () => {
 		this.open = false;
 		this.selected = false;
+	}
+
+	handleKeyDown = e => {
+		this.showHiddenFeatures = e.altKey && e.shiftKey;
+	}
+
+	handleKeyUp = e => {
+		this.showHiddenFeatures = false;
 	}
 
 	render() {
@@ -45,8 +54,11 @@ export default class AppMenu extends React.Component {
 				<IconButton iconClassName="fa fa-pencil"/>
 			</span>;
 
+		const exportMenu = this.showHiddenFeatures?
+			<MenuItem primaryText="Export" leftIcon={<Download />} onClick={() => {this.handleClose(); exportToJson();}}/> : undefined;
+
 		return (
-			<div>
+			<div onKeyDown={this.handleKeyDown} onKeyUp={this.handleKeyUp}>
 				<AppBar
 					title={titleElem}
 					onLeftIconButtonTouchTap={this.handleToggle}
@@ -66,7 +78,7 @@ export default class AppMenu extends React.Component {
 					<MenuItem primaryText="Save a copy" leftIcon={<FileFileUpload />} onClick={() => {this.handleClose(); saveACopyDialog();}}/>
 					<MenuItem primaryText="Print" leftIcon={<ActionPrint />} onClick={this.print}/>
 					<MenuItem primaryText="Help" leftIcon={<ActionHelp />} onClick={this.help}/>
-					<MenuItem primaryText="Export" leftIcon={<Download />} onClick={() => {this.handleClose(); exportToJson();}}/>
+					{exportMenu}
 					{/*<MenuItem>
 						<FacebookLogin appId="1193159677397239" cssClass="fb-login"
 					    autoLoad={true} fields="name,email,picture"
