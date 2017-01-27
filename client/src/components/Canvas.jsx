@@ -27,7 +27,9 @@ class Canvas extends Component {
              showHelp={this.props.store.showBlockHelp === block}
              help={findHelp(kind, block.title)}
              onShowHelp={() => this.props.store.showBlockHelp = block}
-             onHideHelp={() => this.props.store.showBlockHelp = null}/>
+             onHideHelp={() => this.props.store.showBlockHelp = null}
+             onSelect={this.props.onSelect}
+             onAddPostIt={this.props.onAddPostIt}/>
         )}
       </div>
 
@@ -63,7 +65,8 @@ class Canvas extends Component {
               onMoveToFront={this.props.onMoveToFront}
               onMoveToBack={this.props.onMoveToBack}
               onDuplicatePostIt={this.props.onDuplicatePostIt}
-              isSelected={this.props.isSelected}/>
+              isSelected={this.props.isSelected}
+              onResizePostIt={this.props.onResizePostIt}/>
           )}
       </div>
 

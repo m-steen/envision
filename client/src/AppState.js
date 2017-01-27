@@ -17,8 +17,8 @@ function authenticationInfo() {
   var userId = readCookie("userId");
   var secret = readCookie("secret");
 
-  //userId = userId || "691f9cd6dd826701x6a797679x15869400418x-371f";
-  //secret = secret || "728b0c53-9554-493a-b414-0f8e9787e713";
+  userId = userId || "691f9cd6dd826701x6a797679x15869400418x-371f";
+  secret = secret || "728b0c53-9554-493a-b414-0f8e9787e713";
 
   if (userId && secret) {
     return {
@@ -312,7 +312,7 @@ export function addItem(store, block, x, y) {
   const py = y === undefined? 50+20*size : y - 40 - block.y;
   const postIt = createItem('Click to edit', px, py);
   block.postIts.push(postIt);
-  select(store, postIt);
+  selectItem(store, postIt);
   return postIt;
 }
 
