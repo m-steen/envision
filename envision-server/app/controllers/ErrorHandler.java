@@ -47,7 +47,9 @@ public class ErrorHandler extends DefaultHttpErrorHandler {
     				Results.badRequest("You have exceeded the number of models you can store.")
     		);
     	}
-    	return super.onServerError(request, exception);
+    	
+    	return CompletableFuture.completedFuture(Results.internalServerError(exception.toString()));
+    	//return super.onServerError(request, exception);
     }
 
 //    protected CompletionStage<Result> onProdServerError(RequestHeader request, UsefulException exception) {
