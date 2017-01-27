@@ -7,7 +7,7 @@ import {grey50, grey800} from 'material-ui/styles/colors';
 import AppMenu from './Menu'
 import Canvas from './Canvas';
 // import Sidebar from './Sidebar';
-import {findBlockForPostItXY, findBlockFor, createItem, replaceNewModel, addItem, removeItem, moveItem, duplicateItem, moveToFront, moveToBack} from '../AppState';
+import {createItem, replaceNewModel, addItem, removeItem, duplicateItem, moveToFront, moveToBack, moveItem, dropItem, selectItem, isItemSelected, startDragItem, resizeItem} from '../AppState';
 import {loadModel, save, saveACopy, saveAndCreateNewModel, loadTemplate} from '../commands';
 import HelpDialog from './HelpDialog';
 import ErrorDialog from './ErrorDialog';
@@ -41,86 +41,6 @@ class App extends Component {
     this.props.store.snackbarMessage = null;
   }
 
-  onSelect = (postIt) => this.props.store.selection = postIt;
-
-  onAddPostIt = (block, x, y) => {
-    const postIt = addItem(block, x, y);
-    this.props.store.selection = postIt;
-  }
-
-  onDeletePostIt = (postIt) => {
-    removeItem(this.props.store.model, postIt);
-    if (this.props.store.selection === postIt) {
-      this.props.store.selection = null;
-    }
-  }
-
-  onMovePostIt = (postIt, block, x, y) => {
-    console.log("Moving to block " + block.title);
-    moveItem(this.props.store.model, postIt, block, x, y);
-  }
-
-  onDuplicatePostIt = (postIt) => {
-    const duplicate = duplicateItem(this.props.store.model, postIt);
-    this.props.store.selection = duplicate;
-  }
-
-  onMoveToFront = (postIt) => {
-    moveToFront(this.props.store.model, postIt);
-  }
-
-  onMoveToBack = (postIt) => {
-    moveToBack(this.props.store.model, postIt);
-  }
-
-  isSelected = (postIt) => this.props.store.selection === postIt;
-
-  onStartDragPostIt = (postIt) => {
-    const store = this.props.store;
-    store.dragging = postIt;
-    if (postIt !== store.selection) {
-      store.selection = postIt;
-    }
-  }
-
-  onDragPostIt = (postIt, x, y) => {
-  }
-
-  onDropPostIt = (postIt, bx, by, deltaX, deltaY) => {
-    const store = this.props.store;
-    store.dragging = null;
-
-    // find the current block
-    const currentBlock = findBlockFor(store.model, postIt);
-    const targetBlock = findBlockForPostItXY(store.model, postIt);
-
-    if (currentBlock !== targetBlock) {
-      for (let i = 0; i < currentBlock.postIts.length; i++) {
-        if (currentBlock.postIts[i] === postIt) {
-          currentBlock.postIts.splice(i, 1);
-          targetBlock.postIts.push(postIt);
-        }
-      }
-
-      // ajust coordinates to relatives
-      if (targetBlock === store.model) {
-        postIt.x += currentBlock.x;
-        postIt.y += currentBlock.y;
-      } else {
-        postIt.x -= targetBlock.x - currentBlock.x;// - targetBlock.x;
-        postIt.y -= targetBlock.y - currentBlock.y;// - targetBlock.y;
-      }
-    }
-  }
-
-  onCreateNewModel = (doSave) => {
-    saveAndCreateNewModel(doSave);
-  }
-
-  onSaveCopy = (title) => {
-    saveACopy(title);
-  }
-
   render() {
     const footer = this.props.store.model.kind === "bmc"?
       <div id="footer" style={{width: "1012px"}}>
@@ -133,7 +53,7 @@ class App extends Component {
 
     return (
       <MuiThemeProvider muiTheme={envisionTheme}>
-        <div onClick={(e) => this.onSelect(null)}>
+        <div onClick={(e) => selectItem(this.props.store, null)}>
           <AppMenu />
 
           <div className="print-header">
@@ -143,17 +63,17 @@ class App extends Component {
 
           <Canvas store={this.props.store}
             model={this.props.store.model}
-            onSelect={this.onSelect}
-            onAddPostIt={this.onAddPostIt}
-            onDeletePostIt={this.onDeletePostIt}
-            onMovePostIt={this.onMovePostIt}
-            onDuplicatePostIt={this.onDuplicatePostIt}
-            onMoveToFront={this.onMoveToFront}
-            onMoveToBack={this.onMoveToBack}
-            isSelected={this.isSelected}
-            onStartDragPostIt={this.onStartDragPostIt}
-            onDragPostIt={this.onDragPostIt}
-            onDropPostIt={this.onDropPostIt}/>
+            onSelect={(postIt) => selectItem(this.props.store, postIt)}
+            onAddPostIt={(block, x, y) => addItem(this.props.store, block, x, y)}
+            onDeletePostIt={(postIt) => removeItem(this.props.store, postIt)}
+            onDuplicatePostIt={(postIt) => duplicateItem(this.props.store, postIt)}
+            onMoveToFront={(postIt) => moveToFront(this.props.store.model, postIt)}
+            onMoveToBack={(postIt) => moveToBack(this.props.store.model, postIt)}
+            isSelected={(postIt) => isItemSelected(this.props.store, postIt)}
+            onStartDragPostIt={(postIt) => startDragItem(this.props.store, postIt)}
+            onDragPostIt={(postIt, deltaX, deltaY) => moveItem(postIt, deltaX, deltaY)}
+            onDropPostIt={(postIt, bx, by, deltaX, deltaY) => dropItem(this.props.store, postIt, bx, by, deltaX, deltaY)}
+            onResizePostIt={(postIt, width, height) => resizeItem(postIt, width, height)}/>
 
           {footer}
 
@@ -171,8 +91,8 @@ class App extends Component {
             onLoadTemplate={template => loadTemplate(template.templateId)}/>
           <OpenTemplateDialog store={this.props.store}/>
           <DeleteModelDialog store={this.props.store} />
-          <SaveModelDialog store={this.props.store} onNewModel={this.onCreateNewModel}/>
-          <SaveCopyDialog store={this.props.store} onSaveCopy={this.onSaveCopy}/>
+          <SaveModelDialog store={this.props.store} onNewModel={(doSave) => saveAndCreateNewModel(doSave)}/>
+          <SaveCopyDialog store={this.props.store} onSaveCopy={(title) => saveACopy(title)}/>
           <ExportDialog store={this.props.store}/>
 
           {/* The error dialog is explicitly rendered as last, so it is always on top.*/}

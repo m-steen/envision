@@ -6,18 +6,9 @@ import {Resizable} from 'react-resizable';
 import {DraggableCore} from 'react-draggable';
 import PostItToolbar from './PostItToolbar';
 
-function onResize(e, postIt, size) {
-  event.preventDefault();
-  postIt.w = size.width;
-  postIt.h = size.height;
-}
-
-function handleDrop(fn, postIt, dragInfo) {
-  setTimeout(() => fn(postIt, dragInfo.x, dragInfo.y, dragInfo.deltaX, dragInfo.deltaY), 1);
-}
-
 @observer
 class PostIt extends Component {
+
   componentDidMount() {
     const selected = this.props.isSelected(this.props.postIt);
     if (selected) {
@@ -71,12 +62,12 @@ class PostIt extends Component {
       <DraggableCore handle=".handle"
           onStart={(e, dragInfo) => this.props.onStartDragPostIt(this.props.postIt)}
           onDrag={(e, dragInfo) => this.handleDrag(e, dragInfo)}
-          onStop={(e, dragInfo) => handleDrop(this.props.onDropPostIt, this.props.postIt, dragInfo)}>
+          onStop={(e, dragInfo) => this.handleDrop(this.props.onDropPostIt, this.props.postIt, dragInfo)}>
 
         <div>
           {toolBarElem}
 
-          <Resizable height={h} width={w} minConstraints={[98, 50]} onResize={(event, {size}) => onResize(event, this.props.postIt, size)}>
+          <Resizable height={h} width={w} minConstraints={[98, 50]} onResize={(event, {size}) => this.handleResize(event, this.props.postIt, size)}>
             <div className={"postit " + color + (selected? " selected" : "")} style={{
                   position: 'absolute',
                   left: x,
@@ -140,12 +131,19 @@ class PostIt extends Component {
 
   handleDrag(e, dragInfo) {
     e.preventDefault();
-    //       transaction(() => {
     const postIt = this.props.postIt;
-    postIt.x += dragInfo.deltaX;
-    postIt.y += dragInfo.deltaY;
-    this.props.onDragPostIt(postIt, dragInfo.x, dragInfo.y);
+    this.props.onDragPostIt(postIt, dragInfo.deltaX, dragInfo.deltaY);
   }
+
+  handleResize = (e, postIt, size) => {
+    event.preventDefault();
+    this.props.onResizePostIt(postIt, size.width, size.height);
+  };
+
+  handleDrop = (postIt, dragInfo) => {
+    setTimeout(() => this.props.onDropPostIt(postIt, dragInfo.x, dragInfo.y, dragInfo.deltaX, dragInfo.deltaY), 1);
+  }
+
 }
 
 export default PostIt;
