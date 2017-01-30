@@ -84,12 +84,6 @@ public class EnvisionController extends Controller {
      */
     //public Result index() {
 	public Result index(String userId, String secret) {
-		// to use for debug purposes
-//		if (userId == null && secret == null) {
-//			userId = "691f9cd6dd826701x6a797679x15869400418x-371f";
-//			secret = "728b0c53-9554-493a-b414-0f8e9787e713";
-//		}
-		
     	return indexResponse(userId, secret);
     }
     
