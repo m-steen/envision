@@ -212,16 +212,6 @@ export function createItem(title, x, y, w = 100, h = 60, color = 'yellow') {
   };
 }
 
-export function guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-    s4() + '-' + s4() + s4() + s4();
-}
-
 
 export function relativeCenterPoint(postIt) {
   return {
@@ -252,35 +242,6 @@ export function findBlockFor(model, postIt) {
 }
 
 
-
-
-export function relativeCenterPoint(postIt) {
-  return {
-    x: postIt.x + (postIt.w / 2),
-    y: postIt.y + (postIt.h / 2)
-  };
-}
-
-export function toAbsolute(point, block) {
-  return {
-    x: block.x + point.x,
-    y: block.y + point.y
-  };
-}
-
-export function findBlockFor(model, postIt) {
-  const blocks = model.blocks;
-  for (let i = 0; i < blocks.length; i++) {
-    const block = blocks[i];
-    for (let j = 0; j < block.postIts.length; j++) {
-      const p = block.postIts[j];
-      if (p === postIt) {
-        return block;
-      }
-    }
-  }
-  return model;
-}
 
 export function isPointInBlock(point, block) {
   const px = point.x;
